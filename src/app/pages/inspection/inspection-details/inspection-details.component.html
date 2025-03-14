@@ -1,0 +1,130 @@
+<div class="container ">
+    <div class="card shadow-sm border-0 rounded-4 ">
+        <div class="card-body">
+            <h3 class="card-title text-primary fw-bold mb-3">
+                <i class="bi bi-file-earmark-text"></i> {{'inspection.details'|translate}}
+            </h3>
+            <div class="row g-3 fs-5">
+                <div class="col-md-3">
+                    <p><i class="bi bi-car-front"></i> <strong>{{'inspection.plateNumber'|translate}}</strong> {{
+                        InspectionDetails?.plateNumber }}</p>
+                    <p><i class="bi bi-calendar-check"></i> <strong>{{'inspection.plateNumber'|translate}}:</strong> {{
+                        InspectionDetails?.inspectionDate | date: 'yyyy-MM-dd HH:mm' }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p><i class="bi bi-car-front-fill"></i> <strong>{{'inspection.make'|translate}}:</strong> {{
+                        InspectionDetails?.make }}</p>
+                    <p><i class="bi bi-card-list"></i> <strong>{{'inspection.model'|translate}}:</strong> {{
+                        InspectionDetails?.model }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p><i class="bi bi-palette"></i> <strong>{{'inspection.color'|translate}}:</strong> {{
+                        InspectionDetails?.color }}</p>
+                    <p><i class="bi bi-telephone"></i> <strong>{{'inspection.phoneNumber'|translate}}:</strong> {{
+                        InspectionDetails?.phoneNumber }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p><i class="bi bi-person"></i> <strong>{{'inspection.name'|translate}}:</strong> {{
+                        InspectionDetails?.name }}</p>
+                    <p><i class="bi bi-envelope"></i> <strong>{{'inspection.email'|translate}}:</strong> {{
+                        InspectionDetails?.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <input type="text" class="form-control shadow-sm rounded w-50 fs-5" placeholder="🔍 بحث..."
+            [(ngModel)]="searchText">
+        <button class="btn btn-primary shadow-sm px-4 fs-5" (click)="exportToCSV()">
+            <i class="bi bi-download"></i>
+            <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
+
+        </button>
+        <button class="btn btn-primary shadow-sm px-4 fs-5" (click)="cardView=!cardView">
+            <i class="bi bi-download"></i>
+            <i style="font-size: large;" antIcon [type]="!cardView?'appstore':'unordered-list'" theme="outline"></i>
+        </button>
+    </div>
+    @if (cardView) {
+    <div class="row ">
+        @for (result of filteredResults; track $index) {
+            <div class="col-6 mb-4">
+                <div class="card shadow-sm border-0 rounded-4 ">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center border-side h-100">
+                                <i class="bi bi-tools text-primary" style="font-size: 3rem;"></i>
+                                <h4 class="fw-bold text-dark mt-2">{{ lang=='ar'? result.checkAr : result.checkEn}}</h4>
+                            </div>
+                            <div class="col-md-4 border-side">
+                                <p class="fs-5"><strong>{{'inspection.result.category'|translate}}:</strong> {{lang=='ar'?
+                                    result.categoryAr : result.categoryEn }}</p>
+                                <p class="fs-5"><i class="bi bi-person-badge"></i>
+                                    <strong>{{'inspection.result.technician'|translate}}:</strong>{{lang=='ar'?
+                                    result.technicianAr : result.technicianEn }}
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="fs-5"><strong>{{'inspection.result.result'|translate}}:</strong>
+                                    <span class="badge rounded-pill fs-5" [ngClass]="{'bg-success': result.result === 'نجاح', 
+                                                    'bg-warning text-dark': result.result === 'يحتاج أصلاح',
+                                                    'bg-danger': result.result === 'تغير قطعة'}">
+                                        {{ result.result }}
+                                    </span>
+                                </p>
+                                <p class="fs-5"><strong>{{'inspection.result.comment'|translate}}:</strong> {{
+                                    result.comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    }
+    @else {
+        <div class="row result-container">
+            <div class="container table-responsive py-5">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>{{'inspection.result.checkPoint'|translate}}</th>
+                            <th>{{'inspection.result.category'|translate}}</th>
+                            <th>{{'inspection.result.technician'|translate}}</th>
+                            <th>{{'inspection.result.result'|translate}}</th>
+                            <th>{{'inspection.result.comment'|translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (result of filteredResults; track $index) {
+                        <tr>
+                            <td>{{ lang=='ar'? result.checkAr : result.checkEn}}</td>
+                            <td>{{lang=='ar'? result.categoryAr : result.categoryEn }}</td>
+                            <td>{{lang=='ar'? result.technicianAr : result.technicianEn }}</td>
+                            <td><span class="badge rounded-pill fs-5" [ngClass]="{'bg-success': result.result === 'نجاح', 
+                                                            'bg-warning text-dark': result.result === 'يحتاج أصلاح',
+                                                            'bg-danger': result.result === 'تغير قطعة'}">
+                                    {{ result.result }}
+                                </span></td>
+                            <td>{{ result.comment }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+<nav class="d-flex justify-content-end  mt-4">
+    <ul class="pagination shadow-sm rounded-3 fs-5">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" (click)="changePage(-1)">السابق</a>
+        </li>
+        <li class="page-item">
+            <span class="page-link bg-light">{{ currentPage }}</span>
+        </li>
+        <li class="page-item" [class.disabled]="filteredResults.length < itemsPerPage">
+            <a class="page-link" (click)="changePage(1)">التالي</a>
+        </li>
+    </ul>
+</nav>

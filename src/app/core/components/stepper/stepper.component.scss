@@ -1,0 +1,147 @@
+/* Full-screen stepper layout */
+.stepper-container {
+    display: flex;
+    height: 80vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #fafafa; /* Light grey background */
+  }
+  
+  /* Left side - Step list */
+  .step-list {
+    background: #ffffff;
+    padding: 10px;
+    border-right: 2px solid #e0e0e0;
+    gap: 3px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    border-radius: 8px; /* Rounded buttons */
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+  
+  /* Step item style */
+  .step-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 8px; /* Rounded corners */
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Hover effect */
+  .step-item:hover {
+    background: #e1f5fe; /* Soft light blue hover effect */
+  }
+  /* Step number bubble */
+  .step-number {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #0d47a1; /* Deep blue for active step number */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  .step-item.active {
+    background-color: #0d47a1; /* Deep blue for active step */
+    color: white;
+    .step-number {
+        background: #fff !important; 
+        color: #0d47a1 !important;  
+    }
+    .step-title{
+        background: #0d47a1 !important; 
+        color: #fff !important;  
+    }
+  }
+  
+  .step-item.completed {
+    background-color: #b3e5fc; /* Soft blue for completed steps */
+    color: #0277bd; /* Slightly darker blue for readability */
+  }
+
+  /* Step title style */
+  .step-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 10px;
+  }
+  
+  /* Right side - Step content */
+  .step-content {
+    flex-grow: 1;
+    padding: 0 15px;
+    // background: #ffffff; /* White background for content */
+    // border-left: 2px solid #e0e0e0; /* Subtle border */
+    // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+  }
+  
+  .step-content h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  /* Step description style */
+  .step-description {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  /* Navigation buttons */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px; /* Rounded buttons */
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s;
+  }
+  
+  /* Previous button */
+  .prev-btn {
+    background-color: #0288d1; /* Strong blue */
+    color: white;
+  }
+  
+  .prev-btn:hover {
+    background-color: #01579b; /* Darker blue */
+  }
+  
+  /* Next button */
+  .next-btn {
+    background-color: #4caf50; /* Green */
+    color: white;
+  }
+  
+  .next-btn:hover {
+    background-color: #388e3c; /* Darker green */
+  }
+  
+  /* Submit button */
+  .submit-btn {
+    background-color: #ff7043; /* Peach */
+    color: white;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #f4511e; /* Darker peach */
+  }
+  

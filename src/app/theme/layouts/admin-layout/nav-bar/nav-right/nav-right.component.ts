@@ -23,10 +23,12 @@ import {
   CommentOutline,
   UnorderedListOutline,
   ArrowRightOutline,
+  TranslationOutline,
   GithubOutline
 } from '@ant-design/icons-angular/icons';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { LanguageService } from 'src/app/core/Service/language.service';
 
 @Component({
   selector: 'app-nav-right',
@@ -42,7 +44,7 @@ export class NavRightComponent {
   windowWidth: number;
   screenFull: boolean = true;
 
-  constructor() {
+  constructor(private languageService: LanguageService) {
     this.windowWidth = window.innerWidth;
     this.iconService.addIcon(
       ...[
@@ -62,6 +64,7 @@ export class NavRightComponent {
         ArrowRightOutline,
         BellOutline,
         GithubOutline,
+        TranslationOutline,
         WalletOutline
       ]
     );
@@ -108,4 +111,7 @@ export class NavRightComponent {
       title: 'History'
     }
   ];
+  changeLanguge(lang:string){
+    this.languageService.setLanguage(lang)
+  }
 }

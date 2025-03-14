@@ -89,6 +89,16 @@
       </div>
     </div>
   </li>
+  <li  class="pc-h-item  dropdown" ngbDropdown>
+    <a  class="pc-head-link dropdown-toggle arrow-none me-0 bg-gray-200" data-bs-toggle="dropdown" ngbDropdownToggle>
+      <i antIcon type="translation" theme="outline"></i>
+    </a>
+  
+    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end pc-h-dropdown" data-popper-placement="bottom-start">
+      <a class="dropdown-item" (click)="changeLanguge('ar')"><span> العربية <small>(AR)</small></span></a>
+      <a class="dropdown-item" (click)="changeLanguge('en')"><span> English <small>(US)</small></span></a>
+    </div>
+  </li>
   <li class="dropdown pc-h-item header-user-profile" ngbDropdown>
     <a class="pc-head-link dropdown-toggle arrow-none me-0" ngbDropdownToggle>
       <img src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avatar me-2" />

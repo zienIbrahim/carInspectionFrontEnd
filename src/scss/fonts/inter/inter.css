@@ -37,3 +37,12 @@
     url('Inter-Bold.woff2?v=3.13') format('woff2'),
     url('Inter-Bold.woff?v=3.13') format('woff');
 }
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('../cairo/Cairo-Regular.ttf') format('ttf'),
+    url('../cairo/Cairo-Regular.ttf') format('ttf');
+}

@@ -1,0 +1,101 @@
+{
+    "navigation":{
+        "create":"create",
+        "List":"List",
+        "dashboard":"dashboard",
+        "inspection":"inspection",
+        "system":"system",
+        "category":"category",
+        "check":"check point",
+        "package":"package",
+        "technician":"technician"
+    },
+    "inspection":{
+        "ListTitle": "Inspection list",
+        "details": "Inspection details",
+        "package": "package",
+        "nameEn": "Customer name",
+        "inspectionDate": "Date",
+        "plateNumber": "Plate number",
+        "vINNumber": "VIN Number",
+        "make": "make",
+        "model": "model",
+        "note": "note",
+        "color": "color",
+        "year": "year",
+        "name": "name",
+        "phoneNumber": "Phone number",
+        "email":"email",
+        "result":{
+            "checkPoint":" check Point",
+            "comment":" comment",
+            "category":" category",
+            "technician":" technician",
+            "image":"image",
+            "addImage":"add image",
+            "capture":"capture image",
+            "result":"result"
+        }
+    },
+    "form":{        
+        "id":"ID",
+        "nameEn":"Name (english)",
+        "nameAr":"Name (arabic)",
+        "description":"description",
+        "save":"Save",
+        "saveAndContinue":"Save and continue",
+        "cancle":"cancle",
+        "fieldRequired":"Field is required"
+
+    },
+    "category":{
+        "CreateTitle":"Create category",
+        "EditTitle":"Edit category",
+        "ListTitle":"List of categories"
+    },
+    "check":{
+        "CreateTitle":"Create check point",
+        "EditTitle":"Edit check point",
+        "ListTitle":"Check point list",
+        "category":"category"
+    },
+    "technician":{
+        "CreateTitle":"Create technician",
+        "EditTitle":"Edit technician",
+        "ListTitle":"technicians list",
+        "user":"user",
+        "category":"category"
+    },
+    "package":{
+        "CreateTitle":"Create package",
+        "EditTitle":"Create package",
+        "ListTitle":"List package",
+        "checkList":"Check point list"
+    },
+    "tableList":{
+        "create":"Craete (new)",
+        "filter": "filter"
+
+    },
+    "login": {
+        "title": "Login",
+        "dontHaveAccount": "Don't have an account?",
+        "email": "Email Address",
+        "password": "Password",
+        "keepMeSignedIn": "Keep me signed in",
+        "forgotPassword": "Forgot Password?",
+        "loginButton": "Login"
+    },
+    "sweetAlert":{
+        "cancelButtonText":"Ok",  
+        "SaveSuccess":"Save Successfully",
+        "NotSaved":"Did Not Save the Update",
+        "canNotSave":"Can Not Save",         
+        "DeleteSuccess":"Delete Successfully",
+     
+         "delete":"Delete",
+        "Ok":"Ok",       
+         "deleteMsg":"Are you sure you want to delete the record {{name}} with the ID {{Id}}?",
+        "Cancle":"Cancle"
+    }
+}

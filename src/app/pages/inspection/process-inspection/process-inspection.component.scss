@@ -1,0 +1,34 @@
+.stepper-container {
+  display: flex;
+  gap: 2rem; /* Space between steps and panels */
+  align-items: flex-start;
+}
+
+.step-list {
+  width: 450px; /* Adjust width */
+
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centering steps */
+}
+
+.step-list p-step-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+p-stepper-separator {
+  width: 2px;
+  height: 29px;
+  background-color: #007bff;
+  align-items: center;
+  position: absolute;
+
+}
+
+

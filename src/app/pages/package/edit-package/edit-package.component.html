@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-header p-2">
+                <h4>{{'package.EditTitle' |translate}}</h4>
+            </div>
+            <div class="card-body">
+                <form class="form" [formGroup]="EditPackageForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>{{'form.nameAr' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="nameAr"
+                            [ngClass]="{'is-invalid':(f['nameAr'].touched || submitted )&& f['nameAr'].errors}">
+                        @if((f['nameAr'].touched || submitted) && f['nameAr'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>{{'form.nameEn' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="nameEn"
+                            [ngClass]="{'is-invalid':(f['nameEn'].touched || submitted )&& f['nameEn'].errors}">
+                        @if((f['nameEn'].touched || submitted )&& f['nameEn'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>{{'form.description' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="description"
+                            [ngClass]="{'is-invalid':(f['description'].touched || submitted )&& f['description'].errors}">
+                        @if((f['description'].touched || submitted )&& f['description'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>{{'check.category' |translate}}</label>
+                        <ng-select formControlName="checkList" multiple="true"
+                            [ngClass]="{'is-invalid':(f['checkList'].touched || submitted )&& f['checkList'].errors}">
+                            @for (check of checkPoints; track check.id) {
+                            <ng-option [value]="check.id">{{lang==='ar' ? check.nameAr :check.nameEn}}</ng-option>
+                            }
+                        </ng-select>
+                        @if((f['checkList'].touched || submitted )&& f['checkList'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="EditPackageForm.invalid" class="btn btn-success">{{'form.save'
+                            | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

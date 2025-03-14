@@ -1,0 +1,99 @@
+{
+    "navigation": {
+        "create": "أضافة",
+        "List": "القائمة",
+        "dashboard": "لوحة التحكم",
+        "system": "النظام",
+        "inspection": "الفحص",
+        "category": "التصنيفات",
+        "check": "نقاط الفحص",
+        "package": "الباقات",
+        "technician": "الفنيين"
+    },
+    "inspection": {
+        "ListTitle": "قائمة الفحص",
+        "details": "تفاصيل الفحص",
+        "CreateTitle": "أضافة فحص جديد",
+        "package": "الباقة",
+        "nameEn": "اسم العميل",
+        "inspectionDate": "التاريخ",
+        "plateNumber": "رقم اللوحة",
+        "vINNumber": "رقم الهيكل",
+        "make": "الماركة",
+        "note": "ملاحظات",
+        "model": "الموديل",
+        "color": "اللون",
+        "year": "السنة",
+        "name": "الاسم",
+        "phoneNumber": "رقم الهاتف",
+        "email": "البريد الإلكتروني",
+        "result":{
+            "checkPoint":" الفحص",
+            "comment":" التعليق",
+            "category":" الفئة",
+            "technician":" الفني",
+            "image":" الصور",
+            "addImage":"أضافة صورة",
+            "capture":"ألتقاط صورة",
+            "result":" النتيجة"
+        }
+    },
+    "form": {
+        "nameEn": "الاسم (أنجليزي)",
+        "id": "المعرف (Id)",
+        "nameAr": "الاسم (عربي)",
+        "description": "الوصف",
+        "save": "حفظ",
+        "saveAndContinue": "حفظ و متابعة",
+        "cancle": "الغاء",
+        "fieldRequired": "الحقل مطلوب"
+    },
+    "category": {
+        "CreateTitle": "أضافة تصنيف",
+        "EditTitle": "تعديل تصنيف",
+        "ListTitle": "قائمة التصنيفات"
+    },
+    "check": {
+        "CreateTitle": "أضافة نقطة فحص",
+        "EditTitle": "تعديل نقطة فحص",
+        "ListTitle": "قائمة نقاط الفحص",
+        "category": "التصنيف"
+    },
+    "technician": {
+        "CreateTitle": "أضافة فني ",
+        "EditTitle": "تعديل فني",
+        "ListTitle": "قائمة  الفنين",
+        "user": "المستخدم",
+        "category": "التصنيف"
+    },
+    "package": {
+        "CreateTitle": "أضافة باقة",
+        "EditTitle": "تعديل باقة",
+        "ListTitle": "قائمة الباقات",
+        "checkList": "قائمة نقاط الفحص"
+    },
+    "tableList": {
+        "create": "أضافة (جديد)",
+        "filter": "تصفية"
+    },
+    "login": {
+        "title": "تسجيل الدخول",
+        "dontHaveAccount": "ليس لديك حساب؟",
+        "email": "عنوان البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "keepMeSignedIn": "ابقني مسجلاً",
+        "forgotPassword": "هل نسيت كلمة المرور؟",
+        "loginButton": "تسجيل الدخول"
+    },
+    "sweetAlert": {
+        "cancelButtonText": "تم",
+        "SaveSuccess": "تم الحفظ بنجاح",
+        "DeleteSuccess": "تم الحذف بنجاح",
+        "NotSaved": "لم يتم الحفظ",
+        "delete": "حذف",
+        "canNotSave": "لا يمكن الحفظ",
+        "Ok": "موافق",
+        "deleteMsg": "هل انت متأكد من حذف السجل {{name}} بالمعرف رقم {{Id}}؟",
+        "Cancle": "ألغاء"
+    }
+}

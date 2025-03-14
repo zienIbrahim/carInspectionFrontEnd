@@ -9,10 +9,11 @@ import { NavigationItem } from '../../navigation';
 
 import { NavItemComponent } from '../nav-item/nav-item.component';
 import { IconDirective } from '@ant-design/icons-angular';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nav-collapse',
-  imports: [CommonModule, IconDirective, RouterModule, NavItemComponent],
+  imports: [CommonModule, IconDirective, RouterModule, NavItemComponent,TranslatePipe],
   templateUrl: './nav-collapse.component.html',
   styleUrls: ['./nav-collapse.component.scss'],
   animations: [

@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="row">
+        <div class="card tbl-card">
+            <div class="card-header p-2">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>{{'inspection.ListTitle' | translate}}</h4>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                            <p-button class="p-2" [routerLink]="['/inspection/create']"  label="{{'tableList.create' | translate}}" />
+                            <p-button class="p-2"  (click)="showDialog()" label="{{'tableList.filter' | translate}}" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> {{'inspection.inspectionDate' | translate}}</th>
+                                <th> {{'inspection.package' | translate}}</th>
+                                <th> {{'inspection.name' | translate}}</th>
+                                <th> {{'inspection.phoneNumber' | translate}}</th>
+                                <th> {{'inspection.plateNumber' | translate}}</th>
+                                <th> {{'inspection.make' | translate}}</th>
+                                <th> {{'inspection.model' | translate}}</th>
+                                <th> {{'inspection.color' | translate}}</th>
+                                <th> {{'inspection.year' | translate}}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of pagedData; track $index) {
+                                <tr  (dblclick)="details(item.id)">
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.inspectionDate |date: lang=='ar'? 'hh:mm:ss  dd-MM-yyy':'dd-MM-yyy  hh:mm:ss' }}</td>
+                                    <td>{{lang=='ar'? item.packageAr:item.packageEn }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.phoneNumber }}</td>
+                                    <td>{{ item.plateNumber }}</td>
+                                    <td>{{ item.make }}</td>
+                                    <td>{{ item.model }}</td>
+                                    <td>{{ item.color }}</td>
+                                    <td>{{ item.year }}</td>
+                                    <td>
+                                        <i (click)="details(item.id)" class="px-3" style="font-size: large; color:#10b981;" antIcon [type]="'eye'" theme="outline"></i>
+                                        <i (click)="process(item.id)" class="px-3"  style="font-size: large; color:#10b981;" antIcon [type]="'search'" theme="outline"></i>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="4">
+                                    <ngb-pagination [collectionSize]="totalPages"
+                                     [(page)]="filter.PageNumber" 
+                                     [pageSize]="filter.PageSize"
+                                     (pageChange)="changePage($event)" [rotate]="true" [ellipses]="false"
+                                      [boundaryLinks]="true" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row pagination justify-content-center">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visibleFilters" [style]="{ width: '50rem' }">
+    <span class="p-text-secondary block mb-8">Update your information.</span>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Username</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex items-center gap-4 mb-8">
+        <label for="email" class="font-semibold w-24">Email</label>
+        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex justify-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visibleFilters = false" />
+        <p-button label="Save" (click)="visibleFilters = false" />
+    </div>
+</p-dialog>

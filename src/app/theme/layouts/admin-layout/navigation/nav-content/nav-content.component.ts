@@ -17,10 +17,24 @@ import {
   LoginOutline,
   QuestionOutline,
   ChromeOutline,
-  FontSizeOutline,
+  OrderedListOutline,
+  PlusOutline,PartitionOutline ,
+  FontSizeOutline,ScheduleOutline,
   ProfileOutline,
   BgColorsOutline,
-  AntDesignOutline
+  SettingOutline,
+  AntDesignOutline,
+  UserOutline,
+  CalendarOutline,
+  ClockCircleOutline,
+  MacCommandOutline,
+  DeleteOutline,
+  UnorderedListOutline,
+  EditOutline,
+  AppstoreOutline,
+  PrinterOutline,
+  EyeOutline,
+  SearchOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
@@ -56,9 +70,25 @@ export class NavContentComponent implements OnInit {
         FontSizeOutline,
         LoginOutline,
         ProfileOutline,
+        UserOutline,
         BgColorsOutline,
+        PartitionOutline,
+        MacCommandOutline,
+        PrinterOutline,
+        EditOutline,
+        SearchOutline,
+        EyeOutline,
+        DeleteOutline,
+        ScheduleOutline,
+        OrderedListOutline,
+        PlusOutline,
         AntDesignOutline,
+        SettingOutline,
         ChromeOutline,
+        UnorderedListOutline,
+        CalendarOutline,
+        ClockCircleOutline,
+        AppstoreOutline,
         QuestionOutline
       ]
     );

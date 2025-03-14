@@ -103,7 +103,7 @@
 
     .coded-inner-navbar {
       flex-direction: column;
-
+      direction: ltr;
       app-nav-item > li.active:after {
         top: 0 !important;
         height: 100% !important;
@@ -228,7 +228,7 @@
             + .coded-mtext {
               position: relative;
               vertical-align: middle;
-              text-align: center;
+              // text-align: center;
             }
           }
         }

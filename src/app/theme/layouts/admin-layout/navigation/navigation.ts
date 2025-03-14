@@ -21,108 +21,195 @@ export interface NavigationItem {
 export const NavigationItems: NavigationItem[] = [
   {
     id: 'dashboard',
-    title: 'Dashboard',
+    title: 'navigation.dashboard',
     type: 'group',
     icon: 'icon-navigation',
     children: [
       {
         id: 'default',
-        title: 'Default',
+        title: 'navigation.dashboard',
         type: 'item',
         classes: 'nav-item',
-        url: '/dashboard/default',
+        url: '/home',
         icon: 'dashboard',
         breadcrumbs: false
       }
     ]
   },
   {
-    id: 'authentication',
-    title: 'Authentication',
+    id: 'inspection',
+    title: 'navigation.inspection',
     type: 'group',
     icon: 'icon-navigation',
     children: [
       {
-        id: 'login',
-        title: 'Login',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/login',
-        icon: 'login',
-        target: true,
-        breadcrumbs: false
+        id: 'category',
+        title: 'navigation.inspection',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/inspection',
+        icon: 'partition',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/inspection',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/inspection/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
+      },
+    ]
+  },
+  {
+    id: 'system',
+    title: 'navigation.system',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'category',
+        title: 'navigation.category',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/category',
+        icon: 'partition',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/category',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/category/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
       },
       {
-        id: 'register',
-        title: 'Register',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/register',
+        id: 'check',
+        title: 'navigation.check',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/check',
+        icon: 'schedule',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/check',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/check/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'package',
+        title: 'navigation.package',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/package',
         icon: 'profile',
-        target: true,
-        breadcrumbs: false
-      }
-    ]
-  },
-  {
-    id: 'utilities',
-    title: 'UI Components',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'typography',
-        title: 'Typography',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/typography',
-        icon: 'font-size'
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/package',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/package/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
       },
       {
-        id: 'color',
-        title: 'Colors',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/color',
-        icon: 'bg-colors'
+        id: 'technician',
+        title: 'navigation.technician',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/technician',
+        icon: 'user',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/technician',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/technician/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
       },
-      {
-        id: 'tabler',
-        title: 'Tabler',
-        type: 'item',
-        classes: 'nav-item',
-        url: 'https://ant.design/components/icon',
-        icon: 'ant-design',
-        target: true,
-        external: true
-      }
-    ]
-  },
-
-  {
-    id: 'other',
-    title: 'Other',
-    type: 'group',
-    icon: 'icon-navigation',
-    children: [
-      {
-        id: 'sample-page',
-        title: 'Sample Page',
-        type: 'item',
-        url: '/sample-page',
-        classes: 'nav-item',
-        icon: 'chrome'
-      },
-      {
-        id: 'document',
-        title: 'Document',
-        type: 'item',
-        classes: 'nav-item',
-        url: 'https://codedthemes.gitbook.io/mantis-angular/',
-        icon: 'question',
-        target: true,
-        external: true
-      }
     ]
   }
 ];

@@ -44,7 +44,7 @@ export class SalesReportChartComponent {
         position: 'top',
         horizontalAlign: 'right',
         show: true,
-        fontFamily: `'Public Sans', sans-serif`,
+        fontFamily: `"Helvetica Neue",Helvetica,Arial,sans-serif`,
         offsetX: 10,
         offsetY: 10,
         labels: {

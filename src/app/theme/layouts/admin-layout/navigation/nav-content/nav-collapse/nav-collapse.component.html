@@ -1,4 +1,4 @@
-<li data-username="mantis dashboard" class="nav-item coded-hasmenu" [routerLinkActive]="['active']">
+<li data-username="mantis dashboard" class="nav-item coded-hasmenu" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">
   <a [routerLinkActive]="['active']" (click)="navCollapse($event)">
     @if (item.icon) {
       <span class="coded-micon">
@@ -6,10 +6,10 @@
       </span>
     }
     <span class="coded-mtext">
-      {{ item.title }}
+      {{ item.title| translate }}
     </span>
   </a>
-  <ul class="coded-submenu" [routerLinkActive]="['active']" [ngClass]="item.classes!">
+  <ul class="coded-submenu" [routerLinkActive]="['active']" [ngClass]="item.classes!" [routerLinkActiveOptions]="{exact: true}">
     @for (item of item.children; track item) {
       @if (item.type === 'item') {
         <app-nav-item [item]="item"></app-nav-item>

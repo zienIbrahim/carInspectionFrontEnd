@@ -16,7 +16,7 @@ export class NavigationComponent {
   // media 1025 After Use Menu Open
   NavCollapsedMob = output();
 
-  navCollapsedMob;
+  navCollapsedMob: boolean;
   windowWidth: number;
 
   // Constructor

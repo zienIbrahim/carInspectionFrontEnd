@@ -7,10 +7,11 @@ import { RouterModule } from '@angular/router';
 import { NavigationItem } from '../../navigation';
 
 import { IconDirective } from '@ant-design/icons-angular';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nav-item',
-  imports: [CommonModule, IconDirective, RouterModule],
+  imports: [CommonModule, IconDirective, RouterModule,TranslatePipe],
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })

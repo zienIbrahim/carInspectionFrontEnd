@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-header p-2">
+                <h4>{{'inspection.CreateTitle' |translate}}</h4>
+            </div>
+            <div class="card-body">
+                <form class="form" [formGroup]="CreateInspectionForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.package' |translate}}</label>
+                            <ng-select formControlName="packageId"
+                                [ngClass]="{'is-invalid':(f['packageId'].touched || submitted )&& f['packageId'].errors}">
+                                @for (package of packages; track package.id) {
+                                <ng-option [value]="package.id">{{lang=='ar'?package.nameAr:package.nameEn}}</ng-option>
+                                }
+                            </ng-select>
+                            @if((f['packageId'].touched || submitted )&& f['packageId'].errors){
+                            <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.inspectionDate' |translate}}</label>
+                            <app-date-time-picker   formControlName="inspectionDate"  type="text"
+                            [ngClass]="{'is-invalid':(f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors}">
+                            </app-date-time-picker>
+                          
+                            @if((f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors){
+                            <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+    
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.name' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="name"
+                            [ngClass]="{'is-invalid':(f['name'].touched || submitted )&& f['name'].errors}">
+                            @if((f['name'].touched || submitted) && f['name'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.phoneNumber' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="phoneNumber"
+                            [ngClass]="{'is-invalid':(f['phoneNumber'].touched || submitted )&& f['phoneNumber'].errors}">
+                            @if((f['phoneNumber'].touched || submitted) && f['phoneNumber'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.email' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="email" 
+                            [ngClass]="{'is-invalid':(f['email'].touched || submitted )&& f['email'].errors}">
+                            @if((f['email'].touched || submitted )&& f['email'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+    
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.plateNumber' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="plateNumber" 
+                            [ngClass]="{'is-invalid':(f['plateNumber'].touched || submitted )&& f['plateNumber'].errors}">
+                            @if((f['plateNumber'].touched || submitted )&& f['plateNumber'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.vINNumber' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="vINNumber" 
+                            [ngClass]="{'is-invalid':(f['vINNumber'].touched || submitted )&& f['vINNumber'].errors}">
+                            @if((f['vINNumber'].touched || submitted )&& f['vINNumber'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.make' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="make" 
+                            [ngClass]="{'is-invalid':(f['make'].touched || submitted )&& f['make'].errors}">
+                            @if((f['make'].touched || submitted )&& f['make'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.model' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="model" 
+                            [ngClass]="{'is-invalid':(f['model'].touched || submitted )&& f['model'].errors}">
+                            @if((f['model'].touched || submitted )&& f['model'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.color' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="color" 
+                            [ngClass]="{'is-invalid':(f['color'].touched || submitted )&& f['color'].errors}">
+                            @if((f['color'].touched || submitted )&& f['color'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.year' |translate}}</label>
+                            <input type="number" class="form-control" formControlName="year" 
+                            [ngClass]="{'is-invalid':(f['year'].touched || submitted )&& f['year'].errors}">
+                            @if((f['year'].touched || submitted )&& f['year'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.note' |translate}}</label>
+                            <textarea  class="form-control" formControlName="note" 
+                            [ngClass]="{'is-invalid':(f['note'].touched || submitted )&& f['note'].errors}">
+                            </textarea>
+                            @if((f['note'].touched || submitted )&& f['note'].errors){
+                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="submit" [disabled]="CreateInspectionForm.invalid" class="btn btn-success">{{'form.save' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #footerFromTemplate>
+    <hr class="my-0" />
+    <ngb-timepicker [(ngModel)]="time" [seconds]="true" [meridian]="true" />
+</ng-template>

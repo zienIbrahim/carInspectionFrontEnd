@@ -1,0 +1,10 @@
+::ng-deep body[dir="rtl"] .border-side{
+border-left: 1px solid #c7c7c7c7;
+}
+::ng-deep body[dir="ltr"] .border-side{
+    border-right: 1px solid #c7c7c7c7;
+}
+.result-container{
+    max-height: 32rem;
+    overflow-y: auto;
+}

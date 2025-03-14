@@ -7,10 +7,11 @@ import { NavigationItem } from '../../navigation';
 
 import { NavCollapseComponent } from '../nav-collapse/nav-collapse.component';
 import { NavItemComponent } from '../nav-item/nav-item.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-nav-group',
-  imports: [CommonModule, NavCollapseComponent, NavItemComponent],
+  imports: [CommonModule, NavCollapseComponent, NavItemComponent,TranslatePipe],
   templateUrl: './nav-group.component.html',
   styleUrls: ['./nav-group.component.scss']
 })
@@ -24,6 +25,7 @@ export class NavGroupComponent implements OnInit {
 
   // Life cycle events
   ngOnInit() {
+    
     // at reload time active and trigger link
     let current_url = this.location.path();
     // eslint-disable-next-line

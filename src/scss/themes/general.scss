@@ -1,6 +1,7 @@
 /**  =====================
     2. Custom css start
 ==========================  **/
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 * {
   &:focus {
@@ -230,4 +231,11 @@ strong {
 .offcanvas-top,
 .offcanvas-bottom {
   min-height: 240px;
+}
+body[dir="rtl"] .pagination .page-item:first-child .page-link {
+  border-radius: 0 var(--bs-pagination-border-radius) var(--bs-pagination-border-radius) 0 !important;
+ }
+
+body[dir="rtl"] .pagination .page-item:last-child .page-link {
+  border-radius: var(--bs-pagination-border-radius) 0 0 var(--bs-pagination-border-radius) !important;
 }

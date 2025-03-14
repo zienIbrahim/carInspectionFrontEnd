@@ -1,0 +1,55 @@
+<app-stepper [Steps]="checkListMapName">
+  <form [formGroup]="ProcessInspectionForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="inspectionResult">
+      @for (item of inspectionResultList.controls; track $index)
+      {
+        <cdk-step [formGroupName]="$index">
+          <div class="flex flex-col h-48">
+            <div class="flex-auto flex justify-center items-center">
+              <div class="card shadow-sm border-0 rounded-4 ">
+                <div class="card-body">
+                  <div class="card-title text-primary fw-bold mb-3">
+                    <h3 class="mb-0">{{ $index + 1 }}: {{ lang==='ar' ? getControl($index,'nameAr').value:getControl($index,'nameEn').value}}</h3>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">{{'inspection.result.result'|translate}}</label>
+                    @for (item of resultOptions; track $index) {
+                      <input formControlName="result" type="radio" class="btn-check"  [id]="$index" autocomplete="off" [value]="lang==='ar' ?item.nameAr:item.nameEn">
+                      <label class="btn btn-outline-success  mx-1" [for]="$index">{{lang==='ar' ?item.nameAr:item.nameEn}}</label>
+                    }
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">{{'inspection.result.comment'|translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'inspection.result.comment'|translate}}" formControlName="comment"
+                      [ngClass]="{'is-invalid':(getControl($index,'comment').touched )&&getControl($index,'comment').errors}">
+                  </div>
+                  <div class="mb-3">
+                    <button class="btn btn-outline-success  mx-1" (click)="showWebcam=!showWebcam; selectedIndex=$index"> {{'inspection.result.addImage'|translate}} </button>
+                    <div class="row">
+                      @for (control  of item.get('images')['controls']; track $index; let idx = $index) {
+                        {{log(control)}}
+                        <div class="col-lg-4 col-md-6 col-sm-12 card p-1 m-1">
+                          <img *ngIf="webcamImage" [src]="control.controls['imagestring'].value"/>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </cdk-step>
+      }
+    </div>
+  </form>
+</app-stepper>
+<p-dialog header="{{'inspection.result.addImage'|translate}}" [modal]="true" [(visible)]="showWebcam" [style]="{ width: '50rem' }">
+  <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
+  <webcam  [height]="300"
+  [width]="300"
+  [trigger]="trigger"
+  [allowCameraSwitch]="false"
+  (imageCapture)="handleImage($event)"
+  (initError)="handleInitError($event)"></webcam>
+  <button (click)="takePicture()">{{'inspection.result.capture'|translate}}</button>
+</p-dialog>
