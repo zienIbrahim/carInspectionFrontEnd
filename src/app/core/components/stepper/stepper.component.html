@@ -1,23 +1,28 @@
 <section class="row">
     <!-- Step Navigation -->
     <div class="step-list col-3 ">
-        <div *ngFor="let step of Steps; let i = index" class="step-item m-1 p-1 text-wrap"
-            [ngClass]="{ 'active': selectedIndex === i, 'completed': selectedIndex > i }" (click)="onClick(i)">
-            <div class="">{{ i + 1 }} </div>
-            <div class="step-title">{{ step.name }}</div>
+        @for (step of Steps; track $index;let i = $index) {
+            <div  class="step-item m-1 p-1 text-wrap d-felx justify-content-between"
+            [ngClass]="{ 'active': selectedIndex === i,'invalid':step.isValid, 'completed': selectedIndex > i }" (click)="onClick(i)">
+            <div class="step-title">{{ i + 1 }}  {{ step.name }}
+            </div>
+            @if(step.isValid){
+                <div  class="invalid-titel">*</div>
+            }
         </div>
+        }
+        
     </div>
     <!-- Step Content -->
     <div class="step-content col-9">
-        <div *ngIf="steps.length">
-            <h3 class="step-title">{{ steps[selectedIndex]?.title }}</h3>
+        @if(steps.length){
             <div class="step-description">
                 <ng-container [ngTemplateOutlet]="selected.content"></ng-container>
             </div>
             <div class="navigation-buttons">
-                <button (click)="prevStep()" *ngIf="selectedIndex > 0" class="prev-btn">Previous</button>
-                <button (click)="nextStep()" *ngIf="selectedIndex < steps.length - 1" class="next-btn">Next</button>
+                <button (click)="prevStep()" [disabled]="!(selectedIndex > 0)" class="prev-btn">{{'stepper.previous'|translate}}</button>
+                <button (click)="nextStep()" [disabled]="!(selectedIndex < steps.length - 1)" class="next-btn">{{'stepper.next' |translate}}</button>
             </div>
-        </div>
+        }
     </div>
 </section>

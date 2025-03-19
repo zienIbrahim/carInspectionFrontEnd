@@ -2,7 +2,7 @@
 .stepper-container {
     display: flex;
     height: 80vh;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Cairo', sans-serif;
     background-color: #fafafa; /* Light grey background */
   }
   
@@ -65,8 +65,14 @@
     background-color: #b3e5fc; /* Soft blue for completed steps */
     color: #0277bd; /* Slightly darker blue for readability */
   }
-
-  /* Step title style */
+  .step-item.invalid {
+  border: 1px solid;
+  border-color: var(--bs-form-invalid-color);
+  }
+  .step-item.invalid .invalid-titel {
+    font-size: 1.5em;
+    color: var(--bs-form-invalid-color) !important;
+  }  /* Step title style */
   .step-title {
     font-size: 16px;
     font-weight: bold;

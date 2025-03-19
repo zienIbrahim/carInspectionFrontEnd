@@ -1,0 +1,47 @@
+<div class="search-box mb-3 w-98">
+    <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search..."
+        class="form-control"
+        style="width: 100%;" 
+    />
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered w-98">
+        <thead>
+            <tr>
+                <th *ngFor="let header of headers" (click)="onSort(header.key)" style="cursor: pointer;">
+                    {{ header.displayName }}
+                    <span *ngIf="sortColumn === header.key">
+                        {{ sortDirection ? '▲' : '▼' }}
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of paginatedData" (click)="clickableColumns.includes(item.key) ? onRowClick(item) : null">
+                <td *ngFor="let header of headers" 
+                    [ngClass]="clickableColumns.includes(header.key) ? 'text-primary text-decoration-underline cursor-pointer' : ''">
+                    {{ item[header.key] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="pagination d-flex justify-content-start align-items-center py-3">
+    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0" class="mx-2 bg-transparent rounded p-2"> &lt; </button>
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    
+    <button (click)="onPageChange(currentPage + 1)" [disabled]="(currentPage + 1) * pageSize >= filteredData.length" class="mx-2 bg-transparent rounded p-2">&gt;</button>
+ <div style="width: 200px; display: flex; justify-content: start; align-items: start; ">
+
+     <label for="pageSize" class="px-4">Rows per page:</label>
+     <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageChange(0)" class="form-select ">
+         <option *ngFor="let size of [5, 10, 20]" [value]="size">{{ size }}</option>
+        </select>
+    </div>
+</div>
