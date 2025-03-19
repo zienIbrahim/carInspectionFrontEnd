@@ -45,7 +45,6 @@ export class CreateInspectionComponent implements OnInit {
       this.lang = lang;
     })
   }
-
   ngOnInit(): void {
     this.InitForm()
     this.FillCommonData()
@@ -104,7 +103,7 @@ export class CreateInspectionComponent implements OnInit {
       this.packages = res.data;
     });
   }
-formatDate(data: any) {
+  formatDate(data: any) {
     if (data.month.toString().length < 2) {
         data.month = '0' + data.month;
     }
@@ -112,8 +111,8 @@ formatDate(data: any) {
         data.day = '0' + data.day;
     }
     return [data.year, data.month, data.day].join('-');
-}
-formatDateTime(date:any){
+  }
+  formatDateTime(date:any){
  let dd= this.formatDate(date);
  return   dd +" " +[
    String(this.time.hour).padStart(2, '0') ,

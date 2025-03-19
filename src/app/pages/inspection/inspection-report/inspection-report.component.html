@@ -1,0 +1,81 @@
+<!-- inspection-report.component.html -->
+<div class="report-container" id="report-container">
+
+    <div class="header">
+        <h1>Car Inspection Report</h1>
+        <button class="export-pdf-button" (click)="exportToPDF()">Export as PDF</button>
+    </div>
+
+    <!-- Vehicle Details Section -->
+    <div class="vehicle-details">
+        <h2>Vehicle Information</h2>
+        <div class="details-grid">
+            <div class="detail-item">
+                <label>Inspection Date:</label>
+                <span>{{ InspectionDetails.inspectionDate | date:'medium' }}</span>
+            </div>
+            <div class="detail-item">
+                <label>Plate Number:</label>
+                <span>{{ InspectionDetails.plateNumber }}</span>
+            </div>
+            <div class="detail-item">
+                <label>Make/Model:</label>
+                <span>{{ InspectionDetails.make }} {{ InspectionDetails.model }}</span>
+            </div>
+            <div class="detail-item">
+                <label>VIN:</label>
+                <span>{{ InspectionDetails.vinNumber }}</span>
+            </div>
+            <div class="detail-item">
+                <label>Color:</label>
+                <span>{{ InspectionDetails.color }}</span>
+            </div>
+            <div class="detail-item">
+                <label>Year:</label>
+                <span>{{ InspectionDetails.year }}</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Inspection Results Section -->
+    <div class="inspection-results">
+        <h2>Inspection Results</h2>
+        @for (category of groupedResults| keyvalue; track $index) {
+        <div class="category">
+            <h3 class="category-title"> 
+                <span class="category-en">{{ category.value[0].categoryEn }} / </span>
+                <span class="category-ar">{{ category.value[0].categoryAr }}</span>
+            </h3>
+            <div class="results-grid">
+                @for (item of category.value; track $index) {
+                <div class="result-item">
+                    <div class="check-info">
+                        <div class="check-title">{{ item.checkEn }} / {{ item.checkAr }}</div>
+                        <div class="result-status" [class]="getStatusClass(item.result)">
+                            {{ item.result }}
+                        </div>
+                    </div>
+                    @if (item.images?.length) {
+                    <div class="comment">
+                        <strong>Comment:</strong> {{ item.comment }}
+                    </div>
+
+                    }
+                    @if (item.images?.length) {
+                    <div class="images">
+                        @for (img of item.images; track $index) {
+                        <div class="image-container">
+                            <img [src]="img" alt="Inspection image">
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+
+</div>

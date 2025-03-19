@@ -43,6 +43,7 @@
         "id": "المعرف (Id)",
         "nameAr": "الاسم (عربي)",
         "description": "الوصف",
+        "checkList": "قائمة نقاط الفحص",
         "save": "حفظ",
         "saveAndContinue": "حفظ و متابعة",
         "cancle": "الغاء",
@@ -74,6 +75,8 @@
     },
     "tableList": {
         "create": "أضافة (جديد)",
+       "dateTo": "التاريخ الي",
+       "dateFrom":   "التاريخ من",
         "filter": "تصفية"
     },
     "login": {
@@ -95,5 +98,9 @@
         "Ok": "موافق",
         "deleteMsg": "هل انت متأكد من حذف السجل {{name}} بالمعرف رقم {{Id}}؟",
         "Cancle": "ألغاء"
+    },
+    "stepper":{
+        "next":"التالي",
+        "previous":"السابق"
     }
 }

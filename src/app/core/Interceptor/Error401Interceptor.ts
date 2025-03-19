@@ -38,8 +38,8 @@ export class Error401Interceptor implements HttpInterceptor {
 
     handle401Errors(error: HttpErrorResponse, request: HttpRequest<any>, handler: HttpHandler) {
         if (error.status == 401) {
-            const refreshToken: string  = localStorage.getItem('app:refreshToken');
-            const accessToken: string  = localStorage.getItem('app:jwt');
+            const refreshToken: string  = localStorage.getItem('token:refreshToken');
+            const accessToken: string  = localStorage.getItem('token:jwt');
             if (refreshToken == null || !accessToken == null) {
                 this.authService.logout().then(() => this.router.navigate(['auth/login']));
             }
@@ -52,8 +52,8 @@ export class Error401Interceptor implements HttpInterceptor {
                     this.isRefreshing = false;
                     this.refreshTokenSubject.next(res.token);
                     //set tokens in localstorge
-                    localStorage.setItem('app:jwt', res.token);
-                    localStorage.setItem('app:refreshToken', res.refreshToken);
+                    localStorage.setItem('token:jwt', res.token);
+                    localStorage.setItem('token:refreshToken', res.refreshToken);
                     return handler.handle(this.addTokenHeader(request, res.accsesToken));
                         }),
                         catchError((err) => {

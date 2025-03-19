@@ -7,9 +7,46 @@
                         <h4>{{'inspection.ListTitle' | translate}}</h4>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                            <p-button class="p-2" [routerLink]="['/inspection/create']"  label="{{'tableList.create' | translate}}" />
-                            <p-button class="p-2"  (click)="showDialog()" label="{{'tableList.filter' | translate}}" />
+                        <button class="btn btn-success my-auto mx-1"  [routerLink]="['/inspection/create']" >
+                            {{'tableList.create' | translate}}
+                        </button>
+                        <button class="btn btn-success my-auto mx-1"  (click)="visibleFilters=!visibleFilters" >
+                            {{'tableList.filter' | translate}}
+                        </button>
                     </div>
+                </div>
+                <div class="row">
+                    <p-panel   [(collapsed)]="visibleFilters">
+                        <div class="row">
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'inspection.name' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.Name">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'inspection.phoneNumber' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.PhoneNumber">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'inspection.plateNumber' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.PlateNumber">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'tableList.dateFrom' |translate}}</label>
+                                <app-date-time-picker   [(ngModel)]="filter.From">
+                                </app-date-time-picker>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'tableList.dateTo' |translate}}</label>
+                                <app-date-time-picker   [(ngModel)]="filter.To">
+                                </app-date-time-picker>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12 my-auto">
+                                <button class="btn btn-success my-auto mx-1"  (click)="updatePagedData()" >
+                                    {{'tableList.filter' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </p-panel>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -68,19 +105,3 @@
         </div>
     </div>
 </div>
-
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visibleFilters" [style]="{ width: '50rem' }">
-    <span class="p-text-secondary block mb-8">Update your information.</span>
-    <div class="flex items-center gap-4 mb-4">
-        <label for="username" class="font-semibold w-24">Username</label>
-        <input pInputText id="username" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex items-center gap-4 mb-8">
-        <label for="email" class="font-semibold w-24">Email</label>
-        <input pInputText id="email" class="flex-auto" autocomplete="off" />
-    </div>
-    <div class="flex justify-end gap-2">
-        <p-button label="Cancel" severity="secondary" (click)="visibleFilters = false" />
-        <p-button label="Save" (click)="visibleFilters = false" />
-    </div>
-</p-dialog>

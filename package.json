@@ -37,6 +37,7 @@
     "@sweetalert2/ngx-sweetalert2": "^13.0.0",
     "apexcharts": "3.49.2",
     "bootstrap": "5.3.3",
+    "html2pdf.js": "^0.10.3",
     "ng-apexcharts": "1.11.0",
     "ngx-scrollbar": "16.1.1",
     "ngx-webcam": "^0.4.1",

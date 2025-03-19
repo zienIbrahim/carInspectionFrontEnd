@@ -8,12 +8,13 @@ import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { CreatePackageRequest, Package } from 'src/app/core/api-client/models/Package.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { PackageService } from 'src/app/core/api-client/services/package.service';
+import { Listbox } from 'primeng/listbox';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-create-package',
-  imports: [TranslatePipe, ReactiveFormsModule, CommonModule, NgSelectModule],
+  imports: [TranslatePipe,Listbox, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss'
 })
@@ -27,6 +28,12 @@ export class CreatePackageComponent implements OnInit {
   languageService = inject(LanguageService);
   lang: string = 'ar';
   checkPoints: MasterData[] = [];
+  headers = [
+    { key: 'nameAr', displayName: 'nameAr' },
+    { key: 'id', displayName: 'ID' },
+  ];
+  clickableColumns =['name']
+
   constructor(private fb: FormBuilder) {
 
   }
@@ -46,17 +53,17 @@ export class CreatePackageComponent implements OnInit {
     });
   }
   onSubmit() {
+    console.log({FormValue:this.CreatePackageForm.value})
     this.submitted = true;
     if (!this.CreatePackageForm.valid) {
       this.CreatePackageForm.markAllAsTouched();
       return
     }
-    console.log({value:this.CreatePackageForm.value})
     const model: CreatePackageRequest = {
       nameAr: this.f['nameAr'].value,
       nameEn: this.f['nameEn'].value,
       description: this.f['description'].value,
-      packageDetails: this.f['checkList'].value.map(check => {
+      packageDetails: this.f['checkList'].value.map((check: any) => {
         return { checkId: check }
       })
     }
@@ -68,7 +75,7 @@ export class CreatePackageComponent implements OnInit {
       });
     });
   }
-
+ 
   FillCommonData() {
     this.commonApiService.GetCheckPointList().subscribe((res: any) => {
       this.checkPoints = res.data;
@@ -77,4 +84,5 @@ export class CreatePackageComponent implements OnInit {
   get f() {
     return this.CreatePackageForm.controls;
   }
+  
 }

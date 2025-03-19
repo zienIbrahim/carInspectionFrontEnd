@@ -29,10 +29,11 @@ export class NavBarComponent {
 
   // public method
   navCollapse() {
-    if (this.windowWidth >= 1025) {
-      this.navCollapsed = !this.navCollapsed;
-      this.NavCollapse.emit();
-    }
+    this.navCollapsed = !this.navCollapsed;
+    this.NavCollapse.emit();
+    // if (this.windowWidth >= 1025) { fix it 
+     
+    // }
   }
 
   navCollapseMob() {

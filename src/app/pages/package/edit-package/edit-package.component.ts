@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Listbox } from 'primeng/listbox';
 import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { Package } from 'src/app/core/api-client/models/Package.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
@@ -13,7 +14,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-edit-package',
-  imports: [TranslatePipe, ReactiveFormsModule, CommonModule, NgSelectModule],
+  imports: [TranslatePipe,Listbox, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './edit-package.component.html',
   styleUrl: './edit-package.component.scss'
 })
@@ -31,6 +32,7 @@ export class EditPackageComponent {
   checkPoints: MasterData[] = [];
   Package: Package = <Package>{};
   PackageId: number = 0;
+
   constructor(private fb: FormBuilder) {
     this.PackageId = Number(this.route.snapshot.paramMap.get('id'));
 

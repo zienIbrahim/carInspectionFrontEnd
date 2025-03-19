@@ -42,6 +42,7 @@ export const routes: Routes = [
       { path: 'inspection/create', loadComponent: () => import('./pages/inspection/create-inspection/create-inspection.component').then((c) => c.CreateInspectionComponent) },
       { path: 'inspection/process/:id', loadComponent: () => import('./pages/inspection/process-inspection/process-inspection.component').then((c) => c.ProcessInspectionComponent) },
       { path: 'inspection/details/:id', loadComponent: () => import('./pages/inspection/inspection-details/inspection-details.component').then((c) => c.InspectionDetailsComponent) },
+      { path: 'inspection/report/:id', loadComponent: () => import('./pages/inspection/inspection-report/inspection-report.component').then((c) => c.InspectionReportComponent) },
 
     ]
   },

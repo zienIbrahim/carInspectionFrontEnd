@@ -2,13 +2,52 @@
     2. Custom css start
 ==========================  **/
 @import "~@ng-select/ng-select/themes/default.theme.css";
-
+@font-face {
+  font-family: 'Cairo';
+  src: url('../fonts/cairo/Cairo-SemiBold.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/../fonts/cairo/Cairo-Black.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/../fonts/cairo/Cairo-Bold.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/../fonts/cairo/Cairo-ExtraLight.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/../fonts/cairo/Cairo-Light.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cairo';
+  src: url('/../fonts/cairo/Cairo-Regular.ttf');
+  font-weight: 800;
+  font-style: normal;
+}
 * {
+  font-family: 'Cairo', sans-serif;
+  font-size: 16px;
   &:focus {
     outline: none;
   }
 }
-
+body, html {
+  font-family: 'Cairo', sans-serif;
+}
 .accordion {
   --#{$prefix}accordion-color: #{$body-color};
 }

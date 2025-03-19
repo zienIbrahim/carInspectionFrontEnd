@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CreateInspectionRequest, Inspection } from '../models/Inspection.api.model';
+import { CreateInspectionRequest, CreateOrUpdateInspectionResultDto, Inspection } from '../models/Inspection.api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,9 @@ export class InspectionService {
       }
       CreateInspection(model: CreateInspectionRequest) {
         return this.http.post(this.apiUrl + "Inspection/CreateInspection", model);
+      }
+      CreateOrUpdateInspectionResult(model: CreateOrUpdateInspectionResultDto) {
+        return this.http.post(this.apiUrl + "Inspection/CreateOrUpdateInspectionResult", model);
       }
       EditInspection(model: Inspection) {
         return this.http.put(this.apiUrl + "Inspection/EditInspection", model);

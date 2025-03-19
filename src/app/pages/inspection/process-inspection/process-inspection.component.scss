@@ -30,5 +30,12 @@ p-stepper-separator {
   position: absolute;
 
 }
-
+.inspection-image-container{
+  max-height: 25rem !important;
+  overflow-y: auto !important; 
+}
+.inspection-image{
+width: 100%;
+height: 200px;
+}
 

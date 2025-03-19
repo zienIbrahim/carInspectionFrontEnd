@@ -55,7 +55,7 @@ export interface InspectionCheckList {
     id: number,
     nameEn: string,
     nameAr: string,
-    categoryId: string,
+    categoryId: number,
     categoryEn: string,
     categoryAr: string,
 }
@@ -88,4 +88,19 @@ export interface InspectionDetails {
     categoryEn: string
     technicianAr: string
     technicianEn: string
+    images: string[]
+
   }
+  export interface CreateOrUpdateInspectionResultDto {
+    inspectionID: number
+    data: CreateOrUpdateInspectionResultData[]
+  }
+  
+  export interface CreateOrUpdateInspectionResultData {
+    inspectionID: number
+    checkId: number
+    result: string
+    comment: string
+    images: string[]
+  }
+  

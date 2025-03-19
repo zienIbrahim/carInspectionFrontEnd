@@ -11,12 +11,14 @@ import { InspectionService } from 'src/app/core/api-client/services/inspection.s
 import { PaginatedApiService } from 'src/app/core/api-client/services/paginated-api.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
-import { Dialog } from 'primeng/dialog';
 import { IconDirective } from '@ant-design/icons-angular';
+import { PanelModule } from 'primeng/panel';
+import { FormsModule } from '@angular/forms';
+import { DateTimePickerComponent } from 'src/app/core/components/date-time-picker/date-time-picker.component';
 
 @Component({
   selector: 'app-inspection',
-  imports: [NgbPaginationModule, TranslatePipe, DatePipe, RouterModule,Dialog, ButtonModule, IconDirective,InputTextModule],
+  imports: [NgbPaginationModule,PanelModule,FormsModule, TranslatePipe,DateTimePickerComponent, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
   templateUrl: './inspection.component.html',
   styleUrl: './inspection.component.scss'
 })
@@ -33,7 +35,8 @@ export class InspectionComponent {
   filter: GetAllInspectionRequest = <GetAllInspectionRequest>{ PageNumber: 1, PageSize: 6 };
   pagedData: GetAllInspectionReresponseData[];
   time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
-  visibleFilters: boolean = false;
+  visibleFilters = false;
+
   ngOnInit() {
     this.updatePagedData();
     this.languageService.language$.subscribe(lang => {
@@ -86,13 +89,11 @@ export class InspectionComponent {
     let dd = this.formatDate(date);
     return dd + "T" + [this.time.hour, this.time.hour, this.time.second].join(':')
   }
-  showDialog() {
-    this.visibleFilters = true;
-  }
   details(Id:number){
     this.router.navigate(['inspection/details/'+Id])
   }
   process(Id:number){
     this.router.navigate(['inspection/process/'+Id])
   }
+ 
 }

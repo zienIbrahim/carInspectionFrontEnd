@@ -31,10 +31,14 @@ import {
   DeleteOutline,
   UnorderedListOutline,
   EditOutline,
+  FileImageOutline,
   AppstoreOutline,
   PrinterOutline,
   EyeOutline,
-  SearchOutline
+  SearchOutline,
+  CloseOutline,
+  CameraOutline,
+  SaveOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
@@ -76,17 +80,21 @@ export class NavContentComponent implements OnInit {
         MacCommandOutline,
         PrinterOutline,
         EditOutline,
-        SearchOutline,
         EyeOutline,
+        CloseOutline,
         DeleteOutline,
+        SaveOutline,
         ScheduleOutline,
         OrderedListOutline,
         PlusOutline,
         AntDesignOutline,
         SettingOutline,
         ChromeOutline,
+        CameraOutline,
         UnorderedListOutline,
         CalendarOutline,
+        FileImageOutline,
+        SearchOutline,
         ClockCircleOutline,
         AppstoreOutline,
         QuestionOutline

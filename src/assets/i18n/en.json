@@ -42,6 +42,7 @@
         "nameEn":"Name (english)",
         "nameAr":"Name (arabic)",
         "description":"description",
+        "checkList":"Check point list",
         "save":"Save",
         "saveAndContinue":"Save and continue",
         "cancle":"cancle",
@@ -74,8 +75,9 @@
     },
     "tableList":{
         "create":"Craete (new)",
-        "filter": "filter"
-
+        "filter": "filter",
+        "dateTo": "date to",
+        "dateFrom":   "date from"
     },
     "login": {
         "title": "Login",
@@ -97,5 +99,9 @@
         "Ok":"Ok",       
          "deleteMsg":"Are you sure you want to delete the record {{name}} with the ID {{Id}}?",
         "Cancle":"Cancle"
+    },
+    "stepper":{
+        "next":"next",
+        "previous":"previous"
     }
 }

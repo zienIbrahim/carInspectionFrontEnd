@@ -31,17 +31,21 @@
                         }
                     </div>
                     <div class="form-group">
-                        <label>{{'check.category' |translate}}</label>
-                        <ng-select formControlName="checkList" multiple="true"
-                            [ngClass]="{'is-invalid':(f['checkList'].touched || submitted )&& f['checkList'].errors}">
-                            @for (check of checkPoints; track check.id) {
-                            <ng-option [value]="check.id">{{lang==='ar' ? check.nameAr :check.nameEn}}</ng-option>
-                            }
-                        </ng-select>
+                        <label id="checkListlb">{{'form.checkList' |translate}}</label>
+                        <p-listbox [options]="checkPoints"
+                        ariaLabelledBy="checkListlb"
+                         formControlName="checkList"
+                          optionValue="id"
+                          [multiple]="true"
+                          [filter]="true"
+                          [checkbox]="true"
+                          optionLabel="{{lang==='ar' ? 'nameAr' :'nameEn'}}"
+                          class="w-full md:w-56"
+                        />
                         @if((f['checkList'].touched || submitted )&& f['checkList'].errors){
                         <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                         }
-                    </div>
+                    </div>                    
                     <div class="form-group">
                         <button type="submit" [disabled]="CreatePackageForm.invalid"
                             class="btn btn-success">{{'form.save' | translate}}</button>
