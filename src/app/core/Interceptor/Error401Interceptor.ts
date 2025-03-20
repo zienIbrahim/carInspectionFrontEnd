@@ -40,7 +40,7 @@ export class Error401Interceptor implements HttpInterceptor {
         if (error.status == 401) {
             const refreshToken: string  = localStorage.getItem('token:refreshToken');
             const accessToken: string  = localStorage.getItem('token:jwt');
-            if (refreshToken == null || !accessToken == null) {
+            if (refreshToken == null || accessToken == null) {
                 this.authService.logout().then(() => this.router.navigate(['auth/login']));
             }
                 const tokenModel = { refreshToken: refreshToken,token:accessToken };

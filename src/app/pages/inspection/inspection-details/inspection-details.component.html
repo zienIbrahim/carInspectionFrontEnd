@@ -103,6 +103,7 @@
                         </div>
                     </div>
                     <div class="row">
+                       <app-galleria [images]="filteredResults[$index].images" *ngIf="filteredResults[$index].images.length > 0"></app-galleria>
                         <div class="col justify-content-end d-flex">
                             @if(result.images.length>0){
                             <button class="btn btn-primary shadow-sm mx-2 fs-5" (click)="OnShowImage($index)">
@@ -265,16 +266,8 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [modal]="false"  appendTo="body" [draggable]="true" header="{{'inspection.result.addImage'|translate}}" [(visible)]="showImage"
-    [style]="{ width: '90rem' }">
-    <div class="row inspection-image-container">
-        @for (control of filteredResults[selectedIndex].images; track $index;) {
-        <div class="col-lg-4 col-md-6 col-sm-12 card p-2">
-            <img class="inspection-image" [src]="control" />
-        </div>
-        }
-    </div>
-</p-dialog>
+
+
 <p-dialog header="{{'inspection.result.addImage'|translate}}" [modal]="true" [(visible)]="showWebcam"
   [style]="{ width: '50rem' }">
   <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
@@ -288,3 +281,4 @@
   </button>
  
 </p-dialog>
+

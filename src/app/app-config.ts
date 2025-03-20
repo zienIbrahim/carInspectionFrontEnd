@@ -4,7 +4,7 @@ import { routes } from './app-routes';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import lara from '@primeng/themes/lara';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { authInterceptor } from './core/Interceptor/authInterceptor';
 import { provideTranslation } from './core/Helper/translate.helper';
@@ -22,7 +22,7 @@ export const appConfig: ApplicationConfig = {
      provideAnimationsAsync(),
      providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: lara,
       },
     })]
 };

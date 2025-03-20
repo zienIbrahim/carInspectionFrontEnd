@@ -38,7 +38,9 @@ import {
   SearchOutline,
   CloseOutline,
   CameraOutline,
-  SaveOutline
+  SaveOutline,
+  FullscreenOutline,
+  FullscreenExitOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
@@ -89,6 +91,8 @@ export class NavContentComponent implements OnInit {
         PlusOutline,
         AntDesignOutline,
         SettingOutline,
+        FullscreenOutline,
+        FullscreenExitOutline,
         ChromeOutline,
         CameraOutline,
         UnorderedListOutline,

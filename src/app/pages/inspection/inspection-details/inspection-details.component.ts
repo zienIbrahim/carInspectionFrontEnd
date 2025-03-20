@@ -10,12 +10,13 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { StepperModule } from 'primeng/stepper';
 import { Subject } from 'rxjs';
-import { CreateOrUpdateInspectionResultDto, Inspection, InspectionCheckList, InspectionDetails, InspectionDetailsResult } from 'src/app/core/api-client/models/Inspection.api.model';
+import { CreateOrUpdateInspectionResultDto, Inspection, InspectionDetails, InspectionDetailsResult } from 'src/app/core/api-client/models/Inspection.api.model';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { StepperComponent } from 'src/app/core/components/stepper/stepper.component';
 import { resultList, resultListData } from 'src/app/core/model/model';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
+import { GalleriaComponent } from 'src/app/core/components/galleria/galleria.component';
 
 @Component({
   selector: 'app-inspection-details',
@@ -24,6 +25,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
      StepperModule,
      ReactiveFormsModule,
      FormsModule,
+     GalleriaComponent,
      WebcamModule,
      ButtonModule,
      CdkStepperModule,
@@ -54,7 +56,16 @@ export class InspectionDetailsComponent {
   EditInspectionResultForm: FormGroup;
   public InspectionResultListForm: FormArray;
   trigger: Subject<void> = new Subject<void>();
-
+  responsiveOptions: any[] = [
+    {
+        breakpoint: '1300px',
+        numVisible: 4
+    },
+    {
+        breakpoint: '575px',
+        numVisible: 1
+    }
+];
   resultOptions:resultList[] = [];
   selectCheckList:{checkId:number}[] = [];
   constructor() {
