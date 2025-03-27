@@ -8,6 +8,7 @@ import { NavigationItem } from '../../navigation';
 import { NavCollapseComponent } from '../nav-collapse/nav-collapse.component';
 import { NavItemComponent } from '../nav-item/nav-item.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
 
 @Component({
   selector: 'app-nav-group',
@@ -17,6 +18,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class NavGroupComponent implements OnInit {
   private location = inject(Location);
+  public _authService = inject(AuthenticationService);
+  log=console.log;
 
   // public props
 

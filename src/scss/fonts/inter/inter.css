@@ -12,11 +12,3 @@
 /* cairo-regular - latin */
 
 
-
-@font-face {
-  font-family: 'Cairo';
-  src: url('../cairo/cairo-v28-latin-regular.woff2') format('woff2'),
-       url('../cairo/cairo-v28-latin-regular.woff2') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}

@@ -38,6 +38,11 @@
   font-weight: 800;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'feather';
+  src: url('../fonts/feather/feather.1147c25503b18aa1.woff');
+}
 * {
   font-family: 'Cairo', sans-serif;
   font-size: 16px;

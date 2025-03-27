@@ -28,6 +28,7 @@ import {
 } from '@ant-design/icons-angular/icons';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 
 @Component({
@@ -38,6 +39,7 @@ import { LanguageService } from 'src/app/core/Service/language.service';
 })
 export class NavRightComponent {
   private iconService = inject(IconService);
+  _authService = inject(AuthenticationService);
 
   styleSelectorToggle = input<boolean>();
   Customize = output();
@@ -111,7 +113,11 @@ export class NavRightComponent {
       title: 'History'
     }
   ];
+
   changeLanguge(lang:string){
     this.languageService.setLanguage(lang)
+  }
+  logout(){
+    this._authService.logout();
   }
 }

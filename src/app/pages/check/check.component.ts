@@ -3,16 +3,19 @@ import { Router, RouterModule } from '@angular/router';
 import { IconDirective } from '@ant-design/icons-angular';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 import { Check, GetAllCheckRequest, GetAllCheckReresponseData } from 'src/app/core/api-client/models/Check.api.model';
 import { GetAllCheckPath } from 'src/app/core/api-client/services/apiRoutPath';
 import { CheckService } from 'src/app/core/api-client/services/check.service';
 import { PaginatedApiService } from 'src/app/core/api-client/services/paginated-api.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-check',
-  imports: [NgbPaginationModule,TranslatePipe,RouterModule,IconDirective],
+  imports: [NgbPaginationModule,ToolbarModule,TranslatePipe,RouterModule,IconDirective,TableModule,ButtonModule],
   templateUrl: './check.component.html',
   styleUrl: './check.component.scss'
 })
@@ -42,11 +45,10 @@ export class CheckComponent {
         this.totalPages = res.totalCount;
       });
   } 
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.filter.PageNumber = page;
-      this.updatePagedData();
-    }
+  changePage(page: any) {
+    this.filter.PageSize= page.rows
+    this.filter.PageNumber=  Math.floor(page.first / page.rows) + 1;
+    this.updatePagedData();
   }
    Edit(Id:number){
     this.router.navigate(['check/edit/'+Id])

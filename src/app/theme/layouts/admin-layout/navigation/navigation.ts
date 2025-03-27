@@ -1,3 +1,5 @@
+import { UserRoles } from "src/app/core/data/UserRole";
+
 export interface NavigationItem {
   id: string;
   title: string;
@@ -16,6 +18,7 @@ export interface NavigationItem {
   link?: string;
   description?: string;
   path?: string;
+  requerdRoles?: string[];
 }
 
 export const NavigationItems: NavigationItem[] = [
@@ -56,6 +59,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'List',
             title: 'navigation.List',
             type: 'item',
+            requerdRoles: [UserRoles.Admin, UserRoles.Receptionist, UserRoles.Inspector],
             classes: 'nav-item',
             url: '/inspection',
             icon: 'ordered-list',
@@ -66,6 +70,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'create',
             title: 'navigation.create',
             type: 'item',
+            requerdRoles: [UserRoles.Admin, UserRoles.Receptionist],
             classes: 'nav-item',
             url: '/inspection/create',
             icon: 'plus',
@@ -81,6 +86,7 @@ export const NavigationItems: NavigationItem[] = [
     title: 'navigation.system',
     type: 'group',
     icon: 'icon-navigation',
+    requerdRoles: [UserRoles.Admin],
     children: [
       {
         id: 'category',
@@ -204,6 +210,102 @@ export const NavigationItems: NavigationItem[] = [
             type: 'item',
             classes: 'nav-item',
             url: '/technician/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'result',
+        title: 'navigation.result',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/result',
+        icon: 'setting',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/result',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/result/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'make',
+        title: 'navigation.make',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/make',
+        icon: 'setting',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/make',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/make/create',
+            icon: 'plus',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'model',
+        title: 'navigation.model',
+        type: 'collapse',
+        classes: 'nav-item coded-hasmenu',
+        url: '/model',
+        icon: 'setting',
+        target: false,
+        breadcrumbs: false,
+        children:[
+          {
+            id: 'List',
+            title: 'navigation.List',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/model',
+            icon: 'ordered-list',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'create',
+            title: 'navigation.create',
+            type: 'item',
+            classes: 'nav-item',
+            url: '/model/create',
             icon: 'plus',
             target: false,
             breadcrumbs: false

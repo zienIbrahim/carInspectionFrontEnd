@@ -16,10 +16,20 @@ export class CommonApiService {
   GetCheckPointList(){
     return this.http.get(this.apiUrl + "Common/GetCheckPointList");
   }
+  GetMakeList(){
+    return this.http.get(this.apiUrl + "Common/GetMakeList");
+  }
+  GetModelList(){
+    return this.http.get(this.apiUrl + "Common/GetModelList");
+  }
   GetUsersList(){
     return this.http.get(this.apiUrl + "Common/GetUsersList");
   }
   GetPackageList(){
     return this.http.get(this.apiUrl + "Common/GetPackageList");
   }
+  GetResultList(){
+    return this.http.get(this.apiUrl + "Common/GetResultList");
+  }
+  
 }

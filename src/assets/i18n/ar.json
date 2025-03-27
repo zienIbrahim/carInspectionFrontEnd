@@ -8,6 +8,9 @@
         "category": "التصنيفات",
         "check": "نقاط الفحص",
         "package": "الباقات",
+        "result": "النتايج",
+        "model": "الموديل",
+        "make": "الماركة",
         "technician": "الفنيين"
     },
     "inspection": {
@@ -43,7 +46,9 @@
         "id": "المعرف (Id)",
         "nameAr": "الاسم (عربي)",
         "description": "الوصف",
+        "color": "اللون",
         "checkList": "قائمة نقاط الفحص",
+        "resultList": "قائمة نتايج الفحص",
         "save": "حفظ",
         "saveAndContinue": "حفظ و متابعة",
         "cancle": "الغاء",
@@ -53,6 +58,11 @@
         "CreateTitle": "أضافة تصنيف",
         "EditTitle": "تعديل تصنيف",
         "ListTitle": "قائمة التصنيفات"
+    },
+    "result":{
+        "CreateTitle":"أضافة نتيجة",
+        "EditTitle":"تعديل نتيجة",
+        "ListTitle":"قائمة النتايج"
     },
     "check": {
         "CreateTitle": "أضافة نقطة فحص",
@@ -73,10 +83,23 @@
         "ListTitle": "قائمة الباقات",
         "checkList": "قائمة نقاط الفحص"
     },
+    "model": {
+        "CreateTitle": "أضافة موديل",
+        "EditTitle": "تعديل موديل",
+        "ListTitle": "قائمة الموديل",
+        "make": "الماركة"
+    },
+    "make": {
+        "CreateTitle": "أضافة ماركة",
+        "EditTitle": "تعديل ماركة",
+        "ListTitle": "قائمة الماركات"
+    },
     "tableList": {
         "create": "أضافة (جديد)",
        "dateTo": "التاريخ الي",
+       "currentPageReportTemplate": "عرض {first} إلى {last} من {totalRecords} إدخالات",
        "dateFrom":   "التاريخ من",
+       "noDataFound":   "لم يتم العثور علي سجلات",
         "filter": "تصفية"
     },
     "login": {

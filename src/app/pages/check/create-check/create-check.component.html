@@ -35,6 +35,22 @@
                         }
                     </div>
                     <div class="form-group">
+                        <label id="results">{{'form.resultList' |translate}}</label>
+                        <p-listbox [options]="results"
+                        ariaLabelledBy="results"
+                         formControlName="resultList"
+                          optionValue="id"
+                          [multiple]="true"
+                          [filter]="true"
+                          [checkbox]="true"
+                          optionLabel="{{lang==='ar' ? 'nameAr' :'nameEn'}}"
+                          class="w-full md:w-56"
+                        />
+                        @if((f['resultList'].touched || submitted )&& f['resultList'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div> 
+                    <div class="form-group">
                         <button type="submit" [disabled]="CreateCheckForm.invalid" class="btn btn-success">{{'form.save'
                             | translate}}</button>
                     </div>

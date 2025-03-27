@@ -11,6 +11,9 @@ import { LoginPath, RefreshTokenPath } from './apiRoutPath';
 import { BehaviorSubject, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+import { AccessToken } from '../models/AccessToken.';
+import { UserRoles } from '../../data/UserRole';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -26,6 +29,7 @@ export class AuthenticationService {
         if (res.accsesToken) {
           localStorage.setItem('token:jwt', res.accsesToken);
           localStorage.setItem('token:refreshToken', res.refreshToken);
+          console.log(this.getUserRole());
           this.setIsLoggedIn(true);
           this.router.navigate(["/"]);
         }
@@ -41,9 +45,7 @@ export class AuthenticationService {
   private isTokenAvailable(): boolean {
     return !!localStorage.getItem('token:jwt');
   }
-  private isTokenExpired(): boolean {
-    const token = String(localStorage.getItem('token:jwt'));
-
+  isTokenExpired(): boolean {
     const expiryTime: number = Number(this.getExpiryTime());
     if (expiryTime) {
       return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
@@ -54,15 +56,35 @@ export class AuthenticationService {
   private getExpiryTime() {
     return this.isTokenAvailable() ? this.getDecodedToken().exp : null;
   }
-  public getDecodedToken() {
-    const token = String(localStorage.getItem('token:jwt'));
-    return this.jwtHelper.decodeToken(token);
+  getDecodedToken(): AccessToken | null {
+    const token = localStorage.getItem('token:jwt');
+    if (!token) {
+      console.warn('No token found in localStorage.');
+      return null;
+    }
+    try {
+      return this.jwtHelper.decodeToken(token) as AccessToken;
+    }
+    catch (error) 
+    {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+  getIsLoggedIn(): BehaviorSubject<boolean> {
+    if (this.isLoggedIn && this.isTokenAvailable()){
+     return new BehaviorSubject<boolean>(true) 
+    }
+    else
+    {
+     return new BehaviorSubject<boolean>(false) 
+    }
   }
  get getAuthToken(){   
 
   return String(localStorage.getItem('token:jwt'));
  }
-  async logout(): Promise<any> {
+ async logout(): Promise<any> {
     // Clear JWT from localstorage
     localStorage.removeItem('token:refreshToken');
     localStorage.removeItem('token:jwt');
@@ -70,6 +92,33 @@ export class AuthenticationService {
     this.setIsLoggedIn(false);
     // Navigate user back to login page
     await this.router.navigate(['auth/login']);
-  }
+ }
+ getUserRole(): string[] {
+    const tokenData = this.getDecodedToken();
+    if (!tokenData) return [];
+  
+    const roles = tokenData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    
+    // Ensure roles are always returned as an array
+    return Array.isArray(roles) ? roles : [roles];
+ }
+ UserInRole(role: string): boolean {
+  const roles = this.getUserRole();
+   return roles.includes(role) || roles.includes(UserRoles.Admin); 
+ }
+ checkUserInRoleInNav(requiredRoles: string[]): boolean {
+  if (!requiredRoles || requiredRoles.length === 0) return true; // No role restriction
+  const userRoles = this.getUserRole(); // Ensure this returns an array
+  return requiredRoles.some(role => userRoles.includes(role));
+ }
+ getTecknicalId() {
+  const tokenData = this.getDecodedToken();
+  if (!tokenData) return null;
+  const userdata = tokenData["http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata"][0] as string;
+  return userdata;
+ }
+ getUserCategoryId() {
+  return this.getDecodedToken().CategoryId;
+ }
 }
 

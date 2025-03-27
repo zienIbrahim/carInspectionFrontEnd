@@ -4,17 +4,18 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
+import { CheckListData, MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { CreatePackageRequest, Package } from 'src/app/core/api-client/models/Package.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { PackageService } from 'src/app/core/api-client/services/package.service';
-import { Listbox } from 'primeng/listbox';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
+import { TableModule } from 'primeng/table';
+import { IconDirective } from '@ant-design/icons-angular';
 
 @Component({
   selector: 'app-create-package',
-  imports: [TranslatePipe,Listbox, ReactiveFormsModule, CommonModule, NgSelectModule],
+  imports: [TranslatePipe,TableModule,IconDirective, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss'
 })
@@ -27,15 +28,14 @@ export class CreatePackageComponent implements OnInit {
   commonApiService = inject(CommonApiService);
   languageService = inject(LanguageService);
   lang: string = 'ar';
-  checkPoints: MasterData[] = [];
-  headers = [
-    { key: 'nameAr', displayName: 'nameAr' },
-    { key: 'id', displayName: 'ID' },
-  ];
-  clickableColumns =['name']
+  checkPoints:CheckListData[]= [];
+  checkPointsGroubByCategory: {
+    categoryId: any;
+    categoryEn: any;
+    categoryAr: any; }[] = [];
+  selectedcheckPoints: number[] = [];
 
   constructor(private fb: FormBuilder) {
-
   }
   ngOnInit(): void {
     this.FillCommonData();
@@ -49,7 +49,7 @@ export class CreatePackageComponent implements OnInit {
       nameAr: ['', Validators.required],
       description: ['', Validators.required],
       nameEn: ['', Validators.required],
-      checkList: ['', Validators.required],
+      checkList: [''],
     });
   }
   onSubmit() {
@@ -63,7 +63,7 @@ export class CreatePackageComponent implements OnInit {
       nameAr: this.f['nameAr'].value,
       nameEn: this.f['nameEn'].value,
       description: this.f['description'].value,
-      packageDetails: this.f['checkList'].value.map((check: any) => {
+      packageDetails:  this.selectedcheckPoints.map(check => {
         return { checkId: check }
       })
     }
@@ -75,11 +75,71 @@ export class CreatePackageComponent implements OnInit {
       });
     });
   }
- 
   FillCommonData() {
     this.commonApiService.GetCheckPointList().subscribe((res: any) => {
       this.checkPoints = res.data;
     });
+  }  selectCategory(categoryId: number, e: any) {
+    const isChecked = e.target.checked; // Ensure correct event property
+    const categoryItemIds = this.checkPoints
+      .filter(c => c.categoryId === categoryId)
+      .map(x => x.id);
+    if (isChecked) {
+      // Use Set to avoid duplicates
+      const selectedSet = new Set(this.selectedcheckPoints);
+      categoryItemIds.forEach(id => selectedSet.add(id));
+      this.selectedcheckPoints = Array.from(selectedSet);
+    } 
+    else {
+      // Remove category items from selected list
+      this.selectedcheckPoints = this.selectedcheckPoints.filter(
+        id => !categoryItemIds.includes(id)
+      );
+    }
+  }
+  isCategoryIndeterminate(categoryId: number): boolean {
+    const categoryItemIds = this.checkPoints
+      .filter(c => c.categoryId === categoryId)
+      .map(x => x.id);
+  
+    const selectedCount = categoryItemIds.filter(id => this.selectedcheckPoints.includes(id)).length;
+  
+    return selectedCount > 0 && selectedCount < categoryItemIds.length;
+  }
+  checkedSelectGroup(categoryId: number)
+    { 
+      const categoryItemIds = this.checkPoints
+      .filter(c => c.categoryId === categoryId)
+      .map(x => x.id);
+      return categoryItemIds.every(item => this.selectedcheckPoints.some(x => x === item));
+  }
+  selectAll(e:any){
+    const isChecked =e.target.checked; // Ensure correct event property
+    const categoryItemIds = this.checkPoints.map(x => x.id);
+    if (isChecked) {
+      // Use Set to avoid duplicates
+      const selectedSet = new Set(this.selectedcheckPoints);
+      categoryItemIds.forEach(id => selectedSet.add(id));
+      this.selectedcheckPoints = Array.from(selectedSet);
+    } 
+    else{
+      // Remove category items from selected list
+      this.selectedcheckPoints = this.selectedcheckPoints.filter(
+        id => !categoryItemIds.includes(id)
+      );
+    }
+  }
+  get isAllIndeterminate(): boolean {
+    const categoryItemIds = this.checkPoints .map(x => x.id);
+  
+    const selectedCount = categoryItemIds.filter(id => this.selectedcheckPoints.includes(id)).length;
+  
+    return selectedCount > 0 && selectedCount < categoryItemIds.length;
+  }
+  get isAllSelected(){
+    const categoryItemIds = this.checkPoints.map(x => x.id);
+    const selectedCount = categoryItemIds.filter(id => this.selectedcheckPoints.includes(id)).length;
+   return selectedCount == this.checkPoints.length
   }
   get f() {
     return this.CreatePackageForm.controls;

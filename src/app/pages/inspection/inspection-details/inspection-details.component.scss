@@ -1,14 +1,77 @@
-::ng-deep body[dir="rtl"] .border-side{
-border-left: 1px solid #c7c7c7c7;
+::ng-deep body[dir="rtl"] .border-side {
+    border-left: 1px solid #c7c7c7c7;
 }
-::ng-deep body[dir="ltr"] .border-side{
+
+::ng-deep body[dir="ltr"] .border-side {
     border-right: 1px solid #c7c7c7c7;
 }
-.result-container{
+
+.result-container {
     max-height: 32rem;
     overflow-y: auto;
 }
-.inspection-image-container{
+
+.inspection-image-container {
     max-height: 25rem !important;
-    overflow-y: auto !important; 
+    overflow-y: auto !important;
+}
+
+.check-cards .check-list {
+    padding: 0;
+    margin: 0;
+}
+
+.check-cards .check-list li {
+    display: grid;
+    grid-template-columns: 20% 1fr 10%;
+    /* Checkbox | Info | Badge */
+    grid-template-rows: auto auto;
+    /* Two rows: main info + extra info */
+    gap: 6px 12px;
+    align-items: center;
+    background: #fff;
+    padding: 12px;
+    margin: 10px;
+    border-radius: 8px;
+    border-left: 4px solid var(--border-color, #ddd);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background 0.2s ease-in-out;
+}
+
+.check-cards .check-list li:hover {
+    background: #f9fafb;
+}
+
+.check-cards .check-list li input[type="checkbox"] {
+    margin: 0 5px;
+}
+
+.check-cards .check-list li .main-info {
+    font-size: 14px;
+    color: #333;
+}
+
+.check-cards .check-list li .badge {
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+.check-cards .check-list li .subgrid {
+    grid-column: 1 / -1;
+    /* Full width for images */
+    padding-top: 6px;
+}
+
+@media (max-width: 600px) {
+    .check-cards .check-list li {
+        grid-template-columns: auto 1fr;
+    }
+
+    .check-cards .check-list li .badge {
+        justify-self: end;
+    }
 }

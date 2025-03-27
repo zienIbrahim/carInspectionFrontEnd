@@ -3,6 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { IconDirective } from '@ant-design/icons-angular';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 import { GetAllPackageRequest, GetAllPackageReresponseData } from 'src/app/core/api-client/models/Package.api.model';
 import { GetAllPackagePath } from 'src/app/core/api-client/services/apiRoutPath';
 import { PackageService } from 'src/app/core/api-client/services/package.service';
@@ -12,7 +14,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-package',
-  imports: [NgbPaginationModule,TranslatePipe,RouterModule,IconDirective],
+  imports: [NgbPaginationModule,TranslatePipe,RouterModule,IconDirective,TableModule,ButtonModule],
   templateUrl: './package.component.html',
   styleUrl: './package.component.scss'
 })
@@ -41,12 +43,11 @@ export class PackageComponent {
          this.totalPages = res.totalCount;
        });
    } 
-   changePage(page: number) {
-     if (page >= 1 && page <= this.totalPages) {
-       this.filter.PageNumber = page;
-       this.updatePagedData();
-     }
-   }
+   changePage(page: any) {
+    this.filter.PageSize= page.rows
+    this.filter.PageNumber=  Math.floor(page.first / page.rows) + 1;
+    this.updatePagedData();
+  }
    Edit(Id:number){
      this.router.navigate(['package/edit/'+Id])
    }  

@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-header p-2">
+                <h4>{{'make.CreateTitle' |translate}}</h4>
+            </div>
+            <div class="card-body">
+                <form class="form" [formGroup]="CreateMakeForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>{{'form.nameAr' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="nameAr"
+                        [ngClass]="{'is-invalid':(f['nameAr'].touched || submitted )&& f['nameAr'].errors}">
+                        @if((f['nameAr'].touched || submitted) && f['nameAr'].errors){
+                            <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>{{'form.nameEn' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="nameEn" 
+                        [ngClass]="{'is-invalid':(f['nameEn'].touched || submitted )&& f['nameEn'].errors}">
+                        @if((f['nameEn'].touched || submitted )&& f['nameEn'].errors){
+                            <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" [disabled]="CreateMakeForm.invalid" class="btn btn-success">{{'form.save' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

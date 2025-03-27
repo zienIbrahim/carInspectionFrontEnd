@@ -1,5 +1,5 @@
 // Angular import
-import { Component, Input, output } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,6 +10,7 @@ import { NavigationItem } from '../../navigation';
 import { NavItemComponent } from '../nav-item/nav-item.component';
 import { IconDirective } from '@ant-design/icons-angular';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
 
 @Component({
   selector: 'app-nav-collapse',
@@ -36,6 +37,7 @@ export class NavCollapseComponent {
   @Input() item!: NavigationItem;
 
   windowWidth: number;
+  public _authService = inject(AuthenticationService);
 
   // Constructor
   constructor() {

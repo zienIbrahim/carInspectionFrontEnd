@@ -23,6 +23,9 @@ export class InspectionService {
       CreateInspection(model: CreateInspectionRequest) {
         return this.http.post(this.apiUrl + "Inspection/CreateInspection", model);
       }
+      GetChecksResultOptionByCheckIDS(model: {checkIDs: number[]}) {
+        return this.http.post(this.apiUrl + "Inspection/GetChecksResultOptionByCheckIDS", model);
+      }
       CreateOrUpdateInspectionResult(model: CreateOrUpdateInspectionResultDto) {
         return this.http.post(this.apiUrl + "Inspection/CreateOrUpdateInspectionResult", model);
       }

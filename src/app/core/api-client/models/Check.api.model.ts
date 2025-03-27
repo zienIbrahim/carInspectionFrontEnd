@@ -17,6 +17,7 @@ export interface CreateCheckRequest {
     nameAr: string,
     nameEn: string,
     categoryId: number,
+    results:CheckResults[]
 }
 
 export interface Check {
@@ -24,5 +25,23 @@ export interface Check {
     nameAr: string,
     nameEn: string,
     categoryId: number,
-
+    results:CheckResults[]
 }
+export interface CheckResults {
+    resultId:number,
+}
+export interface CheckDetails {
+    id: number,
+    nameAr: string,
+    nameEn: string,
+    categoryId: number,
+    result:CheckDetailsResults[]
+}
+export interface CheckDetailsResults {
+    id: number,
+    nameAr: string,
+    nameEn: string,
+    description: string
+    color: string
+}
+

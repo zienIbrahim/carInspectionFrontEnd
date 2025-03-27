@@ -14,11 +14,13 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { IconDirective } from '@ant-design/icons-angular';
 import { PanelModule } from 'primeng/panel';
 import { FormsModule } from '@angular/forms';
-import { DateTimePickerComponent } from 'src/app/core/components/date-time-picker/date-time-picker.component';
+import { DatePicker } from 'primeng/datepicker';
+import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
+import { UserRoles } from "src/app/core/data/UserRole";
 
 @Component({
   selector: 'app-inspection',
-  imports: [NgbPaginationModule,PanelModule,FormsModule, TranslatePipe,DateTimePickerComponent, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
+  imports: [NgbPaginationModule,PanelModule,FormsModule, TranslatePipe,DatePicker, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
   templateUrl: './inspection.component.html',
   styleUrl: './inspection.component.scss'
 })
@@ -36,7 +38,8 @@ export class InspectionComponent {
   pagedData: GetAllInspectionReresponseData[];
   time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   visibleFilters = false;
-
+  public _authService = inject(AuthenticationService);
+  userRoles=UserRoles;
   ngOnInit() {
     this.updatePagedData();
     this.languageService.language$.subscribe(lang => {

@@ -1,59 +1,50 @@
-<div class="container">
-    <div class="row">
-        <div class="card tbl-card">
-            <div class="card-header p-2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>{{'check.ListTitle' | translate}}</h4>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <button [routerLink]="['/check/create']" type="button" class="btn btn-success">
-                            <i style="font-size: large;" antIcon type="plus" theme="outline"></i>
-                            {{'tableList.create' | translate}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{'form.nameAr' | translate }}</th>
-                                <th>{{'form.nameEn' | translate }}</th>
-                                <th>{{'check.category' | translate }}</th>
-                                <th> <i style="font-size: large;" antIcon type="setting" theme="outline"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (item of pagedData; track $index) {
-                            <tr (dblclick)="Edit(item.id)">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.nameAr }}</td>
-                                <td>{{ item.nameEn }}</td>
-                                <td>{{ lang==='ar' ? item.categoryAr :item.categoryEn}}</td>
-                                <td>
-                                    <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit" theme="outline"></i>
-                                    <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete" theme="outline"></i>
-                                </td>
-                            </tr>
-                            }
-                            <tr>
-                                <td colspan="4">
-                                    <ngb-pagination [collectionSize]="totalPages"
-                                     [(page)]="filter.PageNumber" 
-                                     [pageSize]="filter.PageSize"
-                                     (pageChange)="changePage($event)" [rotate]="true" [ellipses]="false"
-                                      [boundaryLinks]="true" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row pagination justify-content-center">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+    <p-toolbar styleClass="mb-6" >
+        <ng-template #start>
+            <h4>{{'check.ListTitle' | translate}}</h4>
+        </ng-template>
+        <ng-template #end>
+            <p-button label=" {{'tableList.create' | translate}}" icon="pi pi-plus" class="mr-2" [routerLink]="['/check/create']"/>
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="pagedData" 
+    [paginator]="true"
+    [totalRecords]="totalPages"
+    [rows]="10"
+    [rowHover]="true"
+    [scrollable]="true"
+    [lazy]="true"
+     scrollHeight="400px"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="{{'tableList.currentPageReportTemplate'| translate }}" (onPage)="changePage($event)"
+    [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template #header>
+        <tr>
+            <th>#</th>
+            <th>{{'form.nameAr' | translate }}</th>
+            <th>{{'form.nameEn' | translate }}</th>
+            <th>{{'check.category' | translate }}</th>
+            <th> <i style="font-size: large;" antIcon type="setting" theme="outline"></i></th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-item>
+        <tr (dblclick)="Edit(item.id)">
+            <td>{{ item.id }}</td>
+            <td>{{ item.nameAr }}</td>
+            <td>{{ item.nameEn }}</td>
+            <td>{{ lang==='ar' ? item.categoryAr :item.categoryEn}}</td>
+            <td>
+                <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit"
+                    theme="outline"></i>
+                <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete"
+                    theme="outline"></i>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+        <tr>
+          <td colspan="5">{{'tableList.noDataFound' |translate}}</td>
+        </tr>
+      </ng-template>
+</p-table>

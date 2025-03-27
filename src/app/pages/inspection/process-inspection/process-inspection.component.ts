@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StepperComponent } from 'src/app/core/components/stepper/stepper.component';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
-import { CreateOrUpdateInspectionResultDto, Inspection, InspectionCheckList } from 'src/app/core/api-client/models/Inspection.api.model';
+import { CreateOrUpdateInspectionResultDto, Inspection, InspectionCheckList, Result } from 'src/app/core/api-client/models/Inspection.api.model';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -108,7 +108,7 @@ export class ProcessInspectionComponent implements OnInit{
             return{
               inspectionID:fromData.inspectionID,
               checkId:item.checkId,
-              result:item.result,
+              resultId:item.resultId,
               comment:item.comment,
               images:item.images.map((p: { imagestring: string; })=> {return p.imagestring}),
             }
@@ -130,7 +130,7 @@ export class ProcessInspectionComponent implements OnInit{
         categoryAr: [item.categoryAr, [Validators.required]],
         categoryEn: [item.categoryEn, [Validators.required]],
         comment: [''],
-        result: ['', [Validators.required]],
+        resultId: ['', [Validators.required]],
         images:this.fb.array([])
     });
   }
@@ -162,5 +162,8 @@ export class ProcessInspectionComponent implements OnInit{
   }
   get inspectionResultList() {
     return this.ProcessInspectionForm.get('inspectionResult') as FormArray;
+  }
+  getResultOptions(checkId:number):Result[]{
+    return this.checklists[this.checklists.findIndex(x=>x.id==checkId)].results;
   }
 }

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { NgSelectConfig, NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Listbox } from 'primeng/listbox';
 import { Check, CreateCheckRequest } from 'src/app/core/api-client/models/Check.api.model';
 import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { CheckService } from 'src/app/core/api-client/services/check.service';
@@ -13,7 +14,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-create-check',
-  imports: [TranslatePipe,ReactiveFormsModule,CommonModule,NgSelectModule],
+  imports: [TranslatePipe,Listbox,ReactiveFormsModule,CommonModule,NgSelectModule],
   templateUrl: './create-check.component.html',
   styleUrl: './create-check.component.scss'
 })
@@ -26,10 +27,11 @@ export class CreateCheckComponent implements OnInit {
   lang: string='ar';
   CreateCheckForm: FormGroup;  
   categories:MasterData[]=[];
+  results:MasterData[]=[];
   submitted = false;
   constructor(private fb: FormBuilder,private config: NgSelectConfig) {
     this.config.notFoundText = 'Custom not found';
-      this.config.appendTo = 'body';
+    this.config.appendTo = 'body';
   }
   ngOnInit(): void {
     this.languageService.language$.subscribe(lang=>{
@@ -42,7 +44,8 @@ export class CreateCheckComponent implements OnInit {
     this.CreateCheckForm = this.fb.group({
       nameAr: ['', Validators.required],
       nameEn: ['', Validators.required],
-      categoryId: [0, Validators.required],
+      categoryId: [null, Validators.required],
+      resultList: [null, Validators.required],
     });
   }
   onSubmit(){
@@ -51,7 +54,14 @@ export class CreateCheckComponent implements OnInit {
       this.CreateCheckForm.markAllAsTouched();
       return 
     }    
-    const model:CreateCheckRequest = {categoryId:  this.f['categoryId'].value,nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value }
+    const model:CreateCheckRequest = {
+      categoryId:  this.f['categoryId'].value,
+      nameAr: this.f['nameAr'].value, 
+      nameEn: this.f['nameEn'].value,
+      results:this.f['resultList'].value.map((x: any)=>{ return {
+        resultId:x
+      }})
+    }
    this.checkService.CreateCheck(model).subscribe((res: Check) => {
       this.sweetAlertService.SaveSuccess().then(result => {
         this.CreateCheckForm.reset();
@@ -64,6 +74,9 @@ export class CreateCheckComponent implements OnInit {
   FillCommonData(){
     this.commonApiService.GetCategoryList().subscribe((res:any)=>{
       this.categories=res.data;
+    });
+    this.commonApiService.GetResultList().subscribe((res:any)=>{
+      this.results=res.data;
     });
   }
   get f() {

@@ -8,72 +8,68 @@
     <div formArrayName="inspectionResult">
       @for (item of inspectionResultList.controls; track $index; let inspectionResultIndex = $index)
       {
-        <cdk-step [formGroupName]="inspectionResultIndex">
-          <div class="flex flex-col h-48">
-            <div class="flex-auto flex justify-center items-center">
-              <div class="card shadow-sm border-0 rounded-4 ">
-                <div class="card-body">
-                  <div class="card-title text-primary fw-bold mb-3">
-                    <h3 class="mb-0">{{ inspectionResultIndex + 1 }}: {{ lang==='ar' ?
-                      getControl(inspectionResultIndex,'nameAr').value:getControl(inspectionResultIndex,'nameEn').value}}</h3>
-                  </div>
-                  <div class="mb-3">
-                    <label
-                        class="form-label">{{'inspection.result.result'|translate}}</label>
-                    @for (item of resultOptions; track $index) {
-                    <input formControlName="result" type="radio"
-                        class="btn-check" [id]="$index" autocomplete="off"
-                        [value]="lang==='ar' ?item.nameAr:item.nameEn">
-                    <label class="btn btn-outline-success  mx-1"
-                        [for]="$index">{{lang==='ar'
-                        ?item.nameAr:item.nameEn}}</label>
-                    }
-                    @if(getControl($index,'result').errors && submitted){
-                    <div class="invalid-feedback">
-                        * {{'form.fieldRequired' |translate}}
-                    </div>
-                    }
-
+      <cdk-step [formGroupName]="inspectionResultIndex">
+        <div class="flex flex-col h-48">
+          <div class="flex-auto flex justify-center items-center">
+            <div class="card shadow-sm border-0 rounded-4 ">
+              <div class="card-body">
+                <div class="card-title text-primary fw-bold mb-3">
+                  <h3 class="mb-0">{{ inspectionResultIndex + 1 }}: {{ lang==='ar' ?
+                    getControl(inspectionResultIndex,'nameAr').value:getControl(inspectionResultIndex,'nameEn').value}}
+                  </h3>
                 </div>
-                  <div class="mb-3">
-                    <label class="form-label">{{'inspection.result.comment'|translate}}</label>
-                    <input type="text" class="form-control" placeholder="{{'inspection.result.comment'|translate}}"
-                      formControlName="comment"
-                      [ngClass]="{'is-invalid':(getControl(inspectionResultIndex,'comment').touched )&&getControl(inspectionResultIndex,'comment').errors}">
+                <div class="mb-3">
+                  <label class="form-label">{{'inspection.result.result'|translate}}</label>
+                  @for (item of getResultOptions(getControl(inspectionResultIndex,'checkId').value); track $index) {
+                  <input formControlName="resultId" type="radio" class="btn-check" [id]="$index" autocomplete="off"
+                    [value]="item.id">
+                    <label [style.background-color]="item.color" class="btn mx-1" [for]="$index">{{lang==='ar'?item.nameAr:item.nameEn}}</label>
+                  }
+                  @if(getControl($index,'resultId').errors && submitted){
+                  <div class="invalid-feedback">
+                    * {{'form.fieldRequired' |translate}}
                   </div>
-                  <div class="mb-3">
-                    <button class="btn btn-outline-success  mx-1" (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex">
-                      {{'inspection.result.addImage'|translate}} </button>
-                    <div class="row inspection-image-container">
-                      @for (control of item.get('images')['controls']; track $index; let idx = $index) {
-                      <div class="col-lg-4 col-md-6 col-sm-12 card p-2">
-                        <i (click)="removeImage(inspectionResultIndex,idx)" class="px-3"
-                            style="font-size: large; color:brown; position: absolute;"
-                             antIcon [type]="'close'" theme="outline"></i>
-                        <img class="inspection-image" [src]="control.controls['imagestring'].value" />
-                      </div>
-                      }
+                  }
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">{{'inspection.result.comment'|translate}}</label>
+                  <input type="text" class="form-control" placeholder="{{'inspection.result.comment'|translate}}"
+                    formControlName="comment"
+                    [ngClass]="{'is-invalid':(getControl(inspectionResultIndex,'comment').touched )&&getControl(inspectionResultIndex,'comment').errors}">
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-outline-success  mx-1"
+                    (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex">
+                    {{'inspection.result.addImage'|translate}} </button>
+                  <div class="row inspection-image-container">
+                    @for (control of item.get('images')['controls']; track $index; let idx = $index) {
+                    <div class="col-lg-4 col-md-6 col-sm-12 card p-2">
+                      <i (click)="removeImage(inspectionResultIndex,idx)" class="px-3"
+                        style="font-size: large; color:brown; position: absolute;" antIcon [type]="'close'"
+                        theme="outline"></i>
+                      <img class="inspection-image" [src]="control.controls['imagestring'].value" />
                     </div>
+                    }
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </cdk-step>
+        </div>
+      </cdk-step>
       }
     </div>
   </form>
 </app-stepper>
 <p-dialog header="{{'inspection.result.addImage'|translate}}" [modal]="true" [(visible)]="showWebcam"
   [style]="{ width: '50rem' }">
-  <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
+  @if(showWebcam){
+    <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
   <webcam [height]="300" [width]="300" [trigger]="trigger" [allowCameraSwitch]="false"
     (imageCapture)="handleImage($event)" (initError)="handleInitError($event)"></webcam>
   <button (click)="takePicture()" class="btn btn-success">
-    <i class="px-3"
-       style="font-size: large; color:white; "
-        antIcon [type]="'camera'" theme="outline"></i>
-      {{'inspection.result.capture'|translate}}
+    <i class="px-3" style="font-size: large; color:white; " antIcon [type]="'camera'" theme="outline"></i>
+    {{'inspection.result.capture'|translate}}
   </button>
- 
+  }
 </p-dialog>

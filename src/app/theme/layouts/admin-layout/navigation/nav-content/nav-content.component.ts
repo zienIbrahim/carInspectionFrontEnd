@@ -40,9 +40,13 @@ import {
   CameraOutline,
   SaveOutline,
   FullscreenOutline,
-  FullscreenExitOutline
+  FullscreenExitOutline,
+  LeftOutline,
+  DownOutline,
+  RightOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
 
 @Component({
   selector: 'app-nav-content',
@@ -54,7 +58,7 @@ export class NavContentComponent implements OnInit {
   private location = inject(Location);
   private locationStrategy = inject(LocationStrategy);
   private iconService = inject(IconService);
-
+  public _authService = inject(AuthenticationService);
   // public props
   NavCollapsedMob = output();
 
@@ -96,6 +100,9 @@ export class NavContentComponent implements OnInit {
         ChromeOutline,
         CameraOutline,
         UnorderedListOutline,
+        LeftOutline,
+        RightOutline,
+        DownOutline,
         CalendarOutline,
         FileImageOutline,
         SearchOutline,

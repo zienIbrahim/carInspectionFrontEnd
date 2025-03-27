@@ -1,0 +1,21 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image-container img {
+    display: block;
+  }
+  
+  .marker {
+    position: absolute;
+    color: red;
+    font-weight: bold;
+    user-select: none;
+    transform: translate(-50%, -50%);
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  

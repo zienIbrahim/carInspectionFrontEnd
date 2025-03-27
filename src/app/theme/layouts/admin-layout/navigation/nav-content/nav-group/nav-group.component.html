@@ -2,9 +2,15 @@
   <label>{{ item().title |translate}}</label>
 </li>
 @for (item of item().children; track item) {
-  @if (item.type === 'collapse') {
-    <app-nav-collapse [item]="item"></app-nav-collapse>
-  } @else if (item.type === 'item') {
-    <app-nav-item [item]="item"></app-nav-item>
+    @if (item.type === 'collapse' && _authService.checkUserInRoleInNav(item.requerdRoles)) {
+      @if (_authService.checkUserInRoleInNav(item.requerdRoles)) {
+        <app-nav-collapse [item]="item"></app-nav-collapse>
+      }
+    } 
+    @else if (item.type === 'item') {
+      @if (_authService.checkUserInRoleInNav(item.requerdRoles)) {
+        <app-nav-item [item]="item"></app-nav-item>
+
+      }
+    }
   }
-}

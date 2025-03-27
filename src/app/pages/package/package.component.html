@@ -12,46 +12,51 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{'form.nameAr' | translate }}</th>
-                                <th>{{'form.nameEn' | translate }}</th>
-                                <th>{{'form.description' | translate }}</th>
-                                <th> <i style="font-size: large;" antIcon type="setting" theme="outline"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (item of pagedData; track $index) {
-                            <tr (dblclick)="Edit(item.id)">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.nameAr }}</td>
-                                <td>{{ item.nameEn }}</td>
-                                <th>{{ item.nameEn }}</th>
-                                <td>
-                                    <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit" theme="outline"></i>
-                                    <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete" theme="outline"></i>
-                                </td>
-                            </tr>
-                            }
-                            <tr>
-                                <td colspan="4">
-                                    <ngb-pagination [collectionSize]="totalPages"
-                                     [(page)]="filter.PageNumber" 
-                                     [pageSize]="filter.PageSize"
-                                     (pageChange)="changePage($event)" [rotate]="true" [ellipses]="false"
-                                      [boundaryLinks]="true" />
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row pagination justify-content-center">
-
-                </div>
+                <p-table [value]="pagedData" 
+                [paginator]="true"
+                [totalRecords]="totalPages"
+                [rows]="10"
+                [rowHover]="true"
+                [scrollable]="true"
+                [lazy]="true"
+                 scrollHeight="400px"
+                [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="{{'tableList.currentPageReportTemplate'| translate }}" (onPage)="changePage($event)"
+                [rowsPerPageOptions]="[10, 25, 50]">
+                    <ng-template #header>
+                        <tr>
+                            <th>#</th>
+                            <th>{{'form.nameAr' | translate }}</th>
+                            <th>{{'form.nameEn' | translate }}</th>
+                            <th>{{'form.description' | translate }}</th>
+                            <th> 
+                                <i style="font-size: large;" antIcon type="setting" theme="outline"></i>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr (dblclick)="Edit(item.id)">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.nameAr }}</td>
+                            <td>{{ item.nameEn }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>
+                                <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit"
+                                    theme="outline"></i>
+                                <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete"
+                                    theme="outline"></i>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #paginatorleft>
+                        <p-button type="button" icon="pi pi-plus" text />
+                    </ng-template>
+                    <ng-template #paginatorright>
+                        <p-button type="button" icon="pi pi-cloud" text />
+                    </ng-template>
+                </p-table>
+              
             </div>
         </div>
     </div>

@@ -1,0 +1,24 @@
+<div>
+    <label>
+      <input type="radio" name="mode" value="text" [(ngModel)]="annotationMode" /> Add Text
+    </label>
+    <label>
+      <input type="radio" name="mode" value="x-mark" [(ngModel)]="annotationMode" /> Add 'X' Mark
+    </label>
+  </div>
+  
+  <div class="image-container" (click)="onImageClick($event)">
+    <img #imageElement src="assets/images/car-shape.jpg" alt="Car Image" />
+    <div
+      *ngFor="let marker of markers"
+      class="marker"
+      [ngStyle]="{ top: marker.y + 'px', left: marker.x + 'px' }"
+    >
+      {{ marker.text }}
+    </div>
+  </div>
+  
+  <button (click)="undoMarker()" [disabled]="markers.length === 0">Undo</button>
+  <button (click)="saveImage()">Save Image</button>
+  <canvas #canvasElement style="display: none;"></canvas>
+  

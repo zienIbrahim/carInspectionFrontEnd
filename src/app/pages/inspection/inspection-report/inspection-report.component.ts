@@ -5,6 +5,7 @@ import { InspectionDetails, InspectionDetailsResult } from 'src/app/core/api-cli
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import html2pdf from 'html2pdf.js';
+import AppUtils from 'src/app/core/Utilities/AppUtils';
 
 @Component({
   selector: 'app-inspection-report',
@@ -20,7 +21,6 @@ export class InspectionReportComponent {
   InspectionDetails: InspectionDetails;
   constructor(){
     const InspectionID=Number(this.route.snapshot.paramMap.get('id'));
-
     this.inspectionService.GetInspectionDetailsById(InspectionID).subscribe(res => {
       this.InspectionDetails = res as InspectionDetails;
       console.log('results: ', this.InspectionDetails);
@@ -28,31 +28,14 @@ export class InspectionReportComponent {
     });
   }
   get groupedResults() {
-    return this.groupBy<InspectionDetailsResult>(this.InspectionDetails.results,"categoryEn")
+    return AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails.results,"categoryEn")
   }
-  getStatusClass(result: string) {
-    const statusMap: { [key: string]: string } = {
-      'جيد': 'good',
-      'تالف': 'damaged',
-      'يحتاج إصلاح': 'needs-repair'
-    };
-    return statusMap[result] || '';
-  }
+
   print() {
     window.print();
   }
     // Helper function to group results by category
-  groupBy<T>(arr: Array<T>, key: keyof T): Record<any, Array<T>> {
-    const result = {} as Record<any, Array<T>>;
-    for (const item of arr) {
-        const groupKey = item[key];
-        if (!result[groupKey]) {
-            result[groupKey] = [] as any;
-        }
-        result[groupKey].push(item);
-    }
-    return result;
-  }
+
     // Export to PDF functionality
   exportToPDF() {
     const element = document.getElementById('report-container');

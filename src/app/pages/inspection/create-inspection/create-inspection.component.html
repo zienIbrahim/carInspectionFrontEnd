@@ -21,10 +21,8 @@
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.inspectionDate' |translate}}</label>
-                            <app-date-time-picker   formControlName="inspectionDate"  type="text"
-                            [ngClass]="{'is-invalid':(f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors}">
-                            </app-date-time-picker>
-                          
+                            <p-datepicker formControlName="inspectionDate" [showTime]="true"
+                            [ngClass]="{'is-invalid':(f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors}"/>                          
                             @if((f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors){
                             <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                             }
@@ -73,17 +71,25 @@
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.make' |translate}}</label>
-                            <input type="text" class="form-control" formControlName="make" 
-                            [ngClass]="{'is-invalid':(f['make'].touched || submitted )&& f['make'].errors}">
-                            @if((f['make'].touched || submitted )&& f['make'].errors){
+                            <ng-select formControlName="makeId" (change)="changeMake()"
+                                [ngClass]="{'is-invalid':(f['makeId'].touched || submitted )&& f['makeId'].errors}">
+                                @for (make of makes; track make.id) {
+                                <ng-option [value]="make.id">{{lang=='ar'?make.nameAr:make.nameEn}}</ng-option>
+                                }
+                            </ng-select>
+                            @if((f['makeId'].touched || submitted )&& f['makeId'].errors){
                                 <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                             }
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.model' |translate}}</label>
-                            <input type="text" class="form-control" formControlName="model" 
-                            [ngClass]="{'is-invalid':(f['model'].touched || submitted )&& f['model'].errors}">
-                            @if((f['model'].touched || submitted )&& f['model'].errors){
+                            <ng-select formControlName="modelId"
+                                [ngClass]="{'is-invalid':(f['modelId'].touched || submitted )&& f['modelId'].errors}">
+                                @for (model of getModels; track model.id) {
+                                <ng-option [value]="model.id">{{lang=='ar'?model.nameAr:model.nameEn}}</ng-option>
+                                }
+                            </ng-select>
+                            @if((f['modelId'].touched || submitted )&& f['modelId'].errors){
                                 <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                             }
                         </div>

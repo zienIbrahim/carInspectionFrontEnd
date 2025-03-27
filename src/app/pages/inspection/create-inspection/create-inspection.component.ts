@@ -2,17 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IconDirective, IconService } from '@ant-design/icons-angular';
-import { CalendarOutline } from '@ant-design/icons-angular/icons';
-import { NgbDatepickerModule, NgbDateStruct, NgbTimepickerModule, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbTimepickerModule, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
+import { DatePicker } from 'primeng/datepicker';
+import { MasterData, ModelListData } from 'src/app/core/api-client/models/Common.api.model';
 import { CreateInspectionRequest, Inspection } from 'src/app/core/api-client/models/Inspection.api.model';
-import { CreatePackageRequest } from 'src/app/core/api-client/models/Package.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
-import { DateTimePickerComponent } from 'src/app/core/components/date-time-picker/date-time-picker.component';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
@@ -24,8 +21,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
     NgSelectModule,
     FormsModule,
     NgbTimepickerModule,
-    NgbDatepickerModule,DateTimePickerComponent,
-    ],
+    NgbDatepickerModule,DatePicker],
   templateUrl: './create-inspection.component.html',
   styleUrl: './create-inspection.component.scss'
 })
@@ -40,6 +36,8 @@ export class CreateInspectionComponent implements OnInit {
   lang: string = 'ar';
 	time: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   packages: MasterData[] = [];
+  models: ModelListData[] = [];
+  makes: MasterData[] = [];
   constructor(private fb: FormBuilder) {
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
@@ -55,8 +53,8 @@ export class CreateInspectionComponent implements OnInit {
       inspectionDate: ['', Validators.required],
       plateNumber: ['', Validators.required],
       vINNumber: ['', Validators.required],
-      make: ['', Validators.required],
-      model: ['', Validators.required],
+      makeId: ['', Validators.required],
+      modelId: ['', Validators.required],
       color: ['', Validators.required],
       year: ['', Validators.required],
       name: ['', Validators.required],
@@ -78,8 +76,8 @@ export class CreateInspectionComponent implements OnInit {
       vINNumber: fromData.vINNumber,
       inspectionDate: fromData.inspectionDate,
       plateNumber: fromData.plateNumber,
-      make: fromData.make,
-      model: fromData.model,
+      makeId: fromData.makeId,
+      modelId: fromData.modelId,
       color: fromData.color,
       year: fromData.year,
       name: fromData.name,
@@ -98,10 +96,22 @@ export class CreateInspectionComponent implements OnInit {
   get f() {
     return this.CreateInspectionForm.controls;
   }
+  get getModels(){
+    return this.models.filter(x=>x.makeId== this.f['makeId'].value)
+  }
   FillCommonData() {
     this.commonApiService.GetPackageList().subscribe((res: any) => {
       this.packages = res.data;
     });
+    this.commonApiService.GetModelList().subscribe((res: any) => {
+      this.models = res.data;
+    });
+    this.commonApiService.GetMakeList().subscribe((res: any) => {
+      this.makes = res.data;
+    });
+  }
+  changeMake(){
+    this.f['modelId'].setValue("")
   }
   formatDate(data: any) {
     if (data.month.toString().length < 2) {

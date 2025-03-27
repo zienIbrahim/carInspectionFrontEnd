@@ -7,7 +7,10 @@
         "system":"system",
         "category":"category",
         "check":"check point",
-        "package":"package",
+        "package":"package", 
+        "result": "result",
+        "model": "model",
+        "make": "make",
         "technician":"technician"
     },
     "inspection":{
@@ -42,7 +45,9 @@
         "nameEn":"Name (english)",
         "nameAr":"Name (arabic)",
         "description":"description",
+        "color": "Color",
         "checkList":"Check point list",
+        "resultList":"Check result list",
         "save":"Save",
         "saveAndContinue":"Save and continue",
         "cancle":"cancle",
@@ -53,6 +58,11 @@
         "CreateTitle":"Create category",
         "EditTitle":"Edit category",
         "ListTitle":"List of categories"
+    },
+    "result":{
+        "CreateTitle":"Create result",
+        "EditTitle":"Edit result",
+        "ListTitle":"List of results"
     },
     "check":{
         "CreateTitle":"Create check point",
@@ -73,10 +83,23 @@
         "ListTitle":"List package",
         "checkList":"Check point list"
     },
+    "model": {
+        "CreateTitle": "Create Model",
+        "EditTitle": "Edit Model",
+        "ListTitle": "Modles List",
+        "make": "Make"
+    },
+    "make": {
+        "CreateTitle": "Create Make",
+        "EditTitle": "Edit Make",
+        "ListTitle": "Makes List"
+    },
     "tableList":{
         "create":"Craete (new)",
         "filter": "filter",
         "dateTo": "date to",
+        "currentPageReportTemplate": "Showing {first} to {last} of {last} entries",
+        "noDataFound":"No records found.",
         "dateFrom":   "date from"
     },
     "login": {

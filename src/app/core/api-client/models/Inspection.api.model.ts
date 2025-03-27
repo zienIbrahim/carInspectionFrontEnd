@@ -22,13 +22,14 @@ export interface GetAllInspectionReresponseData {
     name: string,
     phoneNumber: string,
 }
+
 export interface CreateInspectionRequest {
     packageId: number,
     inspectionDate: string,
     plateNumber: string,
     vINNumber: string,
-    make: string,
-    model: string,
+    makeId: string,
+    modelId: string,
     color: string,
     year: number,
     name: string,
@@ -52,12 +53,30 @@ export interface Inspection {
     note?: string,
 }
 export interface InspectionCheckList {
-    id: number,
-    nameEn: string,
-    nameAr: string,
-    categoryId: number,
-    categoryEn: string,
-    categoryAr: string,
+  id: number
+  nameEn: string
+  nameAr: string
+  categoryId: number
+  categoryAr: string
+  categoryEn: string
+  results: Result[]
+}
+export interface CheckListByIDES {
+  id: number
+  description: string
+  nameEn: string
+  nameAr: string
+  color: string
+  checkId: number
+}
+
+
+export interface Result {
+  id: number
+  description: string
+  nameEn: string
+  nameAr: string
+  color: string
 }
 export interface InspectionDetails {
     id: number
@@ -80,7 +99,6 @@ export interface InspectionDetails {
     checkId: number
     categoryId: number
     technicianID: number
-    result: string
     comment: string
     checkEn: string
     checkAr: string
@@ -88,8 +106,8 @@ export interface InspectionDetails {
     categoryEn: string
     technicianAr: string
     technicianEn: string
+    result: Result
     images: string[]
-
   }
   export interface CreateOrUpdateInspectionResultDto {
     inspectionID: number
@@ -99,7 +117,7 @@ export interface InspectionDetails {
   export interface CreateOrUpdateInspectionResultData {
     inspectionID: number
     checkId: number
-    result: string
+    resultId: string
     comment: string
     images: string[]
   }

@@ -38,6 +38,7 @@
     "apexcharts": "3.49.2",
     "bootstrap": "5.3.3",
     "html2pdf.js": "^0.10.3",
+    "jwt-decode": "^4.0.0",
     "ng-apexcharts": "1.11.0",
     "ngx-scrollbar": "16.1.1",
     "ngx-webcam": "^0.4.1",

@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-header p-2">
+                <h4>{{'result.CreateTitle' |translate}}</h4>
+            </div>
+            <div class="card-body">
+                <form class="form" [formGroup]="CreateResultForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>{{'form.nameAr' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="nameAr"
+                            [ngClass]="{'is-invalid':(f['nameAr'].touched || submitted )&& f['nameAr'].errors}">
+                        @if((f['nameAr'].touched || submitted) && f['nameAr'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>{{'form.nameEn' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="nameEn"
+                            [ngClass]="{'is-invalid':(f['nameEn'].touched || submitted )&& f['nameEn'].errors}">
+                        @if((f['nameEn'].touched || submitted )&& f['nameEn'].errors){
+                         <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>{{'form.description' |translate}}</label>
+                        <input type="text" class="form-control" formControlName="description"
+                            [ngClass]="{'is-invalid':(f['description'].touched || submitted )&& f['description'].errors}">
+                        @if((f['description'].touched || submitted )&& f['description'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label id="color">{{'form.color' |translate}}</label>
+                        <p-colorpicker formControlName="color"
+                         [ngClass]="{'is-invalid':(f['color'].touched || submitted )&& f['color'].errors}" />
+
+                        @if((f['color'].touched || submitted )&& f['color'].errors){
+                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                        }
+                    </div>                    
+                    <div class="form-group">
+                        <button type="submit" [disabled]="CreateResultForm.invalid"
+                            class="btn btn-success">{{'form.save' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

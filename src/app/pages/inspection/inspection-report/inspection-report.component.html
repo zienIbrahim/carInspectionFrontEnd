@@ -51,9 +51,12 @@
                 @for (item of category.value; track $index) {
                 <div class="result-item">
                     <div class="check-info">
-                        <div class="check-title">{{ item.checkEn }} / {{ item.checkAr }}</div>
-                        <div class="result-status" [class]="getStatusClass(item.result)">
-                            {{ item.result }}
+                        <div class="check-title"> {{ item.checkAr + ' / '+  item.checkEn }} </div>
+                        <div class="result-status" >
+                            <span class="badge rounded-pill fs-5" [style.background-color]="item.result.color">
+                                {{ item.result.nameAr + ' / ' + item.result.nameEn}}
+                            </span>
+                            
                         </div>
                     </div>
                     @if (item.images?.length) {

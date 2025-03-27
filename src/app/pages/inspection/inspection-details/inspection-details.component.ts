@@ -9,19 +9,24 @@ import { WebcamImage, WebcamInitError, WebcamModule } from 'ngx-webcam';
 import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { StepperModule } from 'primeng/stepper';
-import { Subject } from 'rxjs';
-import { CreateOrUpdateInspectionResultDto, Inspection, InspectionDetails, InspectionDetailsResult } from 'src/app/core/api-client/models/Inspection.api.model';
+import { lastValueFrom, Subject } from 'rxjs';
+import { CheckListByIDES, CreateOrUpdateInspectionResultDto, Inspection, InspectionCheckList, InspectionDetails, InspectionDetailsResult, Result } from 'src/app/core/api-client/models/Inspection.api.model';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { StepperComponent } from 'src/app/core/components/stepper/stepper.component';
 import { resultList, resultListData } from 'src/app/core/model/model';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { GalleriaComponent } from 'src/app/core/components/galleria/galleria.component';
+import { PanelModule } from 'primeng/panel';
+import AppUtils from 'src/app/core/Utilities/AppUtils';
+import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
+import { UserRoles } from 'src/app/core/data/UserRole';
 
 @Component({
   selector: 'app-inspection-details',
   imports: [TranslatePipe,
      Dialog,
+     PanelModule,
      StepperModule,
      ReactiveFormsModule,
      FormsModule,
@@ -37,6 +42,7 @@ import { GalleriaComponent } from 'src/app/core/components/galleria/galleria.com
 export class InspectionDetailsComponent {
   lang: string = 'ar';
   InspectionID: number;
+  UserCategoryId: number = 0;
   InspectionDetails: InspectionDetails;
   languageService = inject(LanguageService);
   inspectionService = inject(InspectionService);
@@ -45,9 +51,7 @@ export class InspectionDetailsComponent {
   route  = inject(ActivatedRoute);
   fb: FormBuilder= inject(FormBuilder);
   searchText: string = '';
-  currentPage = 1;
   selectedIndex = 0;
-  itemsPerPage = 10;
   cardView = true;
   showImage = false;
   showEditFrom = false;
@@ -55,7 +59,11 @@ export class InspectionDetailsComponent {
   showWebcam = false;
   EditInspectionResultForm: FormGroup;
   public InspectionResultListForm: FormArray;
+  checklists:CheckListByIDES[] = [];
+  _authService = inject(AuthenticationService);
+  _userRoles =UserRoles;
   trigger: Subject<void> = new Subject<void>();
+  log=(e:any) => console.log(e);
   responsiveOptions: any[] = [
     {
         breakpoint: '1300px',
@@ -69,6 +77,7 @@ export class InspectionDetailsComponent {
   resultOptions:resultList[] = [];
   selectCheckList:{checkId:number}[] = [];
   constructor() {
+    this.UserCategoryId = Number(this._authService.getUserCategoryId());
     this.InspectionID=Number(this.route.snapshot.paramMap.get('id'));
         this.resultOptions=resultListData
   }
@@ -83,16 +92,6 @@ export class InspectionDetailsComponent {
       this.inspectionService.GetInspectionDetailsById(this.InspectionID).subscribe(res => {
         this.InspectionDetails = res as InspectionDetails;
       });
-  }
-  changePage(step: number) {
-    this.currentPage += step;
-  }
-  get filteredResults() {
-    return this.InspectionDetails?.results.filter(item => 
-       Object.values(item).some(value => 
-        value.toString().toLowerCase().includes(this.searchText.toLowerCase())
-      )
-    ).slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
   }
   exportToCSV() {
     this.router.navigate(['inspection/report/'+this.InspectionDetails.id])
@@ -111,7 +110,7 @@ export class InspectionDetailsComponent {
           categoryAr: [item.categoryAr, [Validators.required]],
           categoryEn: [item.categoryEn, [Validators.required]],
           comment: [item.comment],
-          result: [item.result, [Validators.required]],
+          resultId: [item.result.id, [Validators.required]],
           images: this.fb.array( item.images && item.images.length > 0 ? item.images.map(img => this.fb.group({ imagestring: [img] })) : [])
       });
   }
@@ -139,7 +138,7 @@ export class InspectionDetailsComponent {
   getInspectionResult(index:number): FormGroup {
     return this.inspectionResultList.controls[index] as FormGroup;
   }
-  selectCheckChange(e:any, chechId:number){
+  selectChange(e:any, chechId:number){
     if(e.target.checked)
     {
       this.selectCheckList.push({checkId:chechId});
@@ -149,9 +148,9 @@ export class InspectionDetailsComponent {
       this.selectCheckList = this.selectCheckList.filter(x=> x.checkId!=chechId);
     }
   }
-  selectAllCheckChange(e:any){
+  selectAllChange(e:any){
     if(e.target.checked){
-      this.filteredResults.forEach(item=>{
+      this.InspectionDetails.results.forEach(item=>{
         this.selectCheckList.push({checkId:item.checkId});
       });
     }
@@ -159,9 +158,37 @@ export class InspectionDetailsComponent {
       this.selectCheckList = [];
     }
   }
+  indeterminateSelectGroup(array:InspectionDetailsResult[])
+  { 
+    return this.selectCheckList.some(x => array.some(c => c.checkId === x.checkId))
+  }
+  checkedSelectGroup(array:InspectionDetailsResult[])
+  { 
+    return array.every(item => this.selectCheckList.some(x => x.checkId === item.checkId));
+  }
+  selectGroupChange(e: any, array: InspectionDetailsResult[]) {
+    if (e.target.checked) {
+      array.forEach(item => {
+        if (!this.selectCheckList.some(x => x.checkId === item.checkId)) {
+          this.selectCheckList.push({ checkId: item.checkId });
+        }
+      });
+    } else {
+      this.selectCheckList = this.selectCheckList.filter(
+        x => !array.some(c => c.checkId === x.checkId)
+      );
+    }
+  }
+  resultChecked(chechId:number){
+    return this.selectCheckList.some(c=> chechId==c.checkId)
+  }
   async EditResult(){
     await this.updateInspectionResultList()
-    this.showEditFrom=true;
+    const checkIDS={checkIDs:this.selectCheckList.map(x=>x.checkId)};
+     await lastValueFrom(this.inspectionService.GetChecksResultOptionByCheckIDS(checkIDS)).then((res:any)=>{
+      this.checklists=res.data as CheckListByIDES[]; 
+     });
+     this.showEditFrom=true;
   }
   updateInspectionResultList() {
     this.EditInspectionResultForm.controls['inspectionID'].setValue(this.InspectionDetails.id)
@@ -175,9 +202,6 @@ export class InspectionDetailsComponent {
      }); 
      resolve();
     });
-  }
-  resultChecked(chechId:number){
-   return this.selectCheckList.some(c=> chechId==c.checkId)
   }
   handleInitError(error: WebcamInitError): void {
     console.warn(error);
@@ -208,15 +232,15 @@ export class InspectionDetailsComponent {
                 return{
                   inspectionID:fromData.inspectionID,
                   checkId:item.checkId,
-                  result:item.result,
+                  resultId:item.resultId,
                   comment:item.comment,
                   images:item.images.map((p: { imagestring: string; })=> {return p.imagestring}),
                 }
               })
         };
            this.inspectionService.CreateOrUpdateInspectionResult(model).subscribe((res: Inspection) => {
+            this.closeShowEditFromDialog()
              this.sweetAlertService.SaveSuccess().then(result => {
-              this.closeShowEditFromDialog()
                this.EditInspectionResultForm.reset();
                this.submitted = false;
                this.router.navigate(['inspection/'])
@@ -236,4 +260,19 @@ export class InspectionDetailsComponent {
       this.addImage(this.selectedIndex,image.imageAsDataUrl)
       this.showWebcam=false;
   }
+  get groupedResults() {
+     return AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails?.results,"categoryEn")
+  }
+  getResultOptions(checkId:number):Result[]{
+    return this.checklists.filter(x=> x.checkId==checkId).map(item=> {
+      return {
+        id:item.id,
+        nameAr:item.nameAr,
+        nameEn:item.nameEn,
+        color:item.color,
+        description:item.description
+      }
+    }) as Result[];
+  }
+ 
 }

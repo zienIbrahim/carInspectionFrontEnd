@@ -32,13 +32,12 @@
                             </div>
                             <div class="form-group col-lg-3 col-md-4 col-sm-12">
                                 <label>{{'tableList.dateFrom' |translate}}</label>
-                                <app-date-time-picker   [(ngModel)]="filter.From">
-                                </app-date-time-picker>
+                                <p-datepicker [(ngModel)]="filter.From" [showTime]="true"/>
                             </div>
                             <div class="form-group col-lg-3 col-md-4 col-sm-12">
                                 <label>{{'tableList.dateTo' |translate}}</label>
-                                <app-date-time-picker   [(ngModel)]="filter.To">
-                                </app-date-time-picker>
+                                
+                                <p-datepicker [(ngModel)]="filter.To" [showTime]="true"/>
                             </div>
                             <div class="form-group col-lg-3 col-md-4 col-sm-12 my-auto">
                                 <button class="btn btn-success my-auto mx-1"  (click)="updatePagedData()" >
@@ -81,8 +80,10 @@
                                     <td>{{ item.color }}</td>
                                     <td>{{ item.year }}</td>
                                     <td>
+                                        @if (_authService.checkUserInRoleInNav([userRoles.Admin, userRoles.Inspector])) {
+                                            <i (click)="process(item.id)" class="px-3"  style="font-size: large; color:#10b981;" antIcon [type]="'search'" theme="outline"></i>
+                                          }
                                         <i (click)="details(item.id)" class="px-3" style="font-size: large; color:#10b981;" antIcon [type]="'eye'" theme="outline"></i>
-                                        <i (click)="process(item.id)" class="px-3"  style="font-size: large; color:#10b981;" antIcon [type]="'search'" theme="outline"></i>
                                     </td>
                                 </tr>
                             }

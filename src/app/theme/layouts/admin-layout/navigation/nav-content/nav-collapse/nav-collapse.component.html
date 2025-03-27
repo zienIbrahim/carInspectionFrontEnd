@@ -12,9 +12,13 @@
   <ul class="coded-submenu" [routerLinkActive]="['active']" [ngClass]="item.classes!" [routerLinkActiveOptions]="{exact: true}">
     @for (item of item.children; track item) {
       @if (item.type === 'item') {
-        <app-nav-item [item]="item"></app-nav-item>
+        @if (_authService.checkUserInRoleInNav(item.requerdRoles)) {
+          <app-nav-item [item]="item"></app-nav-item>
+        }
       } @else if (item.type === 'collapse') {
-        <app-nav-collapse [item]="item"></app-nav-collapse>
+        @if (_authService.checkUserInRoleInNav(item.requerdRoles)) {
+          <app-nav-collapse [item]="item"></app-nav-collapse>
+        }
       }
     }
   </ul>
