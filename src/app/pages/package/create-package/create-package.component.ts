@@ -79,7 +79,8 @@ export class CreatePackageComponent implements OnInit {
     this.commonApiService.GetCheckPointList().subscribe((res: any) => {
       this.checkPoints = res.data;
     });
-  }  selectCategory(categoryId: number, e: any) {
+  }  
+  selectCategory(categoryId: number, e: any) {
     const isChecked = e.target.checked; // Ensure correct event property
     const categoryItemIds = this.checkPoints
       .filter(c => c.categoryId === categoryId)

@@ -1,20 +1,24 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { IconDirective } from '@ant-design/icons-angular';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { PanelModule } from 'primeng/panel';
 import { GetAllResultRequest, GetAllResultReresponseData } from 'src/app/core/api-client/models/result.api.model';
 import { GetAllResultPath } from 'src/app/core/api-client/services/apiRoutPath';
 import { PaginatedApiService } from 'src/app/core/api-client/services/paginated-api.service';
 import { ResultService } from 'src/app/core/api-client/services/result.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-result',
-  imports: [NgbPaginationModule,FormsModule,ColorPickerModule,TranslatePipe,RouterModule,IconDirective],
+  imports: [NgbPaginationModule,ButtonModule,ColorPickerModule,FormsModule,CommonModule,PanelModule,TableModule,TranslatePipe,RouterModule,IconDirective],
   templateUrl: './result.component.html',
   styleUrl: './result.component.scss'
 })
@@ -29,6 +33,7 @@ export class ResultComponent {
     totalPages: number;
     filter:GetAllResultRequest=<GetAllResultRequest>{PageNumber:1,PageSize:6};
     pagedData: GetAllResultReresponseData[];
+    isAccordionToggled:boolean=false;
    ngOnInit() {
     this.updatePagedData();
     this.languageService.language$.subscribe(lang=>{
@@ -43,12 +48,11 @@ export class ResultComponent {
          this.totalPages = res.totalCount;
        });
    } 
-   changePage(page: number) {
-     if (page >= 1 && page <= this.totalPages) {
-       this.filter.PageNumber = page;
-       this.updatePagedData();
-     }
-   }
+   changePage(page: any) {
+    this.filter.PageSize= page.rows
+    this.filter.PageNumber=  Math.floor(page.first / page.rows) + 1;
+    this.updatePagedData();
+  }
    Edit(Id:number){
      this.router.navigate(['result/edit/'+Id])
    }  

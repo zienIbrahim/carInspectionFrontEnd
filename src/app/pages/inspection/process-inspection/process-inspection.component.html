@@ -37,6 +37,9 @@
                     formControlName="comment"
                     [ngClass]="{'is-invalid':(getControl(inspectionResultIndex,'comment').touched )&&getControl(inspectionResultIndex,'comment').errors}">
                 </div>
+                   @if(getControl(inspectionResultIndex,'checkId').value==93){
+                     <app-image-editor [modelType]="6" (OnSaveImags)="OnSaveImags($event,inspectionResultIndex)"></app-image-editor>
+                   }
                 <div class="mb-3">
                   <button class="btn btn-outline-success  mx-1"
                     (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex">
@@ -72,4 +75,4 @@
     {{'inspection.result.capture'|translate}}
   </button>
   }
-</p-dialog>
+</p-dialog>>

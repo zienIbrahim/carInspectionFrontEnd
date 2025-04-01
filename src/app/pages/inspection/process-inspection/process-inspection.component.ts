@@ -18,6 +18,7 @@ import {WebcamImage, WebcamModule, WebcamInitError, WebcamUtil} from 'ngx-webcam
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { IconDirective } from '@ant-design/icons-angular';
+import { ImageEditorComponent } from 'src/app/core/components/image-editor/image-editor.component';
 
 @Component({
   selector: 'app-process-inspection',
@@ -29,6 +30,7 @@ import { IconDirective } from '@ant-design/icons-angular';
     StepperModule,
     WebcamModule,
     ButtonModule,
+    ImageEditorComponent,
     IconDirective,
     Dialog,
     StepperComponent,
@@ -79,6 +81,9 @@ export class ProcessInspectionComponent implements OnInit{
   handleImage(image: WebcamImage) {
     this.addImage(this.selectedIndex,image.imageAsDataUrl)
     this.showWebcam=false;
+  }
+  OnSaveImags(e:any,index:number){
+    e.forEach((img: string)=>{this.addImage(index,img)})
   }
   ngOnInit(): void {
     this.InitForm()

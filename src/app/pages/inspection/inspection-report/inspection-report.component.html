@@ -20,7 +20,7 @@
             </div>
             <div class="detail-item">
                 <label>Make/Model:</label>
-                <span>{{ InspectionDetails.make }} {{ InspectionDetails.model }}</span>
+                <span>{{lang=='ar'? InspectionDetails.makeAr + '/' + InspectionDetails.modelAr : InspectionDetails.makeEn + '/' + InspectionDetails.modelEn }}</span>
             </div>
             <div class="detail-item">
                 <label>VIN:</label>
@@ -36,8 +36,6 @@
             </div>
         </div>
     </div>
-
-
     <!-- Inspection Results Section -->
     <div class="inspection-results">
         <h2>Inspection Results</h2>

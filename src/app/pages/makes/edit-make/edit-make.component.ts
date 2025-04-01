@@ -37,6 +37,7 @@ export class EditMakeComponent {
       nameAr: ['', Validators.required],
       nameEn: ['', Validators.required],
       id: [0, Validators.required],
+      logo: ['', Validators.required],
     });
   }
   getMakeId(){
@@ -50,6 +51,7 @@ export class EditMakeComponent {
       id:this.Make.id,
       nameAr:this.Make.nameAr,
       nameEn:this.Make.nameEn,
+      logo:this.Make.logo,
 
     });
   }
@@ -59,7 +61,7 @@ export class EditMakeComponent {
       this.MakeForm.markAllAsTouched();
       return 
     }
-    const model:Make={nameAr:this.f['nameAr'].value,nameEn:this.f['nameEn'].value, id:this.f['id'].value}
+    const model:Make={nameAr:this.f['nameAr'].value,nameEn:this.f['nameEn'].value,logo:this.f['logo'].value, id:this.f['id'].value}
     this.makeService.EditMake(model).subscribe((res:Make)=>{
       this.sweetAlertService.SaveSuccess().then(result=>{
         this.MakeForm.reset();
@@ -67,6 +69,16 @@ export class EditMakeComponent {
         this.router.navigate(['make/'])
       });
     });
+  }
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.f['logo'].setValue( e.target?.result );
+      };
+      reader.readAsDataURL(file);
+    }
   }
   get f() {
     return this.MakeForm.controls;

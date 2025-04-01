@@ -21,68 +21,53 @@ export class Error401Interceptor implements HttpInterceptor {
         private router: Router,
         private authService: AuthenticationService,
         public http: HttpClient
-    ) {}
+    ) { }
 
     intercept(request: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
         return handler.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
 
                 if (error instanceof HttpErrorResponse && error.status === 401) {
-              
+
                     return this.handle401Errors(error, request, handler);
                 }
-                return throwError(error);
+                return throwError(() => error);
             })
         );
     }
-
-    handle401Errors(error: HttpErrorResponse, request: HttpRequest<any>, handler: HttpHandler) {
-        if (error.status == 401) {
-            const refreshToken: string  = localStorage.getItem('token:refreshToken');
-            const accessToken: string  = localStorage.getItem('token:jwt');
-            if (refreshToken == null || accessToken == null) {
-                this.authService.logout().then(() => this.router.navigate(['auth/login']));
-            }
-                const tokenModel = { refreshToken: refreshToken,token:accessToken };
-                console.log({tokenModel})
-                if(!this.isRefreshing){
-                    this.isRefreshing = true;
-                    return this.authService.RefreshToken(tokenModel).pipe(
-                    switchMap((res: any) => {
+    handle401Errors(error: HttpErrorResponse, request: HttpRequest<any>, next: HttpHandler) {
+        if (!this.isRefreshing) {
+            this.isRefreshing = true;
+            this.refreshTokenSubject.next(null);
+            return this.authService.RefreshToken().pipe(
+                switchMap((user: any) => {
                     this.isRefreshing = false;
-                    this.refreshTokenSubject.next(res.token);
-                    //set tokens in localstorge
-                    localStorage.setItem('token:jwt', res.token);
-                    localStorage.setItem('token:refreshToken', res.refreshToken);
-                    return handler.handle(this.addTokenHeader(request, res.accsesToken));
-                        }),
-                        catchError((err) => {
-                            this.isRefreshing = false;
-                            this.authService.logout().then(() => this.router.navigate(['auth/login']));
-                            return throwError(err);
-                        })
-                    );
-                }
-                else 
-                {
-                    return this.refreshTokenSubject.pipe(
-                      filter((token) => token != null),
-                      take(1),
-                      switchMap((jwt) => {
-                        return handler.handle(this.addTokenHeader(request, jwt));
-                      })
-                    );
-                }
+                    this.refreshTokenSubject.next(user.accsesToken);
+                    return next.handle(this.addTokenHeader(request, user.accsesToken));
+                }),
+                catchError((err) => {
+                    this.isRefreshing = false;
+                    this.authService.logout();
+                    return throwError(() => err);
+                })
+            );
         }
-        return throwError(error);
+        else {
+            return this.refreshTokenSubject.pipe(
+                filter(accsesToken => accsesToken != null),
+                take(1),
+                switchMap(accsesToken => {
+                    return next.handle(this.addTokenHeader(request, accsesToken));
+                })
+            );
+        }
     }
-    
     private addTokenHeader(request: HttpRequest<any>, token: string) {
         return request.clone({
             setHeaders: {
-              Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
-          });
+        });
     }
 }
 export const Error401InterceptorProviders = [

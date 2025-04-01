@@ -8,6 +8,7 @@ import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { Model } from 'src/app/core/api-client/models/model.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { ModelService } from 'src/app/core/api-client/services/model.service';
+import { ModelType, modelTypeData } from 'src/app/core/data/modelType';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
@@ -27,8 +28,10 @@ export class CreateModelComponent {
   CreateModelForm: FormGroup;
   submitted = false;
   makes: MasterData[] = [];
+  modelTypeList: ModelType[] = [];
   lang: string = 'ar';
   constructor(private fb: FormBuilder) {
+    this.modelTypeList=modelTypeData
   }
   ngOnInit(): void {
     this.FillCommonData();
@@ -42,6 +45,7 @@ export class CreateModelComponent {
       nameAr: ['', Validators.required],
       nameEn: ['', Validators.required],
       makeId: ['', Validators.required],
+      type: ['', Validators.required],
     });
   }
   onSubmit() {
@@ -50,7 +54,7 @@ export class CreateModelComponent {
         this.CreateModelForm.markAllAsTouched();
         return
       }
-      const model = { nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value ,makeId:this.f['makeId'].value}
+      const model = { nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value ,makeId:this.f['makeId'].value,modelType:this.f['type'].value}
       this.modelService.CreateModel(model).subscribe((res: Model) => {
         this.sweetAlertService.SaveSuccess().then(result => {
           this.CreateModelForm.reset();

@@ -1,29 +1,37 @@
 <div class="container ">
     <div class="card shadow-sm border-0 rounded-4 ">
         <div class="card-body">
-            <h3 class="card-title text-primary fw-bold mb-3">
-                <i class="bi bi-file-earmark-text"></i> {{'inspection.details'|translate}}
-            </h3>
             <div class="row g-3 fs-5">
-                <div class="col-md-3">
-                    <p><i class="bi bi-car-front"></i> <strong>{{'inspection.plateNumber'|translate}}</strong> {{
-                        InspectionDetails?.plateNumber }}</p>
-                    <p><i class="bi bi-calendar-check"></i> <strong>{{'inspection.plateNumber'|translate}}:</strong> {{
-                        InspectionDetails?.inspectionDate | date: 'yyyy-MM-dd HH:mm' }}</p>
+                <div class="col-md-10">
+                    <h3 class="card-title text-primary fw-bold mb-3">
+                        <i class="bi bi-file-earmark-text"></i> {{'inspection.details'|translate}}
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p><i class="bi bi-car-front"></i> <strong>{{'inspection.plateNumber'|translate}}</strong> {{
+                                InspectionDetails?.plateNumber }}</p>
+                            <p><i class="bi bi-calendar-check"></i> <strong>{{'inspection.plateNumber'|translate}}:</strong> {{
+                                InspectionDetails?.inspectionDate | date: 'yyyy-MM-dd HH:mm' }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p><i class="bi bi-car-front-fill"></i> <strong>{{'inspection.make'|translate}}:</strong> {{ lang=='ar'? InspectionDetails.makeAr: InspectionDetails.makeAr }}</p>
+                            <p><i class="bi bi-card-list"></i> <strong>{{'inspection.model'|translate}}:</strong> {{ lang=='ar'? InspectionDetails.modelAr: InspectionDetails.modelEn }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p><i class="bi bi-palette"></i> <strong>{{'inspection.color'|translate}}:</strong> {{ InspectionDetails?.color }}</p>
+                            <p><i class="bi bi-telephone"></i> <strong>{{'inspection.phoneNumber'|translate}}:</strong> {{ InspectionDetails?.phoneNumber }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p><i class="bi bi-person"></i> <strong>{{'inspection.name'|translate}}:</strong> {{
+                                InspectionDetails?.name }}</p>
+                            <p><i class="bi bi-envelope"></i> <strong>{{'inspection.email'|translate}}:</strong> {{
+                                InspectionDetails?.email }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <p><i class="bi bi-car-front-fill"></i> <strong>{{'inspection.make'|translate}}:</strong> {{ InspectionDetails?.make }}</p>
-                    <p><i class="bi bi-card-list"></i> <strong>{{'inspection.model'|translate}}:</strong> {{ InspectionDetails?.model }}</p>
-                </div>
-                <div class="col-md-3">
-                    <p><i class="bi bi-palette"></i> <strong>{{'inspection.color'|translate}}:</strong> {{ InspectionDetails?.color }}</p>
-                    <p><i class="bi bi-telephone"></i> <strong>{{'inspection.phoneNumber'|translate}}:</strong> {{ InspectionDetails?.phoneNumber }}</p>
-                </div>
-                <div class="col-md-3">
-                    <p><i class="bi bi-person"></i> <strong>{{'inspection.name'|translate}}:</strong> {{
-                        InspectionDetails?.name }}</p>
-                    <p><i class="bi bi-envelope"></i> <strong>{{'inspection.email'|translate}}:</strong> {{
-                        InspectionDetails?.email }}</p>
+                <div class="col-md-2">
+                    <img *ngIf="InspectionDetails?.makeImage" [src]="InspectionDetails?.makeImage" alt="Car Image"
+                        class="img-fluid rounded-start" style="width: 8rem; height: 8rem; " />
                 </div>
             </div>
         </div>
@@ -43,17 +51,22 @@
 
         </div>
         <div class="col d-flex justify-content-end align-items-center mb-4">
+            <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
+                <i class="bi bi-download"></i>
+                <i style="font-size: large;" antIcon [type]="'scan'" theme="outline"></i>
+            </button>
             <button class="btn btn-primary shadow-sm mx-2 fs-5" (click)="cardView=!cardView">
                 <i class="bi bi-download"></i>
                 <i style="font-size: large;" antIcon [type]="!cardView?'appstore':'unordered-list'" theme="outline"></i>
             </button>
-            <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="EditResult()">
+            <button class="btn btn-warning shadow-sm mx-2 fs-5" (click)="EditResult()">
                 <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
             </button>
             <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
                 <i class="bi bi-download"></i>
                 <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
             </button>
+           
         </div>
     </div>
     <div class="row ">
@@ -194,5 +207,9 @@
   </button>
   }
  
+</p-dialog>
+<p-dialog header="{{'inspection.result.addImage'|translate}}" [modal]="true" [(visible)]="showImageEditerFrom"
+  [style]="{ width: '50rem' }">
+
 </p-dialog>
 

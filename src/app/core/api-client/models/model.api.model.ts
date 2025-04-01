@@ -3,6 +3,7 @@ export interface GetAllModelRequest{
     NameAr?:string|null,
     NameEn?:string|null,   
     makeId?:number,   
+    ModelType?:number,   
     PageNumber:number,
     PageSize:number,
 }
@@ -16,6 +17,8 @@ export interface CreateModelRequest {
     nameAr: string,
     nameEn: string,
     makeId: number,
+    modelType: number,
+
 }
 
 export interface Model {
@@ -23,4 +26,5 @@ export interface Model {
     nameAr: string,
     nameEn: string,
     makeId: number,
+    modelType: number,
 }

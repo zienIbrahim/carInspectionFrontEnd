@@ -27,6 +27,7 @@
         "color": "color",
         "year": "year",
         "name": "name",
+        "type": "vehicle type",
         "phoneNumber": "Phone number",
         "email":"email",
         "result":{

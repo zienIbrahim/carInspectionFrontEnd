@@ -8,7 +8,7 @@ import { LoginRequest } from '../models/login-request';
 import { RefreshTokenRequest } from '../models/refresh-token-request';
 import { environment } from 'src/environments/environment';
 import { LoginPath, RefreshTokenPath } from './apiRoutPath';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
@@ -36,8 +36,19 @@ export class AuthenticationService {
       })
     );
   }
-  RefreshToken(model: RefreshTokenRequest) {
-    return this.http.post(this.apiUrl + RefreshTokenPath, model);
+  RefreshToken() {
+    const refreshToken: string = localStorage.getItem('token:refreshToken');
+    const accessToken: string = localStorage.getItem('token:jwt');
+    if (refreshToken == null || accessToken == null) {
+      this.logout().then(() => this.router.navigate(['auth/login']));
+    }
+    const tokenModel = { refreshToken: refreshToken, token: accessToken };
+    return this.http.post(this.apiUrl + RefreshTokenPath, tokenModel).pipe(
+      map((res: any) => {
+        localStorage.setItem('token:jwt', res.accsesToken);
+        localStorage.setItem('token:refreshToken', res.refreshToken);
+        return res;
+      }));
   }
   private setIsLoggedIn(isLoggedIn: boolean): void {
     this.isLoggedIn.next(isLoggedIn);

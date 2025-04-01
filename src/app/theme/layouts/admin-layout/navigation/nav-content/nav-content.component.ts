@@ -43,7 +43,8 @@ import {
   FullscreenExitOutline,
   LeftOutline,
   DownOutline,
-  RightOutline
+  RightOutline,
+  ScanOutline
 } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
@@ -95,6 +96,7 @@ export class NavContentComponent implements OnInit {
         PlusOutline,
         AntDesignOutline,
         SettingOutline,
+        ScanOutline,
         FullscreenOutline,
         FullscreenExitOutline,
         ChromeOutline,

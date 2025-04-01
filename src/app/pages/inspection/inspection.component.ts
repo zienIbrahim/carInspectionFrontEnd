@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgbPaginationModule, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -17,10 +17,12 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
 import { UserRoles } from "src/app/core/data/UserRole";
+import * as moment from 'moment';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-inspection',
-  imports: [NgbPaginationModule,PanelModule,FormsModule, TranslatePipe,DatePicker, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
+  imports: [NgbPaginationModule,CommonModule,TableModule,PanelModule,FormsModule, TranslatePipe,DatePicker, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
   templateUrl: './inspection.component.html',
   styleUrl: './inspection.component.scss'
 })
@@ -40,6 +42,8 @@ export class InspectionComponent {
   visibleFilters = false;
   public _authService = inject(AuthenticationService);
   userRoles=UserRoles;
+  isAccordionToggled: boolean = false;
+
   ngOnInit() {
     this.updatePagedData();
     this.languageService.language$.subscribe(lang => {
@@ -47,6 +51,10 @@ export class InspectionComponent {
     })
   }
   updatePagedData() {
+    if(this.filter.From)
+      this.filter.From = this.formatDateTime(this.filter.From);
+    if(this.filter.To)
+      this.filter.To = this.formatDateTime(this.filter.To);
     this.paginatedApiService.fetchPaginatedData<GetAllInspectionRequest, GetAllInspectionReresponseData>(GetAllInspectionPath, this.filter).subscribe(res => {
       this.pagedData = res.data;
       this.filter.PageNumber = res.pageNumber;
@@ -54,11 +62,10 @@ export class InspectionComponent {
       this.totalPages = res.totalCount;
     });
   }
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.filter.PageNumber = page;
-      this.updatePagedData();
-    }
+  changePage(page: any) {
+    this.filter.PageSize= page.rows
+    this.filter.PageNumber=  Math.floor(page.first / page.rows) + 1;
+    this.updatePagedData();
   }
   Edit(Id: number) {
     this.router.navigate(['Inspection/edit/' + Id])
@@ -79,18 +86,11 @@ export class InspectionComponent {
       })
     });
   }
-  formatDate(data: any) {
-    if (data.month.toString().length < 2) {
-      data.month = '0' + data.month;
-    }
-    if (data.day.toString().length < 2) {
-      data.day = '0' + data.day;
-    }
-    return [data.year, data.month, data.day].join('-');
-  }
+  
+
   formatDateTime(date: any) {
-    let dd = this.formatDate(date);
-    return dd + "T" + [this.time.hour, this.time.hour, this.time.second].join(':')
+  return (moment(date)).format('MM-DD-YYYY HH:mm:ss')
+
   }
   details(Id:number){
     this.router.navigate(['inspection/details/'+Id])
@@ -98,5 +98,4 @@ export class InspectionComponent {
   process(Id:number){
     this.router.navigate(['inspection/process/'+Id])
   }
- 
 }

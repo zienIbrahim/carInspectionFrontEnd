@@ -28,6 +28,7 @@ export class CreateMakeComponent {
   InitForm() {
     this.CreateMakeForm = this.fb.group({
       nameAr: ['', Validators.required],
+      logo: ['', Validators.required],
       nameEn: ['', Validators.required],
     });
   }
@@ -37,7 +38,7 @@ export class CreateMakeComponent {
       this.CreateMakeForm.markAllAsTouched();
       return
     }
-    const model = { nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value }
+    const model = { nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value, logo: this.f['logo'].value }
     this.makeService.CreateMake(model).subscribe((res: Make) => {
       this.sweetAlertService.SaveSuccess().then(result => {
         this.CreateMakeForm.reset();
@@ -46,6 +47,16 @@ export class CreateMakeComponent {
       });
     });
 
+  }
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.f['logo'].setValue( e.target?.result );
+      };
+      reader.readAsDataURL(file);
+    }
   }
   get f() {
     return this.CreateMakeForm.controls;

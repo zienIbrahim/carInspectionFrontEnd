@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -8,10 +8,15 @@ import { PaginatedApiService } from 'src/app/core/api-client/services/paginated-
 import { IconDirective } from '@ant-design/icons-angular';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { CategoryService } from 'src/app/core/api-client/services/category.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-category',
-  imports: [NgbPaginationModule,TranslatePipe,RouterModule,IconDirective],
+  imports: [NgbPaginationModule,ButtonModule,FormsModule,CommonModule,PanelModule,TableModule,TranslatePipe,RouterModule,IconDirective],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'
 })
@@ -20,11 +25,11 @@ export class CategoryComponent {
   router  = inject(Router); 
   sweetAlertService = inject(SweetAlertService);
   categoryService = inject(CategoryService);
-  
   translate = inject(TranslateService);
   totalPages: number;
   filter:GetAllCategoryRequest=<GetAllCategoryRequest>{PageNumber:1,PageSize:6};
   pagedData: Category[];
+  isAccordionToggled: boolean = false;
   ngOnInit() {
     this.updatePagedData();
   }
@@ -36,11 +41,10 @@ export class CategoryComponent {
       this.totalPages = res.totalCount;
     });
   }
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.filter.PageNumber = page;
-      this.updatePagedData();
-    }
+  changePage(page: any) {
+    this.filter.PageSize= page.rows
+    this.filter.PageNumber=  Math.floor(page.first / page.rows) + 1;
+    this.updatePagedData();
   }
   Edit(Id:number){
     this.router.navigate(['category/edit/'+Id])

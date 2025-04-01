@@ -7,53 +7,84 @@
                         <h4>{{'technician.ListTitle' | translate}}</h4>
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
-                        <button [routerLink]="['/technician/create']" type="button" class="btn btn-success">
-                            <i style="font-size: large;" antIcon type="plus" theme="outline"></i>
-                            {{'tableList.create' | translate}}
-                        </button>
+                        <p-button label="{{'tableList.create' | translate}}" class="mx-1 py-1"   [routerLink]="['/technician/create']"/>
+                        <p-button label="{{'tableList.filter' | translate}}"  class="mx-1 py-1" (click)="isAccordionToggled=!isAccordionToggled"/>
                     </div>
                 </div>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{'form.nameAr' | translate }}</th>
-                                <th>{{'form.nameEn' | translate }}</th>
-                                <th>{{'technician.category' | translate }}</th>
-                                <th> <i style="font-size: large;" antIcon type="setting" theme="outline"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (item of pagedData; track $index) {
-                            <tr (dblclick)="Edit(item.id)">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.nameAr }}</td>
-                                <td>{{ item.nameEn }}</td>
-                                <td>{{ lang==='ar' ? item.categoryAr :item.categoryEn}}</td>
-                                <td>
-                                    <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit" theme="outline"></i>
-                                    <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete" theme="outline"></i>
-                                </td>
-                            </tr>
-                            }
-                            <tr>
-                                <td colspan="4">
-                                    <ngb-pagination [collectionSize]="totalPages"
-                                     [(page)]="filter.PageNumber" 
-                                     [pageSize]="filter.PageSize"
-                                     (pageChange)="changePage($event)" [rotate]="true" [ellipses]="false"
-                                      [boundaryLinks]="true" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row pagination justify-content-center">
+                <div class="row  mb-1" style="transition: all .9s ease-in-out; overflow: hidden;"
+                    [ngStyle]="{'max-height': (isAccordionToggled) ? '800px' : '0px' , 'overflow': (isAccordionToggled) ? 'unset' : 'hidden' } ">
+                    <p-panel appendTo="body">
+                        <div class="row">
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'form.id' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.Id">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'form.nameAr' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.NameAr">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'form.nameEn' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.NameEn">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'check.category' |translate}}</label>
+                                <ng-select [(ngModel)]="filter.categoryId">
+                                    @for (category of categories; track category.id) {
+                                        <ng-option [value]="category.id">
+                                            {{lang==='ar' ? category.nameAr :category.nameEn}}
+                                        </ng-option>
+                                    }
+                                </ng-select>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12 my-auto">
+                                <button class="btn btn-success my-auto mx-1"  (click)="updatePagedData()" >
+                                    {{'tableList.filter' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </p-panel>
                 </div>
             </div>
+            <p-table [value]="pagedData" 
+            [paginator]="true"
+            [totalRecords]="totalPages"
+            [rows]="10"
+            [rowHover]="true"
+            [scrollable]="true"
+            [lazy]="true"
+             scrollHeight="400px"
+            [showCurrentPageReport]="true"
+            [tableStyle]="{ 'min-width': '50rem' }"
+            currentPageReportTemplate="{{'tableList.currentPageReportTemplate'| translate }}" (onPage)="changePage($event)"
+            [rowsPerPageOptions]="[10, 25, 50]">
+                <ng-template #header>
+                    <tr>
+                        <th>#</th>
+                        <th>{{'form.nameAr' | translate }}</th>
+                        <th>{{'form.nameEn' | translate }}</th>
+                        <th>{{'technician.category' | translate }}</th>
+                        <th> <i style="font-size: large;" antIcon type="setting" theme="outline"></i></th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-item>
+                    <tr (dblclick)="Edit(item.id)">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nameAr }}</td>
+                        <td>{{ item.nameEn }}</td>
+                        <td>{{ lang==='ar' ? item.categoryAr :item.categoryEn}}</td>
+                        <td>
+                            <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit" theme="outline"></i>
+                            <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete" theme="outline"></i>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #emptymessage>
+                    <tr >
+                      <td colspan="5" style="text-align: center">{{'tableList.noDataFound' |translate}}</td>
+                    </tr>
+                  </ng-template>
+        </p-table>
         </div>
     </div>
 </div>

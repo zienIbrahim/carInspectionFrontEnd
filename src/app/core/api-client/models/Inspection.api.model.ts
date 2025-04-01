@@ -83,12 +83,16 @@ export interface InspectionDetails {
     packageId: number
     inspectionDate: string
     plateNumber: string
-    make: string
-    model: string
+    makeAr: string
+    makeEn: string
+    modelAr: string
+    modelEn: string
+    makeImage: string
     color: string
     year: number
     note: string
     vinNumber: string
+    modelType: string
     phoneNumber: string
     name: string
     email: string

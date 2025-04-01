@@ -8,6 +8,7 @@ import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { Model } from 'src/app/core/api-client/models/model.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { ModelService } from 'src/app/core/api-client/services/model.service';
+import { ModelType, modelTypeData } from 'src/app/core/data/modelType';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
@@ -29,8 +30,12 @@ export class EditModelComponent {
   makes: MasterData[] = [];
   lang: string = 'ar';
   modelId: number = 0;
-  Model:Model=<Model>{};
-  constructor(private fb: FormBuilder) {    
+  Model: Model = <Model>{};
+  modelTypeList: ModelType[] = [];
+
+  constructor(private fb: FormBuilder) {
+    this.modelTypeList = modelTypeData
+
     this.modelId = Number(this.route.snapshot.paramMap.get('id'));
   }
   ngOnInit(): void {
@@ -44,28 +49,31 @@ export class EditModelComponent {
       nameAr: ['', Validators.required],
       nameEn: ['', Validators.required],
       makeId: ['', Validators.required],
+      type: ['', Validators.required],
+      id: ['', Validators.required],
+
     });
   }
   onSubmit() {
-      this.submitted = true;
-      if (!this.EditModelForm.valid) {
-        this.EditModelForm.markAllAsTouched();
-        return
-      }
-      const model = { nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value ,makeId:this.f['makeId'].value}
-      this.modelService.CreateModel(model).subscribe((res: Model) => {
-        this.sweetAlertService.SaveSuccess().then(result => {
-          this.EditModelForm.reset();
-          this.submitted = false;
-          this.router.navigate(['model/'])
-        });
+    this.submitted = true;
+    if (!this.EditModelForm.valid) {
+      this.EditModelForm.markAllAsTouched();
+      return
+    }
+    const model = { id: this.f['id'].value, nameAr: this.f['nameAr'].value, nameEn: this.f['nameEn'].value, makeId: this.f['makeId'].value, modelType: this.f['type'].value }
+    this.modelService.EditModel(model).subscribe((res: Model) => {
+      this.sweetAlertService.SaveSuccess().then(result => {
+        this.EditModelForm.reset();
+        this.submitted = false;
+        this.router.navigate(['model/'])
       });
-  
+    });
+
   }
   GetModelById() {
     this.modelService.GetModelById(this.modelId).subscribe(res => {
-        this.Model = res as Model;
-        this.setFormValue();
+      this.Model = res as Model;
+      this.setFormValue();
     });
   }
   setFormValue() {
@@ -74,12 +82,13 @@ export class EditModelComponent {
       nameAr: this.Model.nameAr,
       nameEn: this.Model.nameEn,
       makeId: this.Model.makeId,
+      type: this.Model.modelType,
     });
   }
   FillCommonData() {
     this.commonApiService.GetMakeList().subscribe((res: any) => {
       this.makes = res.data;
-   });
+    });
   }
   get f() {
     return this.EditModelForm.controls;

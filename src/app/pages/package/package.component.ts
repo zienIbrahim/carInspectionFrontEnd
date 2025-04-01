@@ -1,9 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { IconDirective } from '@ant-design/icons-angular';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { GetAllPackageRequest, GetAllPackageReresponseData } from 'src/app/core/api-client/models/Package.api.model';
 import { GetAllPackagePath } from 'src/app/core/api-client/services/apiRoutPath';
@@ -14,7 +17,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-package',
-  imports: [NgbPaginationModule,TranslatePipe,RouterModule,IconDirective,TableModule,ButtonModule],
+  imports: [NgbPaginationModule,ButtonModule,FormsModule,CommonModule,PanelModule,TableModule,TranslatePipe,RouterModule,IconDirective],
   templateUrl: './package.component.html',
   styleUrl: './package.component.scss'
 })
@@ -27,6 +30,7 @@ export class PackageComponent {
     packageService = inject(PackageService);
     translate = inject(TranslateService);
     totalPages: number;
+    isAccordionToggled: boolean = false;
     filter:GetAllPackageRequest=<GetAllPackageRequest>{PageNumber:1,PageSize:6};
     pagedData: GetAllPackageReresponseData[];
    ngOnInit() {

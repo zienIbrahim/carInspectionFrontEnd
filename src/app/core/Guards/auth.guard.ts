@@ -7,8 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 const  _authService = inject(AuthenticationService);
   
   const token = localStorage.getItem('token:jwt');
-  if (!token || !_authService.getIsLoggedIn() || _authService.isTokenExpired()) {
-    _authService.logout();
+  if (!token || !_authService.getIsLoggedIn()) {
     return false;
   }
 

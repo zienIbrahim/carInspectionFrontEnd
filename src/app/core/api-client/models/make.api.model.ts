@@ -8,14 +8,18 @@ export interface GetAllMakeRequest{
 export interface GetAllMakeReresponseData{
     id: number
     nameAr: string
-    nameEn: string
+    nameEn: string,
+    logo:string
+
 }
 export interface CreateMakeRequest {
     nameAr: string,
     nameEn: string,
+    logo:string
 }
 export interface Make {
     id: number,
     nameAr: string,
     nameEn: string,
+    logo:string
 }

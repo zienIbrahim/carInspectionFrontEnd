@@ -18,9 +18,14 @@ export class InspectionReportComponent {
   route  = inject(ActivatedRoute);
   languageService = inject(LanguageService);
   inspectionService = inject(InspectionService);
+  lang: string = 'ar';
+
   InspectionDetails: InspectionDetails;
   constructor(){
     const InspectionID=Number(this.route.snapshot.paramMap.get('id'));
+    this.languageService.language$.subscribe(lang => {
+      this.lang = lang;
+    }); 
     this.inspectionService.GetInspectionDetailsById(InspectionID).subscribe(res => {
       this.InspectionDetails = res as InspectionDetails;
       console.log('results: ', this.InspectionDetails);

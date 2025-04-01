@@ -10,7 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { StepperModule } from 'primeng/stepper';
 import { lastValueFrom, Subject } from 'rxjs';
-import { CheckListByIDES, CreateOrUpdateInspectionResultDto, Inspection, InspectionCheckList, InspectionDetails, InspectionDetailsResult, Result } from 'src/app/core/api-client/models/Inspection.api.model';
+import { CheckListByIDES, CreateOrUpdateInspectionResultDto, Inspection, InspectionDetails, InspectionDetailsResult, Result } from 'src/app/core/api-client/models/Inspection.api.model';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { StepperComponent } from 'src/app/core/components/stepper/stepper.component';
 import { resultList, resultListData } from 'src/app/core/model/model';
@@ -55,6 +55,7 @@ export class InspectionDetailsComponent {
   cardView = true;
   showImage = false;
   showEditFrom = false;
+  showImageEditerFrom = false;
   submitted = false;
   showWebcam = false;
   EditInspectionResultForm: FormGroup;
