@@ -69,6 +69,7 @@
             <th> {{'inspection.name' | translate}}</th>
             <th> {{'inspection.phoneNumber' | translate}}</th>
             <th> {{'inspection.plateNumber' | translate}}</th>
+            <th> {{'inspection.status' | translate}}</th>
             <th> {{'inspection.make' | translate}}</th>
             <th> {{'inspection.model' | translate}}</th>
             <th> {{'inspection.color' | translate}}</th>
@@ -84,14 +85,16 @@
             <td>{{ item.name }}</td>
             <td>{{ item.phoneNumber }}</td>
             <td>{{ item.plateNumber }}</td>
-            <td>{{ item.make }}</td>
-            <td>{{ item.model }}</td>
+            <td>
+                <p-tag [value]="lang=='ar'?InspectionStatusOptionData[item.status].nameAr:InspectionStatusOptionData[item.status].nameEn"
+                [style.background-color]='InspectionStatusOptionData[item.status].color' />
+            </td>
+            <td>{{lang=='ar'? item.makeAr : item.makeEn}}</td>
+            <td>{{lang=='ar'? item.modelAr : item.modelEn }}</td>
             <td>{{ item.color }}</td>
             <td>{{ item.year }}</td>
             <td>
-                @if (_authService.checkUserInRoleInNav([userRoles.Admin, userRoles.Inspector])) {
-                    <i (click)="process(item.id)" class="px-3"  style="font-size: large; color:#10b981;" antIcon [type]="'search'" theme="outline"></i>
-                  }
+                
                 <i (click)="details(item.id)" class="px-3" style="font-size: large; color:#10b981;" antIcon [type]="'eye'" theme="outline"></i>
             </td>
         </tr>

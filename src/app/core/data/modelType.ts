@@ -15,23 +15,58 @@ export const modelTypeData:ModelType[]=[
     { id: 14, name: "Supercar", nameAr: "سيارة سوبر" },
     { id: 15, name: "Hypercar", nameAr: "سيارة هايبر" }
 ]
-export const modelTypeImageUrl: { id: number,Images: string[]}[]=[
+export const modelTypeImageUrl: { id: number,Images: {url:string,dir:number}[]}[]=[
 {
     id:1,
     Images:[
-        'car-sedan-1.JPG',
-        'car-sedan-2.JPG',
-        'car-sedan-3.JPG',
-        'car-sedan-4.JPG',
+        {url:'car-sedan-1.JPG',dir:1},
+        {url:'car-sedan-2.JPG',dir:2},
+        {url:'car-sedan-3.JPG',dir:3},
+        {url:'car-sedan-4.JPG',dir:4},
+        {url:'car-sedan-4.JPG',dir:5},
     ]
 },
 {
-    id:6,
+    id:2,
     Images:[
-        'car-pickup-1.JPG',
-        'car-pickup-2.JPG',
-        'car-pickup-3.JPG',
-        'car-pickup-4.JPG',
+        {url:'car-pickup-1.JPG',dir:1},
+        {url:'car-pickup-2.JPG',dir:2},
+        {url:'car-pickup-3.JPG',dir:3},
+        {url:'car-pickup-4.JPG',dir:4},
+        {url:'car-pickup-4.JPG',dir:5},
+    ]
+}
+,
+{
+    id:3,
+    Images:[
+        {url:'car-pickup-1.JPG',dir:1},
+        {url:'car-pickup-2.JPG',dir:2},
+        {url:'car-pickup-3.JPG',dir:3},
+        {url:'car-pickup-4.JPG',dir:4},
+        {url:'car-pickup-4.JPG',dir:5},
+    ]
+}
+,
+{
+    id:4,
+    Images:[
+        {url:'car-pickup-1.JPG',dir:1},
+        {url:'car-pickup-2.JPG',dir:2},
+        {url:'car-pickup-3.JPG',dir:3},
+        {url:'car-pickup-4.JPG',dir:4},
+        {url:'car-pickup-4.JPG',dir:5},
+    ]
+}
+,
+{
+    id:5,
+    Images:[
+        {url:'car-pickup-1.JPG',dir:1},
+        {url:'car-pickup-2.JPG',dir:2},
+        {url:'car-pickup-3.JPG',dir:3},
+        {url:'car-pickup-4.JPG',dir:4},
+        {url:'car-pickup-4.JPG',dir:5},
     ]
 }
 ]

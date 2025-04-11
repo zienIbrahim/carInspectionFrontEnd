@@ -21,7 +21,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
     NgSelectModule,
     FormsModule,
     NgbTimepickerModule,
-    NgbDatepickerModule,DatePicker],
+    NgbDatepickerModule],
   templateUrl: './create-inspection.component.html',
   styleUrl: './create-inspection.component.scss'
 })
@@ -50,7 +50,6 @@ export class CreateInspectionComponent implements OnInit {
   InitForm() {
     this.CreateInspectionForm = this.fb.group({
       packageId: ['', Validators.required],
-      inspectionDate: ['', Validators.required],
       plateNumber: ['', Validators.required],
       vINNumber: ['', Validators.required],
       makeId: ['', Validators.required],
@@ -74,7 +73,6 @@ export class CreateInspectionComponent implements OnInit {
     const model: CreateInspectionRequest = {
       packageId: fromData.packageId,
       vINNumber: fromData.vINNumber,
-      inspectionDate: fromData.inspectionDate,
       plateNumber: fromData.plateNumber,
       makeId: fromData.makeId,
       modelId: fromData.modelId,

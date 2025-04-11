@@ -75,7 +75,7 @@ import { IconDirective } from "@ant-design/icons-angular";
   ],
 })
 export class GalleriaComponent implements OnInit, OnDestroy {
-   @Input() images: string[] | undefined;
+   @Input() images: {src:string,comment?:string}[] | undefined;
 
   showThumbnails: boolean | undefined;
 

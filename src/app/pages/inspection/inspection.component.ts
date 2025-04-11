@@ -17,12 +17,14 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 import { AuthenticationService } from 'src/app/core/api-client/services/authentication.service';
 import { UserRoles } from "src/app/core/data/UserRole";
-import * as moment from 'moment';
+import moment from 'moment';
 import { TableModule } from 'primeng/table';
+import { InspectionStatusOption } from 'src/app/core/data/inspections';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-inspection',
-  imports: [NgbPaginationModule,CommonModule,TableModule,PanelModule,FormsModule, TranslatePipe,DatePicker, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
+  imports: [NgbPaginationModule,TagModule,CommonModule,TableModule,PanelModule,FormsModule, TranslatePipe,DatePicker, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
   templateUrl: './inspection.component.html',
   styleUrl: './inspection.component.scss'
 })
@@ -43,7 +45,7 @@ export class InspectionComponent {
   public _authService = inject(AuthenticationService);
   userRoles=UserRoles;
   isAccordionToggled: boolean = false;
-
+  InspectionStatusOptionData=InspectionStatusOption;
   ngOnInit() {
     this.updatePagedData();
     this.languageService.language$.subscribe(lang => {
@@ -70,15 +72,6 @@ export class InspectionComponent {
   Edit(Id: number) {
     this.router.navigate(['Inspection/edit/' + Id])
   }
-  // delete(item:GetAllInspectionReresponseData){
-  //   this.sweetAlertService.showConfirm(this.translate.instant('sweetAlert.delete'),` ${this.translate.instant('sweetAlert.deleteMsg',{name:item.nameAr,Id:item.id})}` ,'warning')
-  //   .then(result=>{
-  //     if(result.isConfirmed){
-  //       this.ConfirmDelete(item.id)
-  //     }
-
-  //   });
-  // }
   ConfirmDelete(Id: number) {
     this.InspectionService.DeleteInspection(Id).subscribe(res => {
       this.sweetAlertService.show(this.translate.instant('sweetAlert.DeleteSuccess'), '', 'success').then(res => {
@@ -86,8 +79,6 @@ export class InspectionComponent {
       })
     });
   }
-  
-
   formatDateTime(date: any) {
   return (moment(date)).format('MM-DD-YYYY HH:mm:ss')
 
@@ -95,7 +86,5 @@ export class InspectionComponent {
   details(Id:number){
     this.router.navigate(['inspection/details/'+Id])
   }
-  process(Id:number){
-    this.router.navigate(['inspection/process/'+Id])
-  }
+  
 }

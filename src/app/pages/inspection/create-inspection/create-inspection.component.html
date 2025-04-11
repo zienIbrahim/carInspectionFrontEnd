@@ -20,15 +20,6 @@
                             }
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                            <label>{{'inspection.inspectionDate' |translate}}</label>
-                            <p-datepicker formControlName="inspectionDate" [showTime]="true"
-                            [ngClass]="{'is-invalid':(f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors}"/>                          
-                            @if((f['inspectionDate'].touched || submitted )&& f['inspectionDate'].errors){
-                            <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
-                            }
-                        </div>
-    
-                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.name' |translate}}</label>
                             <input type="text" class="form-control" formControlName="name"
                             [ngClass]="{'is-invalid':(f['name'].touched || submitted )&& f['name'].errors}">

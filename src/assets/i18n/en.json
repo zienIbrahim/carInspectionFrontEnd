@@ -25,9 +25,11 @@
         "model": "model",
         "note": "note",
         "color": "color",
+        "visualInspection": "Visual inspection",
         "year": "year",
         "name": "name",
         "type": "vehicle type",
+        "status": "status",
         "phoneNumber": "Phone number",
         "email":"email",
         "result":{

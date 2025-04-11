@@ -1,50 +1,30 @@
+<p-card>
+  <ng-template #header>
+    <div class="d-flex flex-wrap gap-4">
+      <div class="d-flex  items-center">
+        <p-radiobutton name="annotationMode" value="text" [(ngModel)]="annotationMode" inputId="annotationMode1" />
+           <label for="ingredient2" class="ml-2">Text</label>
+      </div>
+      <div class="d-flex  items-center">
+        <p-radiobutton name="annotationMode" value="x-mark" [(ngModel)]="annotationMode" inputId="annotationMode2" />
+        <label for="ingredient3" class="ml-2">X</label>
+      </div>
+      <div class="d-flex  items-center">
+        <p-button styleClass="p-0" severity="secondary" rounded text (click)="undoMarker()"
+         [disabled]="markers.length === 0" label="Undo" />
+      </div>
+  </div>
+  </ng-template>
+  <div class="image-container" (click)="onImageClick($event)">
+    <img #imageElement [src]="imageUrl" alt="Car Image"  width="650px" height="500px"/>
+    <div *ngFor="let marker of markers" class="marker" [ngStyle]="{ top: marker.y + '%', left: marker.x + '%' }">
+      {{ marker.text }}
+    </div>
+  </div>
+  <canvas #canvasElement style="display: none;"></canvas>
+</p-card>
 
-
-<div class="card">
-  <p-button (onClick)="saveAllImages()">
-    save
-  </p-button>
-  <p-tabs [value]="0">
-    <p-tablist>
-      @for (img of images; track $index) {
-        <p-tab [value]="$index">
-          <img [src]="'assets/images/cars/' + img.url" width="150px" height="150px" class="w-full h-auto cursor-pointer" />
-        </p-tab>
-      }
-    </p-tablist>
-    <p-tabpanels>
-      @for (img of images; track $index) {
-        <p-tabpanel [value]="$index">
-          <p-button severity="secondary" rounded text (click)="undoMarker($index)" 
-           [disabled]="!images[selectedImageIndex]?.markers?.length" label="Undo" />
-          <div class="flex gap-4 mt-4">
-            <div class="flex items-center gap-2">
-              <p-radiobutton name="annotationMode" value="text" [(ngModel)]="annotationMode" inputId="annotationMode1" />
-              <label for="annotationMode1">Add Text</label>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <p-radiobutton name="annotationMode" value="x-mark" [(ngModel)]="annotationMode" inputId="annotationMode2" />
-              <label for="annotationMode2">Add 'X' Mark</label>
-            </div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="relative border border-gray-300 p-2" style="position: relative; display: inline-block;">
-              <img #imageElement [src]="'assets/images/cars/' + img.url" class="w-full h-auto cursor-pointer"
-              (click)="onImageClick($event, $index)" width="650px" height="650px" />
-              <div *ngFor="let marker of img.markers" class="marker" [ngStyle]="{ top: marker.y + 'px', left: marker.x + 'px' }">
-                {{ marker.text }}
-              </div>
-            </div>
-           
-          </div>
-        </p-tabpanel>
-      }
-    </p-tabpanels>
-  </p-tabs>
-</div>
-
-<p-popover #popover >
+<p-popover #op >
   <input id="annotationText" type="text" [(ngModel)]="userInput" pInputText autofocus />
-  <p-button (click)="confirmAnnotation()">OK</p-button>
+  <p-button (onClick)="confirmAnnotation(op)">X</p-button>
 </p-popover>

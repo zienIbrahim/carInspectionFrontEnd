@@ -1,82 +1,136 @@
-<!-- inspection-report.component.html -->
-<div class="report-container" id="report-container">
-
-    <div class="header">
-        <h1>Car Inspection Report</h1>
-        <button class="export-pdf-button" (click)="exportToPDF()">Export as PDF</button>
+<div class="container py-4" id="report-container">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Car Inspection Report</h2>
+        <button class="btn btn-outline-primary" (click)="exportToPDF()">Export as PDF</button>
     </div>
 
-    <!-- Vehicle Details Section -->
-    <div class="vehicle-details">
-        <h2>Vehicle Information</h2>
-        <div class="details-grid">
-            <div class="detail-item">
-                <label>Inspection Date:</label>
-                <span>{{ InspectionDetails.inspectionDate | date:'medium' }}</span>
-            </div>
-            <div class="detail-item">
-                <label>Plate Number:</label>
-                <span>{{ InspectionDetails.plateNumber }}</span>
-            </div>
-            <div class="detail-item">
-                <label>Make/Model:</label>
-                <span>{{lang=='ar'? InspectionDetails.makeAr + '/' + InspectionDetails.modelAr : InspectionDetails.makeEn + '/' + InspectionDetails.modelEn }}</span>
-            </div>
-            <div class="detail-item">
-                <label>VIN:</label>
-                <span>{{ InspectionDetails.vinNumber }}</span>
-            </div>
-            <div class="detail-item">
-                <label>Color:</label>
-                <span>{{ InspectionDetails.color }}</span>
-            </div>
-            <div class="detail-item">
-                <label>Year:</label>
-                <span>{{ InspectionDetails.year }}</span>
+    <!-- Vehicle Details -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light fw-bold">Vehicle Information</div>
+        <div class="card-body">
+            <div class="row gy-2">
+                <div class="col-md-4">
+                    <strong>Inspection Date:</strong><br>
+                    {{ InspectionDetails?.inspectionDate | date:'medium' }}
+                </div>
+                <div class="col-md-4">
+                    <strong>Plate Number:</strong><br>
+                    {{ InspectionDetails?.plateNumber }}
+                </div>
+                <div class="col-md-4">
+                    <strong>Make/Model:</strong><br>
+                    {{ lang === 'ar'
+                    ? InspectionDetails?.makeAr + '/' + InspectionDetails?.modelAr
+                    : InspectionDetails?.makeEn + '/' + InspectionDetails?.modelEn }}
+                </div>
+                <div class="col-md-4">
+                    <strong>VIN:</strong><br>
+                    {{ InspectionDetails?.vinNumber }}
+                </div>
+                <div class="col-md-4">
+                    <strong>Color:</strong><br>
+                    {{ InspectionDetails?.color }}
+                </div>
+                <div class="col-md-4">
+                    <strong>Year:</strong><br>
+                    {{ InspectionDetails?.year }}
+                </div>
             </div>
         </div>
     </div>
-    <!-- Inspection Results Section -->
-    <div class="inspection-results">
-        <h2>Inspection Results</h2>
-        @for (category of groupedResults| keyvalue; track $index) {
-        <div class="category">
-            <h3 class="category-title"> 
-                <span class="category-en">{{ category.value[0].categoryEn }} / </span>
-                <span class="category-ar">{{ category.value[0].categoryAr }}</span>
-            </h3>
-            <div class="results-grid">
-                @for (item of category.value; track $index) {
-                <div class="result-item">
-                    <div class="check-info">
-                        <div class="check-title"> {{ item.checkAr + ' / '+  item.checkEn }} </div>
-                        <div class="result-status" >
-                            <span class="badge rounded-pill fs-5" [style.background-color]="item.result.color">
-                                {{ item.result.nameAr + ' / ' + item.result.nameEn}}
-                            </span>
-                            
-                        </div>
+    <div class="visual-results mt-5">
+        <h2 class="mb-4">Visual Inspection</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          @for (typeGroup of groupedVisualResults | keyvalue; track $index) {
+            <div class="col mb-4">
+              <h4 class="mb-3 border-bottom pb-2">
+                {{ getImageTypeLabel(typeGroup.value[0].imageType) }}
+              </h4>
+              <!-- Image Grid -->
+              <div class="row row-cols-1 row-cols-md-2 g-4">
+                @for (visual of typeGroup.value; track $index) {
+                  <div class="col-md-6 m-0 p-0 border">
+                    <div class="h-100 shadow-sm">
+                      <div class="image-container position-relative">
+                        <!-- Image -->
+                        <img [src]="visual.imageUrl" class="card-img-top" alt="Visual Image" />
+                        <!-- Badge for Direction -->
+                        <span class="badge position-absolute top-0 start-0 m-2 badge-info">
+                            {{ImageDirction[visual.imageDirction].nameAr+' / '+ ImageDirction[visual.imageDirction].nameEn }}
+                        </span>
+                        <!-- Comment inside the image -->
+                        @if (visual.comment) {
+                          <div class="badge position-absolute bottom-0 end-0 m-2 badge-info">
+                            <strong>{{ visual.comment }}</strong> 
+                          </div>
+                        }
+                      </div>
                     </div>
-                    @if (item.images?.length) {
-                    <div class="comment">
-                        <strong>Comment:</strong> {{ item.comment }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      
+      
+      
+      
+      
+      
+    <!-- Inspection Results -->
+    <div class="mb-4">
+        <h4 class="text-primary mb-3">Inspection Results</h4>
+
+        @for (category of groupedResults | keyvalue; track $index) {
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header bg-secondary text-white">
+                <strong>{{ category.value[0].categoryEn }} / {{ category.value[0].categoryAr }}</strong>
+            </div>
+            <div class="card-body">
+                <div class="row g-4">
+                    @for (item of category.value; track $index) {
+                    <div class="col-md-6 mb-4">
+                        <div class="border rounded p-3 bg-light">
+
+                            <!-- Title and badge in same row -->
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="fw-bold">
+                                    {{ item.checkAr }} / {{ item.checkEn }}
+                                </div>
+                                <span class="badge rounded-pill px-3 py-2 fs-6 text-white"
+                                    [style.background-color]="getResultData(item)?.color">
+                                    {{ getResultData(item)?.nameAr }} / {{ getResultData(item)?.nameEn }}
+                                </span>
+                            </div>
+
+                            <!-- Comment -->
+                            @if (item.inspectionResult.comment) {
+                            <div class="mb-2">
+                                <div class="text-muted">{{ item.inspectionResult.comment }}</div>
+                            </div>
+                            }
+
+                            <!-- Images (shown if available) -->
+                            @if (item.inspectionResult.images?.length) {
+                            <div class="row g-2">
+                                @for (img of item.inspectionResult.images; track $index) {
+                                <div class="col-4">
+                                    <img [src]="img" alt="Inspection image" class="img-fluid rounded border" />
+                                </div>
+                                }
+                            </div>
+                            }
+
+                        </div>
                     </div>
 
                     }
-                    @if (item.images?.length) {
-                    <div class="images">
-                        @for (img of item.images; track $index) {
-                        <div class="image-container">
-                            <img [src]="img" alt="Inspection image">
-                        </div>
-                        }
-                    </div>
-                    }
                 </div>
-                }
             </div>
         </div>
         }
     </div>
-
 </div>

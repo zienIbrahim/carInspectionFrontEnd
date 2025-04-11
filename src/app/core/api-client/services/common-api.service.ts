@@ -31,5 +31,8 @@ export class CommonApiService {
   GetResultList(){
     return this.http.get(this.apiUrl + "Common/GetResultList");
   }
+  GetDashboard(startDate: string, endDate: string){
+    return this.http.get(this.apiUrl + "Common/GetDashboard?StartDate=" + startDate + "&EndDate=" + endDate);
+  }
   
 }
