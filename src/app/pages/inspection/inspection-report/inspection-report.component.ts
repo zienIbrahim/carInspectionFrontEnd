@@ -7,10 +7,13 @@ import { LanguageService } from 'src/app/core/Service/language.service';
 import html2pdf from 'html2pdf.js';
 import AppUtils from 'src/app/core/Utilities/AppUtils';
 import { ImageDirction } from 'src/app/core/data/inspections';
+import { TranslatePipe } from '@ngx-translate/core';
+import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-image/suadi-palte-image.component';
 
 @Component({
   selector: 'app-inspection-report',
-  imports: [DatePipe,KeyValuePipe,CommonModule],
+  imports: [DatePipe,KeyValuePipe,SuadiPalteImageComponent
+  ,CommonModule],
   templateUrl: './inspection-report.component.html',
   styleUrl: './inspection-report.component.scss'
 })
@@ -22,6 +25,7 @@ export class InspectionReportComponent {
   lang: string = 'ar';
   InspectionDetails: InspectionDetails;
   groupedVisualResults: { [key: number]: InspectionDetailsVisualResult[] } = {};
+  groupedResults: Record<any, InspectionDetailsResult[]> = {};
   ImageDirction = ImageDirction
   constructor(){
     const InspectionID=Number(this.route.snapshot.paramMap.get('id'));
@@ -31,15 +35,13 @@ export class InspectionReportComponent {
     this.inspectionService.GetInspectionDetailsById(InspectionID).subscribe(res => {
       this.InspectionDetails = res as InspectionDetails;
       this.groupedVisualResults = AppUtils.groupBy<InspectionDetailsVisualResult>(this.InspectionDetails?.visualResult || [],"imageType");
+    this.groupedResults=  AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails?.results,"categoryEn")
 
       console.log('results: ', this.InspectionDetails);
 
     });
   }
-  get groupedResults() {
-     if(!this.InspectionDetails?.results) return null;
-    return AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails?.results,"categoryEn")
-  }
+
   print() {
     window.print();
   }
@@ -49,22 +51,22 @@ export class InspectionReportComponent {
   exportToPDF() {
     const element = document.getElementById('report-container');
     const options = {
-      margin: 10,
+      margin: 0,
       pagebreak: {
-        mode: ['avoid-all', 'css', 'legacy']
+        mode: ['avoid-all', 'css', 'legacy'],
+      },
+      html2canvas: {
+        scale: 3, // لتحسين دقة الصور والنصوص
+        useCORS: true, // دعم الصور من روابط خارجية
+        logging: true
       },
       filename: `Car_Inspection_Report-${this.InspectionDetails.id}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, logging: true, useCORS: true },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     html2pdf().from(element).set(options).save();
   } 
-  getImageDirectionLabel(dir: number): string {
-    return ['Front', 'Back', 'Left', 'Right'][dir] ?? 'Unknown';
-  }
   getImageTypeLabel(type: number): string {
     return type === 1 ? 'Vehicle Images' : 'Visual Check Images';
   }
- 
 }

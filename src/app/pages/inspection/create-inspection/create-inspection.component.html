@@ -45,12 +45,22 @@
                         </div>
     
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
-                            <label>{{'inspection.plateNumber' |translate}}</label>
-                            <input type="text" class="form-control" formControlName="plateNumber" 
-                            [ngClass]="{'is-invalid':(f['plateNumber'].touched || submitted )&& f['plateNumber'].errors}">
-                            @if((f['plateNumber'].touched || submitted )&& f['plateNumber'].errors){
-                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            <label>{{'inspection.plateLetters' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="letters"  
+                            [ngClass]="{'is-invalid':(f['letters'].touched || submitted )&& f['letters'].errors}">
+                            @if((f['letters'].touched || submitted )&& f['letters'].errors){
+                                <span  class="invalid-feedback">{{'form.letters' |translate}}</span>
                             }
+                          
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                            <label>{{'inspection.plateNumber' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="numbers" 
+                            [ngClass]="{'is-invalid':(f['numbers'].touched || submitted )&& f['numbers'].errors}">
+                            @if((f['numbers'].touched || submitted )&& f['numbers'].errors){
+                                <span  class="invalid-feedback">{{'form.numbers' |translate}}</span>
+                            }
+                          
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.vINNumber' |translate}}</label>
@@ -114,6 +124,9 @@
                         <button type="submit" [disabled]="CreateInspectionForm.invalid" class="btn btn-success">{{'form.save' | translate}}</button>
                     </div>
                 </form>
+                <div class="row">
+                    <app-suadi-palte-image [plateValue]="'داح-1234'"></app-suadi-palte-image>
+                </div>
             </div>
         </div>
     </div>

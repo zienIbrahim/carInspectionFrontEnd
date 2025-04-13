@@ -1,30 +1,65 @@
-
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 200px; /* Fixed height for the image */
+#report-container{
+  width: 21cm;
+  max-width: 21cm;
+  min-height: 29.7cm;
+  padding: 1cm;
+  margin: 1cm auto;
+  border: 1px #D3D3D3 solid;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.card-img-top {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensure the image fits the container */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
 }
 
-.badge {
-  font-size: 0.9rem;
-  padding: 0.5rem;
-
-  color: white  ;
-  background-color: #007bff; /* Bootstrap primary color */
+.grid-item {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:  95%;
+  height: 450px;
+  flex: 1 1 calc(50% - 5px); /* Two columns by default */
 }
 
-.comment {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.7); /* Dark background for readability */
-  color: white;
+
+/* Different aspect ratios */
+.grid-item:nth-child(1) { 
+  grid-column: span 2 / span 2;
+  grid-row: span 6 / span 6;
+  height:calc(8px + 20rem);
+}
+.grid-item:nth-child(2) { 
+  grid-column: span 2 / span 2;
+  grid-row: span 3 / span 3;
+  grid-column-start: 6;
+  grid-row-start: 1;
+  height: 10rem;
+ }
+.grid-item:nth-child(3) { 
+  grid-column: span 3 / span 3;
+  grid-row: span 3 / span 3;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  height: 10rem;
+ }
+.grid-item:nth-child(4) { 
+  grid-column: span 3 / span 3;
+  grid-row: span 3 / span 3;
+  grid-column-start: 3;
+  grid-row-start: 4;
+  height: 10rem;
+}
+/* Fifth item takes full width */
+.grid-item:nth-child(5) {
+  grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 6;
+    grid-row-start: 4;
+    height: 10rem;
 }

@@ -14,4 +14,13 @@ export default class AppUtils {
         }
         return result;
     }
+    public static toArLetters(english: string): string {
+        const map: { [key: string]: string } = {
+          'A': 'ا', 'B': 'ب', 'J': 'ح', 'D': 'د', 'R': 'ر',
+          'S': 'س', 'X': 'ص', 'T': 'ط', 'E': 'ع', 'G': 'ق',
+          'K': 'ك', 'L': 'ل', 'Z': 'م', 'N': 'ن', 'H': 'هـ',
+          'U': 'و', 'V': 'ى'
+        };
+        return english.toUpperCase().split('').map(ch => map[ch] || ch).join(' ');
+    }
 }

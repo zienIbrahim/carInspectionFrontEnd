@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbDatepickerModule, NgbTimepickerModule, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
-import { DatePicker } from 'primeng/datepicker';
 import { MasterData, ModelListData } from 'src/app/core/api-client/models/Common.api.model';
 import { CreateInspectionRequest, Inspection } from 'src/app/core/api-client/models/Inspection.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
+import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-image/suadi-palte-image.component';
 
 @Component({
   selector: 'app-create-inspection',
@@ -20,6 +20,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
     CommonModule,
     NgSelectModule,
     FormsModule,
+    SuadiPalteImageComponent,
     NgbTimepickerModule,
     NgbDatepickerModule],
   templateUrl: './create-inspection.component.html',
@@ -50,7 +51,8 @@ export class CreateInspectionComponent implements OnInit {
   InitForm() {
     this.CreateInspectionForm = this.fb.group({
       packageId: ['', Validators.required],
-      plateNumber: ['', Validators.required],
+      letters: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{1,3}$/)]],
+      numbers: ['', [Validators.required, Validators.pattern(/^[0-9]{1,4}$/)]],
       vINNumber: ['', Validators.required],
       makeId: ['', Validators.required],
       modelId: ['', Validators.required],
@@ -62,6 +64,15 @@ export class CreateInspectionComponent implements OnInit {
       note: [''],
     });
 
+  } 
+  toArLetters(english: string): string {
+    const map: { [key: string]: string } = {
+      'A': 'ا', 'B': 'ب', 'J': 'ح', 'D': 'د', 'R': 'ر',
+      'S': 'س', 'X': 'ص', 'T': 'ط', 'E': 'ع', 'G': 'ق',
+      'K': 'ك', 'L': 'ل', 'Z': 'م', 'N': 'ن', 'H': 'هـ',
+      'U': 'و', 'V': 'ى'
+    };
+    return english.toUpperCase().split('').map(ch => map[ch] || ch).join(' ');
   }
   onSubmit() {
     this.submitted = true;
@@ -73,7 +84,7 @@ export class CreateInspectionComponent implements OnInit {
     const model: CreateInspectionRequest = {
       packageId: fromData.packageId,
       vINNumber: fromData.vINNumber,
-      plateNumber: fromData.plateNumber,
+      plateNumber: fromData.letters + '-' + fromData.numbers,
       makeId: fromData.makeId,
       modelId: fromData.modelId,
       color: fromData.color,
@@ -111,6 +122,7 @@ export class CreateInspectionComponent implements OnInit {
   changeMake(){
     this.f['modelId'].setValue("")
   }
+  
   formatDate(data: any) {
     if (data.month.toString().length < 2) {
         data.month = '0' + data.month;
@@ -128,4 +140,5 @@ export class CreateInspectionComponent implements OnInit {
    String(this.time.second).padStart(2, '0') 
   ].join(':')
 }
+
 }

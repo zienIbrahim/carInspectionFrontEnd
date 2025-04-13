@@ -54,8 +54,9 @@
         "save":"Save",
         "saveAndContinue":"Save and continue",
         "cancle":"cancle",
-        "fieldRequired":"Field is required"
-
+        "fieldRequired":"Field is required",
+        "letters": "Enter 1 to 3 English letters",
+        "numbers": "Enter 1 to 4 digits"
     },
     "category":{
         "CreateTitle":"Create category",
