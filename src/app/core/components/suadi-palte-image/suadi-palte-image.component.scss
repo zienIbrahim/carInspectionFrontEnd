@@ -1,0 +1,28 @@
+.plate-wrapper {
+    position: relative;
+    width: 220px;
+    height: auto;
+  }
+  
+  .plate-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .plate-text {
+    position: absolute;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .arabic-letter {
+    font-size: 30px;
+    font-family: 'Cairo', sans-serif;
+  }
+  
+  .english-letter {
+    font-size: 30px;
+    font-family: 'Arial', sans-serif;
+  }
+  

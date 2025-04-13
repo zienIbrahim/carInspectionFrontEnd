@@ -1,0 +1,36 @@
+<div class="plate-wrapper">
+    <img src="../../../../assets/images/ksa-emblem.png" class="plate-image" alt="Saudi Plate" />
+  
+    <!-- Arabic Letters (Right side) -->
+    <ng-container *ngFor="let letter of lettersAr; let i = index">
+      <div class="plate-text arabic-letter"
+           [ngStyle]="{ right: (45 + i * 25) + 'px', top: '12px' }">
+        {{ letter }}
+      </div>
+    </ng-container>
+  
+    <!-- English Letters (Right side under Arabic) -->
+    <ng-container *ngFor="let letter of lettersEn; let i = index">
+      <div class="plate-text english-letter"
+           [ngStyle]="{ right: (45 + i * 25) + 'px', top: '60px' }">
+        {{ letter }}
+      </div>
+    </ng-container>
+  
+    <!-- Arabic Numbers (Left side) -->
+    <ng-container *ngFor="let digit of digitsHindi; let i = index">
+      <div class="plate-text arabic-letter"
+           [ngStyle]="{ left: (13 + i * 20) + 'px', top: '12px' }">
+        {{ digit }}
+      </div>
+    </ng-container>
+  
+    <!-- English Numbers (Left side under Arabic) -->
+    <ng-container *ngFor="let digit of digitsEn; let i = index">
+      <div class="plate-text english-letter"
+           [ngStyle]="{ left: (13 + i * 20) + 'px', top: '60px' }">
+        {{ digit }}
+      </div>
+    </ng-container>
+  </div>
+  
