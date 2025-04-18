@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, catchError, filter, Observable, switchMap, take, throwError } from "rxjs";
 import { AuthenticationService } from "../api-client/services/authentication.service";
+import { GeneralAlertService } from "../Service/general-alert.service";
 
 /**
  * Intercepts and handles API errors / error related HTTP status codes
@@ -20,18 +21,36 @@ export class Error401Interceptor implements HttpInterceptor {
     constructor(
         private router: Router,
         private authService: AuthenticationService,
+        private alert :GeneralAlertService,
         public http: HttpClient
     ) { }
 
     intercept(request: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
         return handler.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-
-                if (error instanceof HttpErrorResponse && error.status === 401) {
-
-                    return this.handle401Errors(error, request, handler);
+                if(error){
+                    switch (error.status) {
+                        case 401: 
+                            return this.handle401Errors(error, request, handler);
+                        case 400:
+                            console.log(error)
+                            // Handle bad request error
+                            this.alert.show('Bad request - 400', error.error.ErrorMessage);
+                            break;
+                        case 404:
+                            // Handle not found error
+                            console.error('Not found - 404');
+                            break;
+                        case 500:
+                            // Handle internal server error
+                            console.error('Internal server error - 500');
+                            break;
+                        default:
+                            // Handle other errors
+                            console.error('An error occurred:', error.message);
+                    }
                 }
-                return throwError(() => error);
+                return throwError(()=> error);
             })
         );
     }

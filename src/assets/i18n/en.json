@@ -27,6 +27,7 @@
         "color": "color",
         "visualInspection": "Visual inspection",
         "year": "year",
+        "odometer": "Odometer",
         "name": "name",
         "type": "vehicle type",
         "status": "status",

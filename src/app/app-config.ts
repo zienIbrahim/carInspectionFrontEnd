@@ -9,12 +9,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { authInterceptor } from './core/Interceptor/authInterceptor';
 import { provideTranslation } from './core/Helper/translate.helper';
 import { Error401InterceptorProviders } from './core/Interceptor/Error401Interceptor';
+import { LanguageInterceptorProviders } from './core/Interceptor/LanguageInterceptor';
+import { LoadingInterceptorProviders } from './core/Interceptor/LoadingInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withInterceptors([authInterceptor]),withInterceptorsFromDi()),
     Error401InterceptorProviders, 
+    LanguageInterceptorProviders,
+    LoadingInterceptorProviders,
     importProvidersFrom([
       TranslateModule.forRoot(provideTranslation())
     ]),

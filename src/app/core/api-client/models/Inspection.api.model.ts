@@ -34,10 +34,26 @@ export interface CreateInspectionRequest {
     modelId: string,
     color: string,
     year: number,
+    odometer: number,
     name: string,
     phoneNumber: string,
     email?: string,
     note?: string,
+}
+export interface EditInspectionRequest {
+  id: number,
+  packageId: number,
+  plateNumber: string,
+  vINNumber: string,
+  makeId: string,
+  modelId: string,
+  color: string,
+  year: number,
+  odometer: number,
+  name: string,
+  phoneNumber: string,
+  email?: string,
+  note?: string,
 }
 export interface Inspection {
     id: number,
@@ -97,6 +113,7 @@ export interface InspectionDetails {
   modelType: number
   modelEn: string
   year: number
+  odometer: number
   note: string
   vinNumber: string
   phoneNumber: string
@@ -105,6 +122,21 @@ export interface InspectionDetails {
   results: InspectionDetailsResult[]
   visualResult: InspectionDetailsVisualResult[]
 }
+export interface InspectionById {
+  id: number,
+  packageId: number,
+  plateNumber: string,
+  vINNumber: string,
+  makeId: string,
+  modelId: string,
+  color: string,
+  year: number,
+  name: string,
+  phoneNumber: string,
+  email?: string,
+  note?: string,
+}
+
 export interface InspectionDetailsVisualResult {
    imageDirction:number,
    imageType:number,

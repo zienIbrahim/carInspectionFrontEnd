@@ -63,3 +63,58 @@
     grid-row-start: 4;
     height: 10rem;
 }
+.report-header {
+  border-bottom: 3px solid #2c3e50;
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom:20px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  max-height: 60px;
+}
+
+.company-text h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 20px;
+}
+
+.company-text p {
+  margin: 5px 0 0;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.report-info {
+  text-align: right;
+}
+
+.report-title {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 20px;
+}
+
+.report-date {
+  color: #7f8c8d;
+  margin: 10px 0 0;
+  font-size: 14px;
+}

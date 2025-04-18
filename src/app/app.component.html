@@ -1,1 +1,6 @@
+@for (item of alerts.$alerts | async ; track $index) {
+    <p-message [life]="4000"  severity="error">{{item.body}}</p-message>
+
+}
+<app-loading></app-loading>
 <router-outlet><app-spinner /></router-outlet>

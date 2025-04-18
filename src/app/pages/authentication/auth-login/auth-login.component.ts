@@ -16,7 +16,8 @@ import { AuthenticationService } from 'src/app/core/api-client/services/authenti
 export class AuthLoginComponent implements OnInit  {
   LoginForm: FormGroup;
   submitted = false;
-
+  showErrorMessage=false;
+  errorMessage='';
   constructor(private fb: FormBuilder,private authService: AuthenticationService) {
 
   }
@@ -25,17 +26,31 @@ export class AuthLoginComponent implements OnInit  {
   }
   onSubmit() {
     this.submitted=true;
-    if (!this.LoginForm.valid) {
+    this.showErrorMessage=false;
+    this.errorMessage='';
+
+    if (!this.LoginForm.valid) { 
       this.LoginForm.markAllAsTouched();
       return 
     }
     const loginData: LoginRequest = {
       userName: this.LoginForm.value.userName,
       password: this.LoginForm.value.password,
-      rememberMe: this.LoginForm.value.rememberMe,
+      rememberMe: this.LoginForm.value?.rememberMe??false,
     };
-    this.authService.Login(loginData).subscribe(res=>{
-      this.submitted = false;
+    this.authService.Login(loginData).subscribe({
+      next: (res) => {
+        this.LoginForm.reset();
+        this.submitted = false;
+      },
+      error: (err) => {
+        console.log(err);
+        this.showErrorMessage=true;
+        this.errorMessage=err.error.ErrorMessage;
+        this.LoginForm.markAllAsTouched();
+        this.LoginForm.reset();
+        this.submitted = false;
+      }
     })
 
   }
@@ -43,7 +58,7 @@ export class AuthLoginComponent implements OnInit  {
     this.LoginForm = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      rememberMe: [true, Validators.required],
+      rememberMe: [true],
     });
 
   }
