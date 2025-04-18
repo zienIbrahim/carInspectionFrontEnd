@@ -22,6 +22,14 @@
                 placeholder="{{ 'login.password' | translate }}" />
             </div>
             <div class="d-flex mt-1 justify-content-between">
+              @if(showErrorMessage){
+              <div class="alert alert-danger w-100" role="alert">
+                {{ errorMessage }}
+              </div>
+              }
+            </div>
+            <div class="d-flex mt-1 justify-content-between">
+
               <div class="form-check">
                 <input class="form-check-input input-primary" type="checkbox" formControlName="rememberMe"
                   id="customCheckc1" />

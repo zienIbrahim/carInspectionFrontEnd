@@ -5,7 +5,7 @@
                 <h4>{{'inspection.CreateTitle' |translate}}</h4>
             </div>
             <div class="card-body">
-                <form class="form" [formGroup]="CreateInspectionForm" (ngSubmit)="onSubmit()">
+                <form class="form" [formGroup]="EditInspectionForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.package' |translate}}</label>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="form-group d-flex justify-content-end">
-                        <button type="submit" [disabled]="CreateInspectionForm.invalid" class="btn btn-success">{{'form.save' | translate}}</button>
+                        <button type="submit" [disabled]="EditInspectionForm.invalid" class="btn btn-success">{{'form.save' | translate}}</button>
                     </div>
                 </form>
             </div>

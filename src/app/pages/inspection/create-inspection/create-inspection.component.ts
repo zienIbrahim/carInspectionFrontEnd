@@ -20,7 +20,6 @@ import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-im
     CommonModule,
     NgSelectModule,
     FormsModule,
-    SuadiPalteImageComponent,
     NgbTimepickerModule,
     NgbDatepickerModule],
   templateUrl: './create-inspection.component.html',
@@ -54,6 +53,7 @@ export class CreateInspectionComponent implements OnInit {
       letters: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{1,3}$/)]],
       numbers: ['', [Validators.required, Validators.pattern(/^[0-9]{1,4}$/)]],
       vINNumber: ['', Validators.required],
+      odometer: ['', Validators.required],
       makeId: ['', Validators.required],
       modelId: ['', Validators.required],
       color: ['', Validators.required],
@@ -65,15 +65,7 @@ export class CreateInspectionComponent implements OnInit {
     });
 
   } 
-  toArLetters(english: string): string {
-    const map: { [key: string]: string } = {
-      'A': 'ا', 'B': 'ب', 'J': 'ح', 'D': 'د', 'R': 'ر',
-      'S': 'س', 'X': 'ص', 'T': 'ط', 'E': 'ع', 'G': 'ق',
-      'K': 'ك', 'L': 'ل', 'Z': 'م', 'N': 'ن', 'H': 'هـ',
-      'U': 'و', 'V': 'ى'
-    };
-    return english.toUpperCase().split('').map(ch => map[ch] || ch).join(' ');
-  }
+
   onSubmit() {
     this.submitted = true;
     if (!this.CreateInspectionForm.valid) {
@@ -89,6 +81,7 @@ export class CreateInspectionComponent implements OnInit {
       modelId: fromData.modelId,
       color: fromData.color,
       year: fromData.year,
+      odometer: fromData.odometer,
       name: fromData.name,
       phoneNumber: fromData.phoneNumber,
       email: fromData.email,

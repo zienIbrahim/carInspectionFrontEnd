@@ -10,8 +10,28 @@
     </div>
 </div>
 <div id="report-container" class="container" style="direction: rtl;">
-    <!-- Vehicle Information Section -->
-    <div class="row  d-flex justify-content-between align-items-center mb-1 border-bottom pb-3">
+    <header class="report-header">
+        <div class="header-container">
+            <div class="header-content">                
+                <div class="report-info">
+                    <h4 class="report-title">Car Inspection Report</h4>
+                    <p class="report-date">
+                         تاريخ الفحص :Inspection Date
+                         {{ InspectionDetails?.inspectionDate | date:'medium' }}
+                    </p>
+                </div>
+                <div class="company-info">
+                    <div class="company-text">
+                        <h4>شركة الماس الأحمر</h4>
+                        <p>لخدمات السيارات</p>
+                    </div>
+                    <img src="company-logo.png" alt="Company Logo" class="logo">
+                </div>
+            </div>
+        </div>
+    </header>
+       <!-- Vehicle Information Section -->
+       <div class="row  d-flex justify-content-between align-items-center mb-1 border-bottom pb-3">
         <h3 class="text-primary fw-bold">📄 Vehicle Information/ معلومات المركبة</h3>
     </div>
     <div class="row d-flex justify-content-between align-items-center mb-1 border-bottom pb-3">
@@ -149,43 +169,43 @@
     <div class="row mb-5">
         <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">🛠️ Detailed Inspection / الفحص التفصيلي</h4>
         @for (category of groupedResults | keyvalue; track $index) {
-        <div class="mb-4">
-            <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
-                {{ category.value[0].categoryEn }} / {{ category.value[0].categoryAr }}
-            </h4>
-            <div class="row g-4 ">
-                @for (item of category.value; track $index) {
-                <div class="col-md-6">
-                    <div class="h-100 rounded-3 border bg-white">
-                            <div class="d-flex justify-content-between align-items-start p-3">
-                                <div class="fw-semibold">
-                                    {{ item.checkAr }} / {{ item.checkEn }}
+            <div class="mb-4">
+                <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
+                    {{ category.value[0].categoryEn }} / {{ category.value[0].categoryAr }}
+                </h4>
+                <div class="row g-4 ">
+                    @for (item of category.value; track $index) {
+                    <div class="col-md-6">
+                        <div class="h-100 rounded-3 border bg-white">
+                                <div class="d-flex justify-content-between align-items-start p-3">
+                                    <div class="fw-semibold">
+                                        {{ item.checkAr }} / {{ item.checkEn }}
+                                    </div>
+                                    <span class="badge rounded-pill text-white px-3 py-2"
+                                        [style.backgroundColor]="getResultData(item)?.color">
+                                        {{ getResultData(item)?.nameAr }} / {{ getResultData(item)?.nameEn }}
+                                    </span>
                                 </div>
-                                <span class="badge rounded-pill text-white px-3 py-2"
-                                    [style.backgroundColor]="getResultData(item)?.color">
-                                    {{ getResultData(item)?.nameAr }} / {{ getResultData(item)?.nameEn }}
-                                </span>
-                            </div>
-
-                            @if (item.inspectionResult?.comment) {
-                            <div class="mb-2 text-muted small">
-                                <strong>Comment / ملاحظة:</strong> {{ item.inspectionResult.comment }}
-                            </div>
-                            }
-
-                            @if (item.inspectionResult.images?.length) {
-                            <div class="d-flex flex-wrap gap-2 mt-2">
-                                @for (img of item.inspectionResult.images; track $index) {
-                                <img [src]="img" class="rounded border "
-                                    style="max-height: 120px; object-fit: cover;">
+    
+                                @if (item.inspectionResult?.comment) {
+                                <div class="mb-2 text-muted small">
+                                    <strong>Comment / ملاحظة:</strong> {{ item.inspectionResult.comment }}
+                                </div>
                                 }
-                            </div>
-                            }
+    
+                                @if (item.inspectionResult.images?.length) {
+                                <div class="d-flex flex-wrap gap-2 mt-2">
+                                    @for (img of item.inspectionResult.images; track $index) {
+                                    <img [src]="img" class="rounded border "
+                                        style="max-height: 120px; object-fit: cover;">
+                                    }
+                                </div>
+                                }
+                        </div>
                     </div>
+                    }
                 </div>
-                }
             </div>
-        </div>
         }
     </div>
     <!-- Footer (Optional) -->
@@ -194,3 +214,8 @@
         <p class="mb-0 small">Powered by YourCompany &nbsp; | &nbsp; Drive Confident 💡</p>
     </div>
 </div>
+@if(isloading) {
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+}

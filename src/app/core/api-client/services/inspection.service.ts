@@ -17,6 +17,7 @@ export class InspectionService {
       GetInspectionDetailsById(Id: number) {
         return this.http.get(this.apiUrl + "Inspection/GetInspectionDetailsById?InspectionID=" + Id);
       }
+   
       GetInspectionCheckListById(Id: number) {
         return this.http.get(this.apiUrl + "Inspection/GetInspectionCheckListById?InspectionID=" + Id);
       }

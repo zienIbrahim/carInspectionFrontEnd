@@ -1,3 +1,5 @@
+import { TemplateRef } from "@angular/core";
+
 export interface resultList {
     id: number
     nameAr: string
@@ -20,3 +22,19 @@ export const resultListData:resultList[]=[
         nameEn: "Needs repair"
     },
 ]
+export interface ToastMessage {
+    header: ToastMessageData;
+    body: ToastMessageData;
+    uuid: string;
+    options?: ToastMessageOptions;
+    Link?:string
+}
+export type ToastMessageData = string | TemplateRef<unknown>;
+
+export interface ToastMessageOptions {
+    autohide?: boolean;
+    delay?: number;
+    classes?: string;
+    headerClasses?: string;
+    bodyClasses?: string;
+}

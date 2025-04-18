@@ -13,6 +13,10 @@
         <p-button styleClass="p-0" severity="secondary" rounded text (click)="undoMarker()"
          [disabled]="markers.length === 0" label="Undo" />
       </div>
+      <div class="d-flex  items-center">
+        <p-button styleClass="p-0" severity="secondary" rounded text (click)="saveImage()"
+         [disabled]="markers.length != 0" label="سليم" />
+      </div>
   </div>
   </ng-template>
   <div class="image-container" (click)="onImageClick($event)">

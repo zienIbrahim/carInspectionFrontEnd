@@ -4,16 +4,17 @@
             <div class="row g-3 fs-5">
                 <div class="col-md-8 d-flex justify-content-start">
                     <h3 class="card-title text-primary fw-bold mb-3">
-                        <i class="bi bi-file-earmark-text"></i> {{'inspection.details'|translate}}
+                        <i class="fs-2 bi bi-info-circle"></i>
+                        {{'inspection.details'|translate}}
                     </h3>
                 </div>
                 <div class="col-md-4 d-flex justify-content-end">
                     <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
-                        <i class="bi bi-download"></i>
+                        
                         <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
                     </button>
                     <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
-                        <i class="bi bi-download"></i>
+                        
                         <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
                     </button>
                 </div>
@@ -23,16 +24,15 @@
                     <div class="row">
                         <div class="col-md-3">
                             <p><i class="bi bi-car-front"></i> <strong>{{'inspection.plateNumber'|translate}}</strong>
-                                {{
-                                InspectionDetails?.plateNumber }}</p>
+                                {{InspectionDetails?.plateNumber }}</p>
                             <p><i class="bi bi-calendar-check"></i>
-                                <strong>{{'inspection.plateNumber'|translate}}:</strong> {{
+                                <strong>{{'inspection.inspectionDate'|translate}}:</strong> {{
                                 InspectionDetails?.inspectionDate | date: 'yyyy-MM-dd HH:mm' }}
                             </p>
                         </div>
                         <div class="col-md-3">
-                            <p><i class="bi bi-car-front-fill"></i> <strong>{{'inspection.make'|translate}}:</strong> {{
-                                lang=='ar'? InspectionDetails?.makeAr: InspectionDetails?.makeAr }}</p>
+                            <p><i class="bi bi-speedometer"></i> <strong>{{'inspection.odometer'|translate}}:</strong> {{
+                                InspectionDetails?.odometer}}</p>
                             <p><i class="bi bi-card-list"></i> <strong>{{'inspection.model'|translate}}:</strong> {{
                                 lang=='ar'? InspectionDetails?.modelAr: InspectionDetails?.modelEn }}</p>
                         </div>
@@ -67,12 +67,16 @@
                         </button>
                 </div>
                 <div class="col-md-6">
-                    <app-galleria [images]="viusalResultImage(1)" *ngIf="viusalResultImage(1)?.length"
+                    @if(viusalResultImage(1)?.length>0){
+                        <app-galleria [images]="viusalResultImage(1)" 
                         class="subgrid"></app-galleria>
+                    }                   
                 </div>
                 <div class="col-md-6">
-                    <app-galleria [images]="viusalResultImage(2)" *ngIf="viusalResultImage(2)?.length"
+                    @if(viusalResultImage(2)?.length>0){
+                        <app-galleria [images]="viusalResultImage(2)" 
                         class="subgrid"></app-galleria>
+                    }
                 </div>
             </div>
         </div>
@@ -260,7 +264,11 @@
                 <p-tabs [value]="0" class="vertical-tabs">
                     <p-tablist>
                         @for(item of VisualResultDetailsFormList.controls; track $index) {
-                        <p-tab [value]="$index">{{lang=='ar'? item.value?.lableAr:item.value?.lableEn }}</p-tab>
+                        <p-tab [value]="$index" [ngClass]="{ 'border border-danger': item.invalid && item.touched}">
+                            <span >
+                                {{lang=='ar'? item.value?.lableAr:item.value?.lableEn }}
+                            </span>
+                        </p-tab>
                         }
                     </p-tablist>
                     <p-tabpanels formArrayName="VisualResultDetails">
