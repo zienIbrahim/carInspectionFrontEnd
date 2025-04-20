@@ -147,7 +147,7 @@
         }
     </div>
 </div>
-<p-dialog #EditFrom (onShow)="EditFrom.maximize()" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{'height': '100vh;','width':'100vh'}" styleClass="border-0 bg-transparent" [(visible)]="showEditFrom"
+<p-dialog [maximizable]="true" #EditFrom (onShow)="EditFrom.maximize()" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{'height': '100vh;','width':'100vh'}" styleClass="border-0 bg-transparent" [(visible)]="showEditFrom"
     >
     <ng-template #headless>
         <div class="flex flex-col h-48">
@@ -236,7 +236,7 @@
         </div>
     </ng-template>
 </p-dialog>
-<p-dialog #Webcam (onShow)="Webcam.maximize()" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{'height': '100vh;','width':'100vh'}" header="{{'inspection.result.addImage'|translate}}" [modal]="true" [(visible)]="showWebcam"
+<p-dialog [maximizable]="true"  #Webcam (onShow)="Webcam.maximize()" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{'height': '100vh;','width':'100vh'}" header="{{'inspection.result.addImage'|translate}}" [modal]="true" [(visible)]="showWebcam"
     [style]="{ width: '50rem' }">
     @if(showWebcam){
     <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
@@ -249,7 +249,7 @@
     }
 
 </p-dialog>
-<p-dialog #VisualResult (onShow)="VisualResult.maximize()"  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{'height': '100vh;','width':'100vh'}" [(visible)]="showVisualResult" styleClass="border-0 bg-transparent" >
+<p-dialog [maximizable]="true"  #VisualResult (onShow)="VisualResult.maximize()"  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{'height': '100vh;','width':'100vh'}" [(visible)]="showVisualResult" styleClass="border-0 bg-transparent" >
     <ng-template #headless>
         <form [formGroup]="VisualResultForm">
             <div class="card" [style]="{'height': '100vh;'}">
