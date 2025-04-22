@@ -76,15 +76,16 @@
     }
 }
 
-
-/* ضبط التبويبات في العمود الجانبي */
-::ng-deep .p-tablist-tab-list{
-  display: unset !important;
- 
-}
-
-.p-tabs{
-    flex-direction: row !important;
+@media (min-width: 600px) {
+    /* ضبط التبويبات في العمود الجانبي */
+   ::ng-deep .p-tablist-tab-list{
+    display: unset !important;
+  }
+  
+  .p-tabs{
+      flex-direction: row !important;
+  }
+  
 }
 
 

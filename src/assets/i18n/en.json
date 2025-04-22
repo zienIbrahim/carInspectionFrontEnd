@@ -14,6 +14,7 @@
         "technician":"technician"
     },
     "inspection":{
+        "inspection":"inspection",
         "ListTitle": "Inspection list",
         "details": "Inspection details",
         "package": "package",
@@ -33,6 +34,9 @@
         "status": "status",
         "phoneNumber": "Phone number",
         "email":"email",
+        "selectAll":"select all",
+        "search":"🔍 search ...",
+
         "result":{
             "checkPoint":" check Point",
             "comment":" comment",

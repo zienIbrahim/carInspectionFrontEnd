@@ -42,7 +42,7 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: #0d47a1; /* Deep blue for active step number */
+    background: #e24202; /* Deep blue for active step number */
     color: white;
     display: flex;
     align-items: center;
@@ -51,20 +51,20 @@
     font-size: 16px;
   }
   .step-item.active {
-    background-color: #0d47a1; /* Deep blue for active step */
+    background-color: #e24202; /* Deep blue for active step */
     color: white;
     .step-number {
         background: #fff !important; 
-        color: #0d47a1 !important;  
+        color: #e24202 !important;  
     }
     .step-title{
-        background: #0d47a1 !important; 
+        background: #e24202 !important; 
         color: #fff !important;  
     }
   }
   
   .step-item.completed {
-    background-color: #b3e5fc; /* Soft blue for completed steps */
+    background-color: #e241023d; /* Soft blue for completed steps */
     color: #0277bd; /* Slightly darker blue for readability */
   }
   .step-item.invalid {

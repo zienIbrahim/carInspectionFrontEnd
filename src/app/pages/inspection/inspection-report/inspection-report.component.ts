@@ -49,7 +49,7 @@ export class InspectionReportComponent {
     window.print();
   }
   getResultData(result: InspectionDetailsResult) {
-   return result.checkResult.find(x => x.id == result.inspectionResult.inspectionResultId)
+   return result.checkResult.find(x => x.id == result.inspectionResult?.inspectionResultId)
   }
   exportToPDF() {
     this.loadingService.show();

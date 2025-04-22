@@ -86,8 +86,8 @@
             <td>{{ item.phoneNumber }}</td>
             <td>{{ item.plateNumber }}</td>
             <td>
-                <p-tag [value]="lang=='ar'?InspectionStatusOptionData[item.status].nameAr:InspectionStatusOptionData[item.status].nameEn"
-                [style.background-color]='InspectionStatusOptionData[item.status].color' />
+                <p-tag [value]="lang=='ar'?InspectionStatusOptionData[item.status]?.nameAr:InspectionStatusOptionData[item.status]?.nameEn"
+                [style.background-color]='InspectionStatusOptionData[item.status]?.color' [style]="{'color': '#fff'}"/>
             </td>
             <td>{{lang=='ar'? item.makeAr : item.makeEn}}</td>
             <td>{{lang=='ar'? item.modelAr : item.modelEn }}</td>

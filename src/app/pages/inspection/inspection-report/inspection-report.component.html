@@ -193,7 +193,7 @@
                                 </div>
                                 }
     
-                                @if (item.inspectionResult.images?.length) {
+                                @if (item.inspectionResult?.images?.length) {
                                 <div class="d-flex flex-wrap gap-2 mt-2">
                                     @for (img of item.inspectionResult.images; track $index) {
                                     <img [src]="img" class="rounded border "
