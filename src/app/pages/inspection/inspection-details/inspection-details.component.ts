@@ -195,7 +195,7 @@ export class InspectionDetailsComponent {
   }
   selectAllChange(e:any){
     if(e.target.checked){
-      this.InspectionDetails.results.forEach(item=>{
+      this.InspectionDetails?.results?.forEach(item=>{
         if(this.UserCategoryId == item.categoryId || this._authService.UserInRole(this._userRoles.Admin))
         this.selectCheckList.push({checkId:item.checkId});
       });

@@ -202,18 +202,16 @@
                                                     }
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label
-                                                        class="form-label">{{'inspection.result.comment'|translate}}</label>
+                                                    <label  class="form-label">{{'inspection.result.comment'|translate}}</label>
                                                     <input type="text" class="form-control"
                                                         placeholder="{{'inspection.result.comment'|translate}}"
                                                         formControlName="comment" [ngClass]="{'is-invalid':(getControl(inspectionResultIndex,'comment').touched )
-                                                        &&
-                                                        getControl(inspectionResultIndex,'comment').errors
+                                                        &&   getControl(inspectionResultIndex,'comment').errors
                                                         }">
                                                 </div>
                                                 <div class="mb-3">
                                                     <button class="btn btn-outline-success"
-                                                        (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex">
+                                                        (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex;inspectionimage=true;">
                                                         {{'inspection.result.addImage'|translate}} </button>
                                                     <div class="d-flex inspection-image-container">
                                                         @for (control of item.get('images')['controls']; track
