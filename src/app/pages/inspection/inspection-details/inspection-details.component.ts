@@ -69,6 +69,7 @@ export class InspectionDetailsComponent {
   showVisualResult = false;
   submitted = false;
   showWebcam = false;
+  inspectionimage = false;
   EditInspectionResultForm: FormGroup;
   VisualResultForm: FormGroup;
   public VisualResultDetailsForm: FormArray;
@@ -255,6 +256,8 @@ export class InspectionDetailsComponent {
     console.warn(error);
   }
   addImage(checkIndex:number,imagestring:string){
+    console.log({checkIndex,imagestring })
+    this.inspectionimage=false;
     const arr:FormArray=this.inspectionResultList.controls[checkIndex].get("images") as FormArray;
     arr.push( this.fb.group({
       imagestring: [imagestring]
@@ -339,7 +342,8 @@ export class InspectionDetailsComponent {
       this.trigger.next();
   }
   handleImage(image: WebcamImage ,imageType:boolean=false) {
-    imageType?this.addImage(this.selectedIndex,image.imageAsDataUrl): this.addVisualImage(image.imageAsDataUrl)
+    
+    this.inspectionimage?this.addImage(this.selectedIndex,image.imageAsDataUrl): this.addVisualImage(image.imageAsDataUrl)
     this.showWebcam=false;
   }
   getResultOptions(checkId:number):Result[]{
