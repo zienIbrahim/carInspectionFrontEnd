@@ -1,262 +1,260 @@
 <div class="container ">
     @if (!(showEditFrom ||showWebcam||showVisualResult)) {
-    <div class="row">
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <div class="row g-3 fs-5">
-                    <div class="col-md-8 d-flex justify-content-start">
-                        <h3 class="card-title text-primary fw-bold mb-3">
-                            <i class="fs-2 bi bi-info-circle"></i>
-                            {{'inspection.details'|translate}}
-                        </h3>
-                    </div>
-                    <div class="col-md-4 d-flex justify-content-end">
-                        <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
-
-                            <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
-                        </button>
-                        <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
-
-                            <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="row g-3 fs-5">
-                    <div class="col-md-10">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p><i class="bi bi-car-front"></i>
-                                    <strong>{{'inspection.plateNumber'|translate}}</strong>
-                                    {{InspectionDetails?.plateNumber }}</p>
-                                <p><i class="bi bi-calendar-check"></i>
-                                    <strong>{{'inspection.inspectionDate'|translate}}:</strong> {{
-                                    InspectionDetails?.inspectionDate | date: 'yyyy-MM-dd HH:mm' }}
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><i class="bi bi-speedometer"></i>
-                                    <strong>{{'inspection.odometer'|translate}}:</strong> {{
-                                    InspectionDetails?.odometer}}</p>
-                                <p><i class="bi bi-card-list"></i> <strong>{{'inspection.model'|translate}}:</strong> {{
-                                    lang=='ar'? InspectionDetails?.modelAr: InspectionDetails?.modelEn }}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><i class="bi bi-palette"></i> <strong>{{'inspection.color'|translate}}:</strong> {{
-                                    InspectionDetails?.color }}</p>
-                                <p><i class="bi bi-telephone"></i>
-                                    <strong>{{'inspection.phoneNumber'|translate}}:</strong>
-                                    {{ InspectionDetails?.phoneNumber }}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><i class="bi bi-person"></i> <strong>{{'inspection.name'|translate}}:</strong> {{
-                                    InspectionDetails?.name }}</p>
-                                <p><i class="bi bi-envelope"></i> <strong>{{'inspection.email'|translate}}:</strong> {{
-                                    InspectionDetails?.email }}</p>
-                            </div>
+        <div class="row">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="row g-3 fs-5">
+                        <div class="col-md-8 d-flex justify-content-start">
+                            <h3 class="card-title text-primary fw-bold mb-3">
+                                <i class="fs-2 bi bi-info-circle"></i>
+                                {{'inspection.details'|translate}}
+                            </h3>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-end">
+                            <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
+    
+                                <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
+                            </button>
+                            <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
+    
+                                <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <img *ngIf="InspectionDetails?.makeImage" [src]="InspectionDetails?.makeImage" alt="Car Image"
-                            class="img-fluid rounded-start" style="width: 8rem; height: 8rem; " />
+                    <div class="row g-3 fs-5">
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <p><i class="bi bi-car-front"></i>
+                                        <strong>{{'inspection.plateNumber'|translate}}</strong>
+                                        {{InspectionDetails?.plateNumber }}</p>
+                                    <p><i class="bi bi-calendar-check"></i>
+                                        <strong>{{'inspection.inspectionDate'|translate}}:</strong> {{
+                                        InspectionDetails?.inspectionDate | date: 'yyyy-MM-dd HH:mm' }}
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><i class="bi bi-speedometer"></i>
+                                        <strong>{{'inspection.odometer'|translate}}:</strong> {{
+                                        InspectionDetails?.odometer}}</p>
+                                    <p><i class="bi bi-card-list"></i> <strong>{{'inspection.model'|translate}}:</strong> {{
+                                        lang=='ar'? InspectionDetails?.modelAr: InspectionDetails?.modelEn }}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><i class="bi bi-palette"></i> <strong>{{'inspection.color'|translate}}:</strong> {{
+                                        InspectionDetails?.color }}</p>
+                                    <p><i class="bi bi-telephone"></i>
+                                        <strong>{{'inspection.phoneNumber'|translate}}:</strong>
+                                        {{ InspectionDetails?.phoneNumber }}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p><i class="bi bi-person"></i> <strong>{{'inspection.name'|translate}}:</strong> {{
+                                        InspectionDetails?.name }}</p>
+                                    <p><i class="bi bi-envelope"></i> <strong>{{'inspection.email'|translate}}:</strong> {{
+                                        InspectionDetails?.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <img *ngIf="InspectionDetails?.makeImage" [src]="InspectionDetails?.makeImage" alt="Car Image"
+                                class="img-fluid rounded-start" style="width: 8rem; height: 8rem; " />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12 justify-content-end d-flex">
-                        <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="showVisualInspection()">
-                            <i style="font-size: large;" antIcon [type]="'scan'" theme="outline"></i>
-                            <i class="m-1">{{'inspection.visualInspection'|translate}}</i>
-                        </button>
-                    </div>
-                    <div class="col-md-6">
-                        @if(viusalResultImage(1)?.length>0){
-                        <app-galleria [images]="viusalResultImage(1)" class="subgrid"></app-galleria>
-                        }
-                    </div>
-                    <div class="col-md-6">
-                        @if(viusalResultImage(2)?.length>0){
-                        <app-galleria [images]="viusalResultImage(2)" class="subgrid"></app-galleria>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col d-flex justify-content-start align-items-center mb-4">
-                <div class="form-check">
-                    <input (change)="selectAllChange($event)" class="form-check-input px-1" type="checkbox"
-                        [indeterminate]="this.selectCheckList.length > 0 && InspectionDetails?.results?.length > this.selectCheckList.length "
-                        [checked]="this.selectCheckList.length == InspectionDetails?.results?.length"
-                        id="flexCheckDefault" />
-                    <label class="form-check-label" for="flexCheckIndeterminate" class="px-1">
-                        {{'inspection.selectAll'|translate}}
-                    </label>
-                </div>
-                <input type="text" class="form-control shadow-sm rounded w-50 fs-5" placeholder="{{'inspection.search'|translate}}"
-                    [(ngModel)]="searchText">
-
-            </div>
-            <div class="col d-flex justify-content-end align-items-center mb-4">
-                <button class="btn btn-warning shadow-sm mx-2 fs-5" (click)="EditResult()">
-                    <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            @for (category of groupedResults| keyvalue; track $index) {
-            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                <p-panel header="{{ category.value[0].categoryEn +'/'+category.value[0].categoryAr}}"
-                    [toggleable]="true" collapsed="true">
-                    <ng-template #icons>
-                        @if(UserCategoryId==category.value[0].categoryId || _authService.UserInRole(_userRoles.Admin)) {
-                        <input (change)="selectGroupChange($event,category.value)" class="" type="checkbox"
-                            [checked]="checkedSelectGroup(category.value)"
-                            [indeterminate]="indeterminateSelectGroup(category.value)" id="flexCheckDefault" />
-                        }
-                        @else{
-                        <input type="checkbox" disabled />
-                        }
-                    </ng-template>
-                    <div class="check-cards">
-                        <ul class='check-list mt-1'>
-                            @for (result of category.value; track $index) {
-                            <li [style.border-left-color]="getResultData(result)?.color">
-                                @if(UserCategoryId==category.value[0].categoryId ||
-                                _authService.UserInRole(_userRoles.Admin)) {
-                                <input (change)="selectChange($event,result.checkId)"
-                                    [checked]="resultChecked(result.checkId)" type="checkbox" id="flexCheckDefault" />
-                                }@else{
-                                <span></span>
-                                }
-                                {{ lang=='ar'? result.checkAr : result.checkEn}}
-                                <span class="badge rounded-pill fs-5 main-info"
-                                    [style.background-color]="getResultData(result)?.color">
-                                    {{ lang=='ar'? getResultData(result)?.nameAr : getResultData(result)?.nameEn}}
-                                </span>
-                                <span class="main-info">{{lang=='ar'? result?.inspectionResult?.technicianAr :
-                                    result?.inspectionResult?.technicianEn }}</span>
-                                <span class="main-info">{{result?.inspectionResult?.comment }}</span>
-                                <app-galleria [images]="mapImageResulrt(result.inspectionResult.images)"
-                                    *ngIf="result?.inspectionResult?.images.length > 0" class="subgrid"></app-galleria>
-                            </li>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 justify-content-end d-flex">
+                            <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="showVisualInspection()">
+                                <i style="font-size: large;" antIcon [type]="'scan'" theme="outline"></i>
+                                <i class="m-1">{{'inspection.visualInspection'|translate}}</i>
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            @if(viusalResultImage(1)?.length>0){
+                            <app-galleria [images]="viusalResultImage(1)" class="subgrid"></app-galleria>
                             }
-                        </ul>
+                        </div>
+                        <div class="col-md-6">
+                            @if(viusalResultImage(2)?.length>0){
+                            <app-galleria [images]="viusalResultImage(2)" class="subgrid"></app-galleria>
+                            }
+                        </div>
                     </div>
-                </p-panel>
+                </div>
             </div>
-            }
+            <div class="row">
+                <div class="col d-flex justify-content-start align-items-center mb-4">
+                    <div class="form-check">
+                        <input (change)="selectAllChange($event)" class="form-check-input px-1" type="checkbox"
+                            [indeterminate]="this.selectCheckList.length > 0 && InspectionDetails?.results?.length > this.selectCheckList.length "
+                            [checked]="this.selectCheckList.length == InspectionDetails?.results?.length"
+                            id="flexCheckDefault" />
+                        <label class="form-check-label" for="flexCheckIndeterminate" class="px-1">
+                            {{'inspection.selectAll'|translate}}
+                        </label>
+                    </div>
+                    <input type="text" class="form-control shadow-sm rounded w-50 fs-5" placeholder="{{'inspection.search'|translate}}"
+                        [(ngModel)]="searchText">
+    
+                </div>
+                <div class="col d-flex justify-content-end align-items-center mb-4">
+                    <button class="btn btn-warning shadow-sm mx-2 fs-5" (click)="EditResult()">
+                        <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                @for (category of groupedResults| keyvalue; track $index) {
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <p-panel header="{{ category.value[0].categoryEn +'/'+category.value[0].categoryAr}}"
+                        [toggleable]="true" collapsed="true">
+                        <ng-template #icons>
+                            @if(UserCategoryId==category.value[0].categoryId || _authService.UserInRole(_userRoles.Admin)) {
+                            <input (change)="selectGroupChange($event,category.value)" class="" type="checkbox"
+                                [checked]="checkedSelectGroup(category.value)"
+                                [indeterminate]="indeterminateSelectGroup(category.value)" id="flexCheckDefault" />
+                            }
+                            @else{
+                            <input type="checkbox" disabled />
+                            }
+                        </ng-template>
+                        <div class="check-cards">
+                            <ul class='check-list mt-1'>
+                                @for (result of category.value; track $index) {
+                                <li [style.border-left-color]="getResultData(result)?.color">
+                                    @if(UserCategoryId==category.value[0].categoryId ||
+                                    _authService.UserInRole(_userRoles.Admin)) {
+                                    <input (change)="selectChange($event,result.checkId)"
+                                        [checked]="resultChecked(result.checkId)" type="checkbox" id="flexCheckDefault" />
+                                    }@else{
+                                    <span></span>
+                                    }
+                                    {{ lang=='ar'? result.checkAr : result.checkEn}}
+                                    <span class="badge rounded-pill fs-5 main-info"
+                                        [style.background-color]="getResultData(result)?.color">
+                                        {{ lang=='ar'? getResultData(result)?.nameAr : getResultData(result)?.nameEn}}
+                                    </span>
+                                    <span class="main-info">{{lang=='ar'? result?.inspectionResult?.technicianAr :
+                                        result?.inspectionResult?.technicianEn }}</span>
+                                    <span class="main-info">{{result?.inspectionResult?.comment }}</span>
+                                    <app-galleria [images]="mapImageResulrt(result.inspectionResult.images)"
+                                        *ngIf="result?.inspectionResult?.images.length > 0" class="subgrid"></app-galleria>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                    </p-panel>
+                </div>
+                }
+            </div>
         </div>
-    </div>
     }
     @if (showEditFrom) {
-    <div class="row" [style.display]="showWebcam?'none':''">
-        <div class="flex flex-col h-48">
-            <div class="flex-auto flex justify-center items-center">
-                <div class="card shadow-sm border-0">
-                    <div class="row card-header p-1">
-                        <div class="col d-flex justify-content-start">
-                            <h2> {{'inspection.inspection'|translate}}</h2>
+        <div class="row" [style.display]="showWebcam?'none':''">
+            <div class="flex flex-col h-48">
+                <div class="flex-auto flex justify-center items-center">
+                    <div class="card shadow-sm border-0">
+                        <div class="row card-header p-1">
+                            <div class="col d-flex justify-content-start">
+                                <h2> {{'inspection.inspection'|translate}}</h2>
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="SaveEditResult()">
+                                    <i style="font-size: large;" antIcon [type]="'save'" theme="outline"></i>
+                                </button>
+                                <button class="btn btn-primary shadow-sm mx-2 fs-5" (click)="closeShowEditFromDialog()">
+                                    <i style="font-size: large;" antIcon [type]="'close'" theme="outline"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col d-flex justify-content-end">
-                            <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="SaveEditResult()">
-                                <i class="bi bi-download"></i>
-                                <i style="font-size: large;" antIcon [type]="'save'" theme="outline"></i>
-                            </button>
-                            <button class="btn btn-primary shadow-sm mx-2 fs-5" (click)="closeShowEditFromDialog()">
-                                <i class="bi bi-download"></i>
-                                <i style="font-size: large;" antIcon [type]="'close'" theme="outline"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <app-stepper [Steps]="checkListMapName">
-                            <form [formGroup]="EditInspectionResultForm">
-                                <div formArrayName="inspectionResult">
-                                    @for (item of inspectionResultList.controls; track $index; let
-                                    inspectionResultIndex=$index)
-                                    {
-                                    <cdk-step [formGroupName]="inspectionResultIndex">
-                                        <div class="row">
-                                            <div class="text-primary fw-bold mb-3">
-                                                <h3 class="mb-0">{{ inspectionResultIndex + 1 }} : {{
-                                                    lang==='ar' ?
-                                                    getControl(inspectionResultIndex,'nameAr').value:getControl(inspectionResultIndex,'nameEn').value}}
-                                                </h3>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label
-                                                    class="form-label">{{'inspection.result.result'|translate}}</label>
-                                                @for (item of
-                                                getResultOptions(getControl(inspectionResultIndex,'checkId').value);
-                                                track $index) {
-                                                <input formControlName="resultId" type="radio" class="btn-check"
-                                                    [id]="$index" autocomplete="off" [value]="item.id">
-                                                <label [style.background-color]="item.color" class="btn mx-1"
-                                                    [for]="$index">{{lang==='ar'?item.nameAr:item.nameEn}}</label>
-                                                }
-                                                @if(getControl($index,'resultId').errors && submitted){
-                                                <div class="invalid-feedback">
-                                                    * {{'form.fieldRequired' |translate}}
+                        <div class="card-body">
+                            <app-stepper [Steps]="checkListMapName">
+                                <form [formGroup]="EditInspectionResultForm">
+                                    <div formArrayName="inspectionResult">
+                                        @for (item of inspectionResultList.controls; track $index; let
+                                        inspectionResultIndex=$index)
+                                        {
+                                        <cdk-step [formGroupName]="inspectionResultIndex">
+                                            <div class="row">
+                                                <div class="text-primary fw-bold mb-3">
+                                                    <h3 class="mb-0">{{ inspectionResultIndex + 1 }} : {{
+                                                        lang==='ar' ?
+                                                        getControl(inspectionResultIndex,'nameAr').value:getControl(inspectionResultIndex,'nameEn').value}}
+                                                    </h3>
                                                 </div>
-                                                }
-                                            </div>
-                                            <div class="mb-3">
-                                                <label
-                                                    class="form-label">{{'inspection.result.comment'|translate}}</label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="{{'inspection.result.comment'|translate}}"
-                                                    formControlName="comment" [ngClass]="{'is-invalid':(getControl(inspectionResultIndex,'comment').touched )
-                                                    &&
-                                                    getControl(inspectionResultIndex,'comment').errors
-                                                    }">
-                                            </div>
-                                            <div class="mb-3">
-                                                <button class="btn btn-outline-success"
-                                                    (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex">
-                                                    {{'inspection.result.addImage'|translate}} </button>
-                                                <div class="d-flex inspection-image-container">
-                                                    @for (control of item.get('images')['controls']; track
-                                                    $index; let idx = $index) {
-                                                    <div class="col-lg-3 col-md-6 col-sm-12 p-1">
-                                                        <i (click)="removeImage(inspectionResultIndex,idx)" class="px-3"
-                                                            style="font-size: large; color:brown; position: absolute;"
-                                                            antIcon [type]="'close'" theme="outline"></i>
-                                                        <img class="inspection-image"
-                                                            [src]="control.controls['imagestring'].value" />
+                                                <div class="mb-3">
+                                                    <label
+                                                        class="form-label">{{'inspection.result.result'|translate}}</label>
+                                                    @for (item of
+                                                    getResultOptions(getControl(inspectionResultIndex,'checkId').value);
+                                                    track $index) {
+                                                    <input formControlName="resultId" type="radio" class="btn-check"
+                                                        [id]="$index" autocomplete="off" [value]="item.id">
+                                                    <label [style.background-color]="item.color" class="btn mx-1"
+                                                        [for]="$index">{{lang==='ar'?item.nameAr:item.nameEn}}</label>
+                                                    }
+                                                    @if(getControl($index,'resultId').errors && submitted){
+                                                    <div class="invalid-feedback">
+                                                        * {{'form.fieldRequired' |translate}}
                                                     </div>
                                                     }
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label
+                                                        class="form-label">{{'inspection.result.comment'|translate}}</label>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="{{'inspection.result.comment'|translate}}"
+                                                        formControlName="comment" [ngClass]="{'is-invalid':(getControl(inspectionResultIndex,'comment').touched )
+                                                        &&
+                                                        getControl(inspectionResultIndex,'comment').errors
+                                                        }">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <button class="btn btn-outline-success"
+                                                        (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex">
+                                                        {{'inspection.result.addImage'|translate}} </button>
+                                                    <div class="d-flex inspection-image-container">
+                                                        @for (control of item.get('images')['controls']; track
+                                                        $index; let idx = $index) {
+                                                        <div class="col-lg-3 col-md-6 col-sm-12 p-1">
+                                                            <i (click)="removeImage(inspectionResultIndex,idx)" class="px-3"
+                                                                style="font-size: large; color:brown; position: absolute;"
+                                                                antIcon [type]="'close'" theme="outline"></i>
+                                                            <img class="inspection-image"
+                                                                [src]="control.controls['imagestring'].value" />
+                                                        </div>
+                                                        }
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </cdk-step>
-                                    }
-                                </div>
-                            </form>
-                        </app-stepper>
+                                        </cdk-step>
+                                        }
+                                    </div>
+                                </form>
+                            </app-stepper>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     }
     @if (showWebcam) {
-    <div class="row">
-      <div class="col-md-12">
-        <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
-        <webcam [height]="300" [width]="300" [trigger]="trigger" [allowCameraSwitch]="false"
-            (imageCapture)="handleImage($event)" (initError)="handleInitError($event)" [style]="{'border':'1px sloid #d7d'}"></webcam>
+        <div class="row">
+            <div class="col-md-12">
+              <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
+              <webcam [height]="300" [width]="300" [trigger]="trigger" [allowCameraSwitch]="false"
+                  (imageCapture)="handleImage($event)" (initError)="handleInitError($event)" [style]="{'border':'1px sloid #d7d'}"></webcam>
+              </div>
+            <div class="col-md-12 d-felx justify-content-center">
+              <button (click)="takePicture()" class="btn btn-success w-25">
+                  <i class="px-3" style="font-size: large; color:white; " antIcon [type]="'camera'" theme="outline"></i>
+                  {{'inspection.result.capture'|translate}}
+              </button>
+            </div>
+             
         </div>
-      <div class="col-md-12 d-felx justify-content-center">
-        <button (click)="takePicture()" class="btn btn-success w-25">
-            <i class="px-3" style="font-size: large; color:white; " antIcon [type]="'camera'" theme="outline"></i>
-            {{'inspection.result.capture'|translate}}
-        </button>
-      </div>
-       
-    </div>
     }
     @if (showVisualResult) {
         <div class="row" [style.display]="showWebcam?'none':''">
