@@ -213,15 +213,15 @@
                                                     <button class="btn btn-outline-success"
                                                         (click)="showWebcam=!showWebcam; selectedIndex=inspectionResultIndex;inspectionimage=true;">
                                                         {{'inspection.result.addImage'|translate}} </button>
-                                                    <div class="d-flex inspection-image-container">
+                                                    <div class="d-flex inspection-image-container row">
                                                         @for (control of item.get('images')['controls']; track
                                                         $index; let idx = $index) {
-                                                        <div class="col-lg-3 col-md-6 col-sm-12 p-1">
+                                                        <div class="col-lg-3 col-md-6 col-sm-12 p-1 border p-1  mt-4">
                                                             <i (click)="removeImage(inspectionResultIndex,idx)" class="px-3"
-                                                                style="font-size: large; color:brown; position: absolute;"
+                                                                style="font-size: large; color:brown; position: sticky;"
                                                                 antIcon [type]="'close'" theme="outline"></i>
                                                             <img class="inspection-image"
-                                                                [src]="control.controls['imagestring'].value" />
+                                                                [src]="control.controls['imagestring'].value"  style="height: 100%; width: 100%;"/>
                                                         </div>
                                                         }
                                                     </div>
