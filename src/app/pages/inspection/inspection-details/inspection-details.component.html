@@ -192,7 +192,7 @@
                                                     track $index) {
                                                     <input formControlName="resultId" type="radio" class="btn-check"
                                                         [id]="$index" autocomplete="off" [value]="item.id">
-                                                    <label [style.background-color]="item.color" class="btn mx-1"
+                                                    <label [style.background-color]="item.color" class="btn px-3 mx-1 "
                                                         [for]="$index">{{lang==='ar'?item.nameAr:item.nameEn}}</label>
                                                     }
                                                     @if(getControl($index,'resultId').errors && submitted){
@@ -241,12 +241,12 @@
     @if (showWebcam) {
         <div class="row">
             <div class="col-md-12">
-              <span class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</span>
-              <webcam [height]="300" [width]="300" [trigger]="trigger" [allowCameraSwitch]="false"
+              <p class="p-text-secondary block mb-8">{{'inspection.result.addImage'|translate}}</p>
+              <webcam  [trigger]="trigger" [allowCameraSwitch]="false"
                   (imageCapture)="handleImage($event)" (initError)="handleInitError($event)" [style]="{'border':'1px sloid #d7d'}"></webcam>
-              </div>
-            <div class="col-md-12 d-felx justify-content-center">
-              <button (click)="takePicture()" class="btn btn-success w-25">
+            </div>
+            <div class="col-md-12 d-flex justify-content-center">
+              <button (click)="takePicture()" class="btn btn-success shadow-sm mx-2 fs-5">
                   <i class="px-3" style="font-size: large; color:white; " antIcon [type]="'camera'" theme="outline"></i>
                   {{'inspection.result.capture'|translate}}
               </button>

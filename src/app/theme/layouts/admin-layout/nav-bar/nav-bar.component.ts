@@ -37,8 +37,6 @@ export class NavBarComponent {
   }
 
   navCollapseMob() {
-    if (this.windowWidth < 1025) {
-      this.NavCollapsedMob.emit();
-    }
+    this.NavCollapsedMob.emit();
   }
 }

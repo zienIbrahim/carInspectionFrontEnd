@@ -1,6 +1,6 @@
 <section class="row stepper-container">
     <!-- Step Navigation -->
-    <div class="step-list col-3 ">
+    <div class="step-list col-lg-3 col-md-4 col-sm-6">
         @for (step of Steps; track $index;let i = $index) {
             <div  class="step-item m-1 p-1 text-wrap d-felx justify-content-between"
             [ngClass]="{ 'active': selectedIndex === i,'invalid':step.isValid, 'completed': selectedIndex > i }" (click)="onClick(i)">
@@ -14,7 +14,7 @@
         
     </div>
     <!-- Step Content -->
-    <div class="step-content col-9 p-1">
+    <div class="step-content col-lg-9 col-md-8 col-sm-6">
         @if(steps.length){
             <div class="step-description">
                 <ng-container [ngTemplateOutlet]="selected.content"></ng-container>

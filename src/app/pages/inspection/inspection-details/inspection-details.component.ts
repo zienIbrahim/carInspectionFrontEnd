@@ -30,7 +30,6 @@ import { TabsModule } from 'primeng/tabs';
   selector: 'app-inspection-details',
   imports: [
     TranslatePipe,
-    Dialog,
     PanelModule,
     StepperModule,
     ReactiveFormsModule,
