@@ -1,13 +1,12 @@
 #report-container{
-  width: 21cm;
-  max-width: 21cm;
-  min-height: 29.7cm;
-  padding: 1cm;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 3mm;
   margin: 1cm auto;
-  border: 1px #D3D3D3 solid;
-  border-radius: 5px;
   background: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
 
@@ -117,4 +116,28 @@
   color: #7f8c8d;
   margin: 10px 0 0;
   font-size: 14px;
+}
+/* === For screen responsiveness === */
+@media screen and (max-width: 768px) {
+  #report-container {
+    width: 100%;
+    min-height: auto;
+    padding: 15px;
+    box-shadow: none;
+  }
+}
+
+/* === Print-specific styling === */
+@media print {
+  body, html {
+    margin: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .report-a4 {
+    margin: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
 }

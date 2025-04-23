@@ -42,7 +42,6 @@ export const routes: Routes = [
       // inspection Routes
       { path: 'inspection', canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] },loadComponent: () => import('./pages/inspection/inspection.component').then((c) => c.InspectionComponent) },
       { path: 'inspection/create', canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Receptionist] },loadComponent: () => import('./pages/inspection/create-inspection/create-inspection.component').then((c) => c.CreateInspectionComponent) },
-      { path: 'inspection/process/:id',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector] }, loadComponent: () => import('./pages/inspection/process-inspection/process-inspection.component').then((c) => c.ProcessInspectionComponent) },
       { path: 'inspection/details/:id',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] }, loadComponent: () => import('./pages/inspection/inspection-details/inspection-details.component').then((c) => c.InspectionDetailsComponent) },
       { path: 'inspection/report/:id',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] }, loadComponent: () => import('./pages/inspection/inspection-report/inspection-report.component').then((c) => c.InspectionReportComponent) },
     ]

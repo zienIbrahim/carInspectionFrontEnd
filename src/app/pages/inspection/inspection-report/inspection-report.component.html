@@ -10,43 +10,40 @@
     </div>
 </div>
 <div id="report-container" class="container" style="direction: rtl;">
-    <header class="report-header">
+    <div class="report-header">
         <div class="header-container">
             <div class="header-content">                
                 <div class="report-info">
-                    <h4 class="report-title">Car Inspection Report</h4>
-                    <p class="report-date">
-                         تاريخ الفحص :Inspection Date
-                         {{ InspectionDetails?.inspectionDate | date:'medium' }}
-                    </p>
+                    <h4>مركز الماس الأحمر لخدمات السيارات</h4>
+                    <div class="company-text">
+                        <p class="report-title"> Car Inspection Report  تقرير فحص سيارة</p>
+                    </div>
+                    
                 </div>
                 <div class="company-info">
-                    <div class="company-text">
-                        <h4>شركة الماس الأحمر</h4>
-                        <p>لخدمات السيارات</p>
-                    </div>
-                    <img src="company-logo.png" alt="Company Logo" class="logo">
+                    
+                    <img src="assets/images/logo-white.png" alt="Company Logo" class="logo">
                 </div>
             </div>
         </div>
-    </header>
+    </div>
        <!-- Vehicle Information Section -->
-       <div class="row  d-flex justify-content-between align-items-center mb-1 border-bottom pb-3">
+    <div class="row  d-flex justify-content-between align-items-center mb-1 border-bottom pb-3">
         <h3 class="text-primary fw-bold">📄 Vehicle Information/ معلومات المركبة</h3>
     </div>
     <div class="row d-flex justify-content-between align-items-center mb-1 border-bottom pb-3">
-        <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <div class="col-md-4 col-lg-4 col-sm-4 d-flex justify-content-center align-items-center">
             <app-suadi-palte-image [plateValue]="InspectionDetails?.plateNumber"></app-suadi-palte-image>
         </div>
-        <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <div class="col-md-4 col-lg-4 col-sm-4 d-flex justify-content-center align-items-center">
             <img [src]="InspectionDetails?.makeImage" class="img-fluid" alt="Saudi Emblem" style="max-width: 100px; max-height: 100px;">
         </div>
-        <div class="col-md-4 d-flex justify-content-center align-items-center">
+        <div class="col-md-4 col-lg-4 col-sm-4 d-flex justify-content-center align-items-center">
             <div class="row m-4 rounded border w-100">
-                <div class="col-md-6 font-weight-bold">
+                <div class="col-md-6 col-lg-6 col-sm-6 font-weight-bold">
                     <h3 class="font-weight-bold">{{ InspectionDetails?.modelEn }}</h3>
                 </div>
-                <div class="col-md-6 ">
+                <div class="col-md-6 col-lg-6 col-sm-6">
                     <h3 class="font-weight-bold">{{ InspectionDetails?.year }}</h3>
                 </div>
 
@@ -54,19 +51,19 @@
         </div>
     </div>
     <div class="row  text-center pb-1">
-        <div class="col-md-6 p-1">
+        <div class="col-md-6 col-lg-6 col-sm-6 p-1">
             <div class="d-felx justify-content-center align-items-center rounded border w-100">
                 <div class="">تاريخ الفحص :Inspection Date</div>
                 <div class="">{{ InspectionDetails?.inspectionDate | date:'medium' }}</div>
             </div>
         </div>                     
-        <div class="col-md-6 p-1">
+        <div class="col-md-6 col-lg-6 col-sm-6 p-1">
             <div class="d-felx justify-content-center align-items-center rounded border w-100">
                 <div class="">رقم الهيكل :VIN Vehicle</div>
                 <div class=""> {{ InspectionDetails?.vinNumber }}</div>
             </div>
         </div>                       
-        <div class="col-md-12 p-1">
+        <div class="col-md-12 col-lg-6 col-sm-6 p-1">
             <div class="d-felx justify-content-center align-items-center rounded border w-100">
                 <div class="">ملاحظات عامة :General Notes</div>
                 <div class="">
@@ -81,7 +78,7 @@
     </div>
     <!-- Visual Inspection Results -->
     <div class="row mt-2">
-        <div class="col-md-4">
+        <div class="col-md-4 col-lg-4 col-sm-4">
             <div class="row">
                 <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
                     {{'الملاحظات عن المركبة / Notes about the vehicle' }}
@@ -89,7 +86,7 @@
                 @for (groupVisual of groupedVisualResults | keyvalue; track $index) {
                     @for (visual of groupVisual.value;  let groupIndex =  $index;track $index) {
                         @if(visual?.imageType === 1) {
-                            <div class="col-md-12 border border-2  rounded-3 m-1 p-2 bg-white d-felx">
+                            <div class="col border border-2  rounded-3 m-1 p-2 bg-white d-felx">
                                 <span class="  border-4  ps-3 mb-3">
                                     {{ ImageDirction[visual.imageDirction].nameAr }} / {{
                                     ImageDirction[visual.imageDirction].nameEn }}
@@ -107,7 +104,7 @@
                 }
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-lg-8 col-sm-8">
             <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
                 صور المركبة  / Vehicle Images
             </h4>
@@ -136,7 +133,7 @@
         </div> 
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-lg-12 col-sm-12">
             <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
                 الفحص البصري / Visual Check Image
             </h4>
@@ -175,7 +172,7 @@
                 </h4>
                 <div class="row g-4 ">
                     @for (item of category.value; track $index) {
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="h-100 rounded-3 border bg-white">
                                 <div class="d-flex justify-content-between align-items-start p-3">
                                     <div class="fw-semibold">
