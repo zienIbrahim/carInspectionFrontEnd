@@ -102,7 +102,6 @@ export class InspectionDetailsComponent {
     this.UserCategoryId = Number(this._authService.getUserCategoryId());
     this.InspectionID=Number(this.route.snapshot.paramMap.get('id'));
     this.resultOptions=resultListData
-    this.createVisualResultForm();
   }
   ngOnInit(): void {   
     this.languageService.language$.subscribe(lang => {
@@ -119,16 +118,16 @@ export class InspectionDetailsComponent {
   exportToCSV() {
     this.router.navigate(['inspection/report/'+this.InspectionDetails.id])
   }
-  createVisualResultForm() {
+  createVisualResultForm(isVisualResult:boolean) {
     this.initVisualResultForm();
-    Object.keys(ImageType).forEach(ImageTypeKey => {
+    Object.keys(ImageType).filter(c=> isVisualResult? c==='1':c==='2').forEach(ImageTypeKey => {
       Object.keys(ImageDirction).forEach(ImageDirctionKey => {
        const item= this.InspectionDetails?.visualResult.filter(x=> x.imageType==Number(ImageTypeKey) && x.imageDirction==Number(ImageDirctionKey))[0];
        this.VisualResultDetailsForm.push(this.fb.group({
         imageDirction: [Number(ImageDirctionKey), [Validators.required]],
         imageType: [Number(ImageTypeKey), [Validators.required]],
-        lableAr: [ImageType[ImageTypeKey].nameAr+' / '+ ImageDirction[ImageDirctionKey].nameAr, []],
-        lableEn: [ImageType[ImageTypeKey].nameEn+' / '+ ImageDirction[ImageDirctionKey].nameEn, []],
+        lableAr: [ImageDirction[ImageDirctionKey].nameAr, []],
+        lableEn: [ImageDirction[ImageDirctionKey].nameEn, []],
         imageUrl: [item?.imageUrl, [Validators.required]],
         comment: [item?.comment, []],
         markers: [item?.markers, []],
@@ -140,9 +139,9 @@ export class InspectionDetailsComponent {
       });
     });
   }
-  showVisualInspection(){
+  showVisualInspection(isVisualResult:boolean) {
     this.showVisualResult = true;  
-    this.createVisualResultForm();
+    this.createVisualResultForm(isVisualResult);
   }
   createInspectionResultForm(item:InspectionDetailsResult): FormGroup {
       return this.fb.group({

@@ -14,11 +14,8 @@ export class LoadingService {
   }
 
   hide() {
-    console.log({requestCount:this.requestCount})
     this.requestCount--;
     if (this.requestCount <= 0) {
-      console.log({IFrequestCount:this.requestCount})
-
       this.loading.next(false);
       this.requestCount = 0;
     }

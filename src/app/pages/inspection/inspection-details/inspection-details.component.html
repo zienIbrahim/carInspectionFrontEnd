@@ -66,10 +66,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 justify-content-end d-flex">
-                            <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="showVisualInspection()">
+                            <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="showVisualInspection(false)">
+                                <i style="font-size: large;" antIcon [type]="'scan'" theme="outline"></i>
+                                <i class="m-1">{{'inspection.vehicleImage'|translate}}</i>
+                            </button>
+                            <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="showVisualInspection(true)">
                                 <i style="font-size: large;" antIcon [type]="'scan'" theme="outline"></i>
                                 <i class="m-1">{{'inspection.visualInspection'|translate}}</i>
-                            </button>
+                            </button>                           
                         </div>
                         <div class="col-md-6">
                             @if(viusalResultImage(1)?.length>0){
@@ -261,7 +265,12 @@
                     <div class="row">
                         <div class="col-md-8 justify-content-strat d-flex">
                             <h3 class="card-title text-primary fw-bold mb-3">
-                                {{'inspection.visualInspection'|translate}}
+                                @if(VisualResultDetailsFormList.controls[0].value['imageType']=='1'){ 
+                                    {{'inspection.visualInspection'|translate}}
+                                } 
+                                @if(VisualResultDetailsFormList.controls[0].value['imageType']=='2'){
+                                    {{'inspection.vehicleImage'|translate}}
+                                } 
                             </h3>
                         </div>
                         <div class="col-md-4 justify-content-end d-flex">
@@ -274,9 +283,6 @@
                     </div>
                     <p-tabs [value]="0" class="vertical-tabs" scrollable>
                         <p-tablist>
-                            <ng-template #previcon>
-                                <i class="bi bi-chevron-compact-left"></i>
-                            </ng-template>
                             @for(item of VisualResultDetailsFormList.controls; track $index) {
                             <p-tab [value]="$index" [ngClass]="{ 'border border-danger': item.invalid && item.touched}">
                                 <span>
@@ -284,9 +290,6 @@
                                 </span>
                             </p-tab>
                             }
-                            <ng-template #nexticon>
-                                <i class="bi bi-chevron-compact-right"></i>
-                            </ng-template>
                         </p-tablist>
                         <p-tabpanels formArrayName="VisualResultDetails" scrollable>
                             @for(item of VisualResultDetailsFormList.controls; track $index)
@@ -298,7 +301,7 @@
                                 {
                                 <i class="px-3" style="font-size: large; color:brown; position: absolute;" antIcon
                                     [type]="'close'" theme="outline" (click)="item.get('imageUrl').setValue(null)"></i>
-                                <img class="inspection-image" [src]="item.get('imageUrl')?.value" />
+                                <img class="inspection-image" [src]="item.get('imageUrl')?.value" style="max-width: 100%;width: 100%;max-height: 100%;height: 100%;" />
                                 }
                                 @else {
                                 <button class="btn btn-outline-success"

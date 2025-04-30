@@ -30,6 +30,7 @@
         "type": "نوع المركبة",
         "status": "الحالة",
         "visualInspection": "الفحص البصري",
+        "vehicleImage": "صورة المركبة",
         "color": "اللون",
         "year": "السنة",
         "odometer": "قراء ة العداد",

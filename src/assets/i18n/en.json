@@ -27,6 +27,7 @@
         "note": "note",
         "color": "color",
         "visualInspection": "Visual inspection",
+        "vehicleImage": "Vehicle image",
         "year": "year",
         "odometer": "Odometer",
         "name": "name",
