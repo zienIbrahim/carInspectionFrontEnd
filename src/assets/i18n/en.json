@@ -17,6 +17,8 @@
         "inspection":"inspection",
         "ListTitle": "Inspection list",
         "details": "Inspection details",
+        "CreateTitle": "Create new inspection",
+        "EditTitle": "Edit inspection",
         "package": "package",
         "nameEn": "Customer name",
         "inspectionDate": "Date",

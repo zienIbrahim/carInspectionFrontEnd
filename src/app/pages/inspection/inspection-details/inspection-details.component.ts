@@ -295,15 +295,18 @@ export class InspectionDetailsComponent {
              this.sweetAlertService.SaveSuccess().then(result => {
                this.EditInspectionResultForm.reset();
                this.submitted = false;
-               this.router.navigate(['inspection/'])
+              this.reloadCurrentRoute();
              });
       });
   }
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
   SaveVisualResult(){ 
     this.submitted = true;
-    console.log(this.VisualResultForm)  
-    console.log(this.VisualResultForm.invalid)  
-
     if (!this.VisualResultForm.valid) {
       this.VisualResultForm.markAllAsTouched();
       return
@@ -321,13 +324,12 @@ export class InspectionDetailsComponent {
             }
           })
     };
-    console.log(model)  
     this.inspectionService.CreateInspectionVisualResult(model).subscribe((res: Inspection) => {
       this.showVisualResult=false;
       this.sweetAlertService.SaveSuccess().then(result => {
          this.EditInspectionResultForm.reset();
          this.submitted = false;
-         this.router.navigate(['inspection/'])
+         this.reloadCurrentRoute();
        });
 });
   }

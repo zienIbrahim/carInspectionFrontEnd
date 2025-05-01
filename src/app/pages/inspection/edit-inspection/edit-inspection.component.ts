@@ -78,7 +78,7 @@ EditInspectionForm: FormGroup;
             packageId: this.InspectionById.packageId,
             letters: this.InspectionById.plateNumber.split('-')[0],
             numbers: this.InspectionById.plateNumber.split('-')[1],
-            vINNumber: this.InspectionById.vINNumber,
+            vINNumber: this.InspectionById.vinNumber,
             makeId: this.InspectionById.makeId,
             modelId: this.InspectionById.modelId,
             color: this.InspectionById.color,
@@ -87,6 +87,8 @@ EditInspectionForm: FormGroup;
             phoneNumber: this.InspectionById.phoneNumber,
             email: this.InspectionById.email,
             note: this.InspectionById.note,
+            odometer: this.InspectionById.odometer,
+
           })
         });
     }
@@ -98,7 +100,7 @@ EditInspectionForm: FormGroup;
       }
       const fromData = this.EditInspectionForm.value;
       const model: EditInspectionRequest = {
-        id: 0, 
+        id: fromData.id, 
         packageId: fromData.packageId,
         vINNumber: fromData.vINNumber,
         plateNumber: fromData.letters + '-' + fromData.numbers,
@@ -112,7 +114,7 @@ EditInspectionForm: FormGroup;
         email: fromData.email,
         note: fromData.note,
       };
-      this.inspectionService.CreateInspection(model).subscribe((res: Inspection) => {
+      this.inspectionService.EditInspection(model).subscribe((res: Inspection) => {
         this.sweetAlertService.SaveSuccess().then(result => {
           this.EditInspectionForm.reset();
           this.submitted = false;

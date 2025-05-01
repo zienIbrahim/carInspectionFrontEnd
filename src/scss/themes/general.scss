@@ -254,3 +254,7 @@ body[dir="rtl"] .pagination .page-item:first-child .page-link {
 body[dir="rtl"] .pagination .page-item:last-child .page-link {
   border-radius: var(--bs-pagination-border-radius) 0 0 var(--bs-pagination-border-radius) !important;
 }
+
+ .p-galleria-caption {
+  padding: unset !important;
+}

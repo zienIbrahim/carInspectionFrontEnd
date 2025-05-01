@@ -31,7 +31,7 @@ export class SuadiPalteImageComponent implements OnChanges {
   };
 
   ngOnChanges(): void {
-    if (!this.plateValue.includes('-')) return;
+    if (!this.plateValue?.includes('-')) return;
 
     const [rawLetters, rawDigits] = this.plateValue.split('-').map(part => part.trim().replace(/\s+/g, ''));
 

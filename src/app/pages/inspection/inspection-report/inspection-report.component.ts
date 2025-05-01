@@ -1,20 +1,20 @@
 import { AsyncPipe, CommonModule, DatePipe, KeyValuePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Pipe, PipeTransform } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { InspectionDetails, InspectionDetailsResult, InspectionDetailsVisualResult } from 'src/app/core/api-client/models/Inspection.api.model';
+import { CheckResult, InspectionDetails, InspectionDetailsResult, InspectionDetailsVisualResult } from 'src/app/core/api-client/models/Inspection.api.model';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import html2pdf from 'html2pdf.js';
 import AppUtils from 'src/app/core/Utilities/AppUtils';
 import { ImageDirction } from 'src/app/core/data/inspections';
-import { TranslatePipe } from '@ngx-translate/core';
 import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-image/suadi-palte-image.component';
 import { LoadingService } from 'src/app/core/Service/loading.service';
+import { forwardRef } from "@angular/core";
 
 @Component({
   selector: 'app-inspection-report',
-  imports: [DatePipe,KeyValuePipe,SuadiPalteImageComponent
-  ,CommonModule],
+  imports: [DatePipe, KeyValuePipe, SuadiPalteImageComponent,
+    CommonModule, forwardRef(() => GetResultPipe)],
   templateUrl: './inspection-report.component.html',
   styleUrl: './inspection-report.component.scss'
 })
@@ -78,5 +78,12 @@ export class InspectionReportComponent {
   } 
   getImageTypeLabel(type: number): string {
     return type === 1 ? 'Vehicle Images' : 'Visual Check Images';
+  }
+}
+
+@Pipe({name: 'getResult'})
+export class GetResultPipe implements PipeTransform {
+  transform(result: InspectionDetailsResult): CheckResult | undefined {
+    return result.checkResult.find(x => x.id === result.inspectionResult?.inspectionResultId);
   }
 }
