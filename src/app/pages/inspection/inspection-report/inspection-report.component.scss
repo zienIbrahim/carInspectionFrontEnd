@@ -7,9 +7,16 @@
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   box-sizing: border-box;
   font-family: 'Arial', sans-serif;
+  font-size: 10px ;
+}
+#report-container *{
+  font-size: 10px ;
 }
 
+#report-container h1,h2,h3,h4,h5,h6{
+  font-size: 15px !important;
 
+}
 .grid-container {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -71,7 +78,6 @@
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding-bottom:20px;
 }
 
 .header-content {
