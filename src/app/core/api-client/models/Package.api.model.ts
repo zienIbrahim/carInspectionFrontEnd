@@ -15,6 +15,7 @@ export interface CreatePackageRequest {
     nameAr: string,
     nameEn: string, 
     description: string, 
+    haveVisualInspection: boolean, 
     packageDetails:PackageDetails[]
 }
 export interface Package {
@@ -22,6 +23,7 @@ export interface Package {
     nameAr: string,
     nameEn: string, 
     description: string, 
+    haveVisualInspection: boolean, 
     packageDetails:PackageDetails[]
 }
 export interface PackageDetails {

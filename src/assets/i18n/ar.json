@@ -64,6 +64,7 @@
         "cancle": "الغاء",
         "letters": "أدخل من 1 إلى 3 أحرف باللغة الإنجليزية",
         "numbers": "أدخل من 1 إلى 4 أرقام",
+        "haveVisualInspection":"يحتوي علي فحص بصري",
         "fieldRequired": "الحقل مطلوب"
     },
     "category": {

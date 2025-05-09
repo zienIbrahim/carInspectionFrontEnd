@@ -49,11 +49,11 @@ export class CreatePackageComponent implements OnInit {
       nameAr: ['', Validators.required],
       description: ['', Validators.required],
       nameEn: ['', Validators.required],
+      haveVisualInspection: [false, Validators.required],
       checkList: [''],
     });
   }
   onSubmit() {
-    console.log({FormValue:this.CreatePackageForm.value})
     this.submitted = true;
     if (!this.CreatePackageForm.valid) {
       this.CreatePackageForm.markAllAsTouched();
@@ -63,6 +63,7 @@ export class CreatePackageComponent implements OnInit {
       nameAr: this.f['nameAr'].value,
       nameEn: this.f['nameEn'].value,
       description: this.f['description'].value,
+      haveVisualInspection: this.f['haveVisualInspection'].value,
       packageDetails:  this.selectedcheckPoints.map(check => {
         return { checkId: check }
       })

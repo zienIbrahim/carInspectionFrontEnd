@@ -39,10 +39,8 @@ export class EditPackageComponent {
   categoryId: any;
   categoryEn: any;
   categoryAr: any; }[] = [];
-
   constructor(private fb: FormBuilder) {
     this.PackageId = Number(this.route.snapshot.paramMap.get('id'));
-
   }
   ngOnInit(): void {
     this.FillCommonData();
@@ -59,6 +57,7 @@ export class EditPackageComponent {
       nameAr: ['', Validators.required],
       nameEn: ['', Validators.required],
       description: ['', Validators.required],
+      haveVisualInspection: [false, Validators.required],
       checkList: [''],
 
     });
@@ -75,6 +74,7 @@ export class EditPackageComponent {
       nameAr: this.f['nameAr'].value,
       nameEn: this.f['nameEn'].value,
       description: this.f['description'].value,
+      haveVisualInspection:this.f['haveVisualInspection'].value,
       packageDetails:  this.selectedcheckPoints.map(check => {
         return { checkId: check }
       })
@@ -115,6 +115,7 @@ export class EditPackageComponent {
       nameAr: this.Package.nameAr,
       nameEn: this.Package.nameEn,
       description: this.Package.description,
+      haveVisualInspection: this.Package.haveVisualInspection,
       checkList:this.Package.packageDetails.map(x=> {return x.checkId}) as []
     });
     this.selectedcheckPoints =this.Package.packageDetails.map(x=> {return x.checkId}) as []
