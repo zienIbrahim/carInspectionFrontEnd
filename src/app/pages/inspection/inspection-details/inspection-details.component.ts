@@ -85,7 +85,6 @@ export class InspectionDetailsComponent {
     }[]
   };
   trigger: Subject<void> = new Subject<void>();
-  log=(e:any) => console.log(e);
   responsiveOptions: any[] = [
   {
     breakpoint: '1300px',

@@ -7,7 +7,7 @@ export interface ModelListData {
     id: number
     nameAr: string
     nameEn: string
-    makeId: string
+    makeId: number
 }
 
 export interface CheckListData{

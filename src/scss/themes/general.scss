@@ -295,3 +295,35 @@ body[dir="rtl"] .card-border-bg-primary{
   border-right-color: unset !important;
   border-left-color: rgb(255, 165, 0) !important;
 }
+
+
+body[dir="ltr"] .input-group .ng-select.ng-select-single .ng-select-container
+{
+    margin-right: -1px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0.35rem;
+    border-bottom-left-radius: 0.35rem;
+}
+body[dir="rtl"] .input-group .ng-select.ng-select-single .ng-select-container{
+    border-top-right-radius: 0.35rem;
+    border-bottom-right-radius: 0.35rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+} 
+ body[dir="rtl"] .input-group .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0.35rem;
+    border-bottom-left-radius: 0.35rem;
+}
+body[dir="ltr"]  .input-group .btn{
+    border-top-right-radius: 0.35rem;
+    border-bottom-right-radius: 0.35rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+   }
+
+.swal2-container {
+  z-index: 1000000 !important;
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbDatepickerModule, NgbTimepickerModule, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,11 @@ import { InspectionService } from 'src/app/core/api-client/services/inspection.s
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-image/suadi-palte-image.component';
+import { DialogModule } from 'primeng/dialog';
+import { CreateMakeComponent } from '../../makes/create-make/create-make.component';
+import { CreateModelComponent } from '../../models/create-model/create-model.component';
+import { Model } from 'src/app/core/api-client/models/model.api.model';
+import { Make } from 'src/app/core/api-client/models/make.api.model';
 
 @Component({
   selector: 'app-create-inspection',
@@ -19,6 +24,9 @@ import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-im
     ReactiveFormsModule,
     CommonModule,
     NgSelectModule,
+    DialogModule,
+    CreateModelComponent,
+    CreateMakeComponent,
     FormsModule,
     NgbTimepickerModule,
     NgbDatepickerModule],
@@ -28,9 +36,12 @@ import { SuadiPalteImageComponent } from 'src/app/core/components/suadi-palte-im
 export class CreateInspectionComponent implements OnInit {
   CreateInspectionForm: FormGroup;
   submitted = false;
+  CreateModelvisible = false;
+  CreateMakevisible = false;
   inspectionService = inject(InspectionService);
   sweetAlertService = inject(SweetAlertService);
   router = inject(Router);
+
   commonApiService = inject(CommonApiService);
   languageService = inject(LanguageService);
   lang: string = 'ar';
@@ -38,7 +49,9 @@ export class CreateInspectionComponent implements OnInit {
   packages: MasterData[] = [];
   models: ModelListData[] = [];
   makes: MasterData[] = [];
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) {
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
     })
@@ -125,13 +138,35 @@ export class CreateInspectionComponent implements OnInit {
     }
     return [data.year, data.month, data.day].join('-');
   }
-  formatDateTime(date:any){
- let dd= this.formatDate(date);
- return   dd +" " +[
-   String(this.time.hour).padStart(2, '0') ,
-   String(this.time.minute).padStart(2, '0'),
-   String(this.time.second).padStart(2, '0') 
-  ].join(':')
-}
+  onMakeCreated(event: Make) {
+    this.CreateMakevisible = false;
+    this.makes.push({
+      id: event.id,
+      nameAr: event.nameAr,
+      nameEn: event.nameEn,
+    });
+    this.f['makeId'].setValue(event.id);
+    this.cd.detectChanges()
+  }
+  onModelCreated(event: Model) {
+    this.CreateModelvisible = false;
+    this.models.push({
+      id: event.id,
+      nameAr: event.nameAr,
+      nameEn: event.nameEn,
+      makeId: event.makeId,
+    });
+    this.f['modelId'].setValue(event.id)
+    this.cd.detectChanges()
+
+  }
+  formatDateTime(date: any) {
+    let dd = this.formatDate(date);
+    return dd + " " + [
+      String(this.time.hour).padStart(2, '0'),
+      String(this.time.minute).padStart(2, '0'),
+      String(this.time.second).padStart(2, '0')
+    ].join(':')
+    }
 
 }

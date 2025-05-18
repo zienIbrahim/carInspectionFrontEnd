@@ -70,28 +70,40 @@
                                 <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                             }
                         </div>
-                        <div class="form-group col-lg-4 col-md-6 col-sm-12">
+                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.make' |translate}}</label>
-                            <ng-select formControlName="makeId" (change)="changeMake()"
-                                [ngClass]="{'is-invalid':(f['makeId'].touched || submitted )&& f['makeId'].errors}">
-                                @for (make of makes; track make.id) {
-                                <ng-option [value]="make.id">{{lang=='ar'?make.nameAr:make.nameEn}}</ng-option>
-                                }
-                            </ng-select>
+                            <div class="input-group mb-3">
+                                <ng-select formControlName="makeId" class="flex-grow-1"  (change)="changeMake()" 
+                                    [ngClass]="{'is-invalid':(f['makeId'].touched || submitted )&& f['makeId'].errors}">
+                                    @for (make of makes; track make.id) {
+                                    <ng-option [value]="make.id">{{lang=='ar'?make.nameAr:make.nameEn}}</ng-option>
+                                    }
+                                </ng-select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary p-1" type="button"
+                                        (click)="CreateMakevisible=true"><i class="bi bi-plus"></i></button>
+                                </div>
+                            </div>
                             @if((f['makeId'].touched || submitted )&& f['makeId'].errors){
-                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                             }
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
                             <label>{{'inspection.model' |translate}}</label>
-                            <ng-select formControlName="modelId"
-                                [ngClass]="{'is-invalid':(f['modelId'].touched || submitted )&& f['modelId'].errors}">
-                                @for (model of getModels; track model.id) {
-                                <ng-option [value]="model.id">{{lang=='ar'?model.nameAr:model.nameEn}}</ng-option>
-                                }
-                            </ng-select>
+                            <div class="input-group mb-3">
+                                <ng-select formControlName="modelId" class="flex-grow-1"
+                                    [ngClass]="{'is-invalid':(f['modelId'].touched || submitted )&& f['modelId'].errors}">
+                                    @for (model of getModels; track model.id) {
+                                    <ng-option [value]="model.id">{{lang=='ar'?model.nameAr:model.nameEn}}</ng-option>
+                                    }
+                                </ng-select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary p-1" type="button"
+                                        (click)="CreateModelvisible=true"><i class="bi bi-plus"></i></button>
+                                </div>
+                            </div>
                             @if((f['modelId'].touched || submitted )&& f['modelId'].errors){
-                                <span  class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                             }
                         </div>
                         <div class="form-group col-lg-4 col-md-6 col-sm-12">
@@ -141,3 +153,13 @@
     <hr class="my-0" />
     <ngb-timepicker [(ngModel)]="time" [seconds]="true" [meridian]="true" />
 </ng-template>
+<p-dialog [modal]="true" [(visible)]="CreateModelvisible" [style]="{ width: '25rem' }">
+    <ng-template #headless>
+        <app-create-model [lang]="lang" (OnSave)="onModelCreated($event)" [dialog]="true"></app-create-model>
+    </ng-template>
+</p-dialog>
+<p-dialog [modal]="true" [(visible)]="CreateMakevisible" [style]="{ width: '25rem' }">
+    <ng-template #headless>
+        <app-create-make [lang]="lang" (OnSave)="onMakeCreated($event)" [dialog]="true"></app-create-make>
+    </ng-template>
+</p-dialog>

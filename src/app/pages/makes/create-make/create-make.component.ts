@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, OutputEmitterRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -19,6 +19,9 @@ export class CreateMakeComponent {
   router = inject(Router);
   CreateMakeForm: FormGroup;
   submitted = false;
+  @Output() OnSave = new EventEmitter<Make>();
+  @Input() dialog: boolean = false;
+  createEvent: any;
   constructor(private fb: FormBuilder) {
 
   }
@@ -43,7 +46,18 @@ export class CreateMakeComponent {
       this.sweetAlertService.SaveSuccess().then(result => {
         this.CreateMakeForm.reset();
         this.submitted = false;
-        this.router.navigate(['make/'])
+         if (this.dialog) {
+          this.OnSave.emit({
+            id: res.id,
+            nameAr: res.nameAr,
+            nameEn: res.nameEn,
+            logo:null
+          });
+        }
+        else{
+          this.router.navigate(['make/'])
+
+        }
       });
     });
 

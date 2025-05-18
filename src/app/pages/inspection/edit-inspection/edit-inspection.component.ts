@@ -1,16 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTimepickerModule, NgbDatepickerModule, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DialogModule } from 'primeng/dialog';
 import { MasterData, ModelListData } from 'src/app/core/api-client/models/Common.api.model';
 import { EditInspectionRequest, Inspection, InspectionById } from 'src/app/core/api-client/models/Inspection.api.model';
 import { CommonApiService } from 'src/app/core/api-client/services/common-api.service';
 import { InspectionService } from 'src/app/core/api-client/services/inspection.service';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
+import { CreateMakeComponent } from '../../makes/create-make/create-make.component';
+import { CreateModelComponent } from '../../models/create-model/create-model.component';
+import { Make } from 'src/app/core/api-client/models/make.api.model';
+import { Model } from 'src/app/core/api-client/models/model.api.model';
 
 @Component({
   selector: 'app-edit-inspection',
@@ -18,6 +23,9 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
       ReactiveFormsModule,
       CommonModule,
       NgSelectModule,
+      CreateModelComponent,
+      CreateMakeComponent,
+      DialogModule,
       FormsModule,
       NgbTimepickerModule,
       NgbDatepickerModule],
@@ -40,7 +48,9 @@ EditInspectionForm: FormGroup;
   makes: MasterData[] = [];
   InspectionID: number;
   InspectionById: InspectionById;
-  constructor(private fb: FormBuilder) {
+  CreateMakevisible = false;
+  CreateModelvisible = false;
+  constructor(private fb: FormBuilder,private cd: ChangeDetectorRef) {
     this.InspectionID=Number(this.route.snapshot.paramMap.get('id'));
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
@@ -158,5 +168,26 @@ EditInspectionForm: FormGroup;
      String(this.time.minute).padStart(2, '0'),
      String(this.time.second).padStart(2, '0') 
     ].join(':')
+  }
+ onMakeCreated(event: Make) {
+    this.CreateMakevisible = false;
+    this.makes.push({
+      id: event.id,
+      nameAr: event.nameAr,
+      nameEn: event.nameEn,
+    });
+    this.f['modelId'].setValue(event.id)
+        this.cd.detectChanges()
+  }
+  onModelCreated(event: Model) {
+    this.CreateModelvisible = false;
+    this.models.push({
+      id: event.id,
+      nameAr: event.nameAr,
+      nameEn: event.nameEn,
+      makeId: event.makeId,
+    });
+    this.f['modelId'].setValue(event.id)
+    this.cd.detectChanges()
   }
 }
