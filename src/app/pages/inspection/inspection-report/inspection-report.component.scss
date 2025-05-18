@@ -123,6 +123,18 @@
   margin: 10px 0 0;
   font-size: 14px;
 }
+.warning-circle {
+  border-radius: 50%;
+  border: 1px solid #ffc107;
+  color: #ffc107;
+  font-size: 15px !important;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px !important;
+}
 /* === For screen responsiveness === */
 @media screen and (max-width: 768px) {
   #report-container {

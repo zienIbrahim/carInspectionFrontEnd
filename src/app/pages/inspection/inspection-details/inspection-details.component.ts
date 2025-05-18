@@ -114,8 +114,10 @@ export class InspectionDetailsComponent {
         this.InspectionDetails = res as InspectionDetails;
       });
   }
-  exportToCSV() {
-    this.router.navigate(['inspection/report/'+this.InspectionDetails.id])
+  exportToCSV(SummaryReport:boolean) {
+    let route = SummaryReport ? '/true':'';
+    console.log(route)
+    this.router.navigate(['inspection/report/' + this.InspectionDetails.id + route])
   }
   createVisualResultForm(isVisualResult:boolean) {
     this.initVisualResultForm();
@@ -403,5 +405,8 @@ export class InspectionDetailsComponent {
   }
   mapImageResulrt(images:string[]):{src:string,comment?:string}[]{
     return images.map(item=> {return {src:item}}) as {src:string,comment?:string}[];
+  }
+   edit(){
+    this.router.navigate(['inspection/edit/'+this.InspectionID])
   }
 }

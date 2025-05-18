@@ -56,7 +56,9 @@
         "email":"email",
         "selectAll":"select all",
         "search":"🔍 search ...",
-
+        "printSummaryReport":"print summary",
+        "printReport":"print ",
+        "EditInspection":"Edit main data",
         "result":{
             "checkPoint":" check Point",
             "comment":" comment",

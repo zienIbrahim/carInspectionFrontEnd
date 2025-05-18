@@ -40,7 +40,13 @@ export class InspectionReportComponent {
     this.inspectionService.GetInspectionDetailsById(InspectionID).subscribe(res => {
       this.InspectionDetails = res as InspectionDetails;
       this.groupedVisualResults = AppUtils.groupBy<InspectionDetailsVisualResult>(this.InspectionDetails?.visualResult.filter(x=> x) || [],"imageType");
+      if(this.SummaryReport){
+        const items= this.InspectionDetails?.results.filter(item=>item.checkResult.find(x => x.id === item.inspectionResult?.inspectionResultId).rate!=0)
+          this.groupedResults=  AppUtils.groupBy<InspectionDetailsResult>(items,"categoryEn");
+      }
+      else{
       this.groupedResults=  AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails?.results,"categoryEn");
+      }
     });
   }
 
@@ -77,6 +83,11 @@ export class InspectionReportComponent {
   } 
   getImageTypeLabel(type: number): string {
     return type === 1 ? 'Vehicle Images' : 'Visual Check Images';
+  }
+  getWarnningCount(items: InspectionDetailsResult[]) :number{
+    const count= items.filter(item=>item.checkResult.find(x => x.id === item.inspectionResult?.inspectionResultId).rate!=0).length;
+    console.log(count)
+    return count
   }
 }
 

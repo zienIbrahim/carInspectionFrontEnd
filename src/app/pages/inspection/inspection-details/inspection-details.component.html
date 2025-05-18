@@ -9,16 +9,21 @@
                                 <i class="fs-2 bi bi-info-circle"></i>
                                 {{'inspection.details'|translate}}
                             </h3>
-                        </div>
+                        </div> 
                         <div class="col-md-4 d-flex justify-content-end">
-                            <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
-    
+                            <button class="btn btn-primary mx-2 fs-6  p-1" (click)="exportToCSV(true)">    
                                 <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
+                                {{'inspection.printSummaryReport'|translate}}
                             </button>
-                            <button class="btn btn-success shadow-sm mx-2 fs-5" (click)="exportToCSV()">
-    
+                            <button class="btn btn-success mx-2 fs-6  p-1" (click)="exportToCSV(false)">
+                                <i style="font-size: large;" antIcon [type]="'printer'" theme="outline"></i>
+                                 {{'inspection.printReport'|translate}}
+                            </button>
+                            <button class="btn btn-warning mx-2 fs-6 p-1" (click)="edit()">
                                 <i style="font-size: large;" antIcon [type]="'edit'" theme="outline"></i>
+                                 {{'inspection.EditInspection'|translate}}
                             </button>
+                            
                         </div>
                     </div>
                     <div class="row g-3 fs-5">
