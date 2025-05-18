@@ -140,6 +140,7 @@ export class InspectionDetailsComponent {
     });
   }
   showVisualInspection(isVisualResult:boolean) {
+    if(this.InspectionDetails?.haveVisualInspection==false) return;
     this.showVisualResult = true;  
     this.createVisualResultForm(isVisualResult);
   }

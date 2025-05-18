@@ -13,10 +13,11 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { TableModule } from 'primeng/table';
 import AppUtils from 'src/app/core/Utilities/AppUtils';
 import { IconDirective } from '@ant-design/icons-angular';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-edit-package',
-  imports: [TranslatePipe,TableModule,IconDirective, ReactiveFormsModule, CommonModule, NgSelectModule],
+  imports: [TranslatePipe,TableModule,CheckboxModule,IconDirective, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './edit-package.component.html',
   styleUrl: './edit-package.component.scss'
 })

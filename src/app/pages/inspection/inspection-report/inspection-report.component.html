@@ -95,46 +95,17 @@
         </div>
     </div>
     <!-- Visual Inspection Results -->
-
-    <div class="row pt-5">
-        <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
-            الفحص البصري / Visual Check Image
-        </h4>
-        @for (groupVisual of  groupedVisualResults | keyvalue; track $index;) {
-            <h5 class="fw-semibold text-primary mb-4"></h5>
-            <div class="grid-container" >
-            <!-- Loop through each visual result in the group -->
-            @for (visual of groupVisual.value;  let groupIndex =  $index;track $index) {
-                @if(visual?.imageType === 1) {
-                    <div class="overflow-hidden border grid-item p-0 m-0 position-relative" 
-                    [ngStyle]="{'background-image': 'url(' + visual.imageUrl + ')'}">
-                        <span class="position-absolute  top-0 end-0 badge bg-primary text-white small">
-                            {{ ImageDirction[visual.imageDirction].nameAr }} / {{
-                            ImageDirction[visual.imageDirction].nameEn }}
-                        </span>
-                        <div *ngIf="visual.comment"
-                            class="position-absolute  bottom-0 end-0 m-2 badge bg-warning text-white small">
-                            <i class="bi bi-pin-map me-1"></i> {{ visual.comment }}
-                        </div>
-                </div>
-                }
-            }
-                
-           </div>
-        }
-    </div>
-    <div class="row pt-5">
-        <div class="col-md-12 col-lg-12 col-sm-12">
+    @if(InspectionDetails?.haveVisualInspection) {
+        <div class="row pt-5">
             <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
-                صور المركبة  / Vehicle Images
+                الفحص البصري / Visual Check Image
             </h4>
             @for (groupVisual of  groupedVisualResults | keyvalue; track $index;) {
-              
                 <h5 class="fw-semibold text-primary mb-4"></h5>
                 <div class="grid-container" >
                 <!-- Loop through each visual result in the group -->
                 @for (visual of groupVisual.value;  let groupIndex =  $index;track $index) {
-                    @if(visual?.imageType === 2) {
+                    @if(visual?.imageType === 1) {
                         <div class="overflow-hidden border grid-item p-0 m-0 position-relative" 
                         [ngStyle]="{'background-image': 'url(' + visual.imageUrl + ')'}">
                             <span class="position-absolute  top-0 end-0 badge bg-primary text-white small">
@@ -151,32 +122,61 @@
                     
                </div>
             }
-        </div> 
-    </div>
-    <div class="row pt-5">
-        <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
-            {{'الملاحظات عن المركبة / Notes about the vehicle' }}
-        </h4>
-        @for (groupVisual of groupedVisualResults | keyvalue; track $index) {
-            @for (visual of groupVisual.value;  let groupIndex =  $index;track $index) {
-                @if(visual?.imageType === 1) {
-                    <div class="col border border-2  rounded-3 m-1 p-2 bg-white d-felx">
-                        <span class="  border-4  ps-3 mb-3">
-                            {{ ImageDirction[visual.imageDirction].nameAr }} / {{
-                            ImageDirction[visual.imageDirction].nameEn }}
-                        </span>
-                        <span class="  ps-3 mb-3  text-black rounded-3" [ngClass]="{'bg-warning': visual?.comment}">
-                            @if(visual?.comment) {
-                                {{ visual?.comment }}
-                            } @else {
-                                No comment / لا توجد ملاحظات 
-                            }
-                        </span>
-                    </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
+                    صور المركبة  / Vehicle Images
+                </h4>
+                @for (groupVisual of  groupedVisualResults | keyvalue; track $index;) {
+                    <h5 class="fw-semibold text-primary mb-4"></h5>
+                    <div class="grid-container" >
+                    <!-- Loop through each visual result in the group -->
+                    @for (visual of groupVisual.value;  let groupIndex =  $index;track $index) {
+                        @if(visual?.imageType === 2) {
+                            <div class="overflow-hidden border grid-item p-0 m-0 position-relative" 
+                            [ngStyle]="{'background-image': 'url(' + visual.imageUrl + ')'}">
+                                <span class="position-absolute  top-0 end-0 badge bg-primary text-white small">
+                                    {{ ImageDirction[visual.imageDirction].nameAr }} / {{
+                                    ImageDirction[visual.imageDirction].nameEn }}
+                                </span>
+                                <div *ngIf="visual.comment"
+                                    class="position-absolute  bottom-0 end-0 m-2 badge bg-warning text-white small">
+                                    <i class="bi bi-pin-map me-1"></i> {{ visual.comment }}
+                                </div>
+                        </div>
+                        }
+                    }
+                        
+                   </div>
+                }
+            </div> 
+        </div>
+        <div class="row pt-5">
+            <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">
+                {{'الملاحظات عن المركبة / Notes about the vehicle' }}
+            </h4>
+            @for (groupVisual of groupedVisualResults | keyvalue; track $index) {
+                @for (visual of groupVisual.value;  let groupIndex =  $index;track $index) {
+                    @if(visual?.imageType === 1) {
+                        <div class="col border border-2  rounded-3 m-1 p-2 bg-white d-felx">
+                            <span class="  border-4  ps-3 mb-3">
+                                {{ ImageDirction[visual.imageDirction].nameAr }} / {{
+                                ImageDirction[visual.imageDirction].nameEn }}
+                            </span>
+                            <span class="  ps-3 mb-3  text-black rounded-3" [ngClass]="{'bg-warning': visual?.comment}">
+                                @if(visual?.comment) {
+                                    {{ visual?.comment }}
+                                } @else {
+                                    No comment / لا توجد ملاحظات 
+                                }
+                            </span>
+                        </div>
+                    }
                 }
             }
-        }
-    </div>
+        </div>
+    }  
     <!-- Detailed Inspection Results Section -->
     <div class="row mb-5 pt-2">
         <h4 class="text-primary fw-bold mb-4 border-bottom pb-2">🛠️ Detailed Inspection / الفحص التفصيلي</h4>
@@ -205,7 +205,7 @@
                                 </div>
                                 }
     
-                                @if (item.inspectionResult?.images?.length) {
+                                @if (item.inspectionResult?.images?.length > 0 ) {
                                 <div class="d-flex flex-wrap gap-2 mt-2">
                                     @for (img of item.inspectionResult.images; track $index) {
                                     <img [src]="img" class="rounded border "

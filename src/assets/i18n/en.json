@@ -6,12 +6,29 @@
         "inspection":"inspection",
         "system":"system",
         "category":"category",
+        "user":"users",
         "check":"check point",
         "package":"package", 
         "result": "result",
         "model": "model",
         "make": "make",
         "technician":"technician"
+    },
+    "dashboard": {
+        "title": " Dashboard",
+        "totalInspections": "Total inspections",
+        "completedInspections": "completed inspections",
+        "pendingInspections": "pending inspections",
+        "partiallyCompletedInspections": "partially completed inspections",
+        "cancelledRate": "Cancelled rate",
+        "RecentInspections": "Recent inspections",
+        "recentInspection": {
+            "name": "Customer name",
+            "plateNumber": "Plate number",
+            "inspectionDate": "Inspection date",
+            "status": "Status",
+            "package": "Package"
+        }
     },
     "inspection":{
         "inspection":"inspection",
@@ -64,7 +81,12 @@
         "saveAndContinue":"Save and continue",
         "cancle":"cancle",
         "fieldRequired":"Field is required",
+        "passwordPattern":"Password must contain at least 8 characters, including uppercase, lowercase letters .",
+        "phoneNumberPattern":"Phone number must start with 05 and be 10 digits long.",
+        "emailPattern":"Email is not valid",
         "letters": "Enter 1 to 3 English letters",
+        "rate":"Rate",
+        "resultId":"Result",
         "numbers": "Enter 1 to 4 digits"
     },
     "category":{
@@ -95,6 +117,31 @@
         "EditTitle":"Create package",
         "ListTitle":"List package",
         "checkList":"Check point list"
+    },
+    "user":{
+        "CreateTitle": "Create user",
+        "EditTitle": "Edit user",
+        "ListTitle": "Users list",
+        "name": "Name",
+        "email": "Email",
+        "phoneNumber": "Phone number",
+        "password": "Password",
+        "confirmPassword": "Confirm password", 
+        "role": "Role",
+        "userRole":[
+            {
+                "name":"Admin",
+                "value":"admin"
+            },
+            {
+                "name":"Technician",
+                "value":"inspector"
+            },
+            {
+                "name":"Receptionist",
+                "value":"receptionist"
+            }
+        ]
     },
     "model": {
         "CreateTitle": "Create Model",

@@ -65,6 +65,7 @@
             <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <div class="row">
+                      @if (InspectionDetails?.haveVisualInspection) {
                         <div class="col-md-12 justify-content-end d-flex">
                             <button class="btn btn-outline-success shadow-sm mx-2 fs-5" (click)="showVisualInspection(false)">
                                 <i style="font-size: large;" antIcon [type]="'scan'" theme="outline"></i>
@@ -75,6 +76,7 @@
                                 <i class="m-1">{{'inspection.visualInspection'|translate}}</i>
                             </button>                           
                         </div>
+                      }
                         <div class="col-md-6">
                             @if(viusalResultImage(1)?.length>0){
                             <app-galleria [images]="viusalResultImage(1)" class="subgrid"></app-galleria>

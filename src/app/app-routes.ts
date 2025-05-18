@@ -10,7 +10,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: '/home',pathMatch: 'full'},
       {path: 'home',loadComponent: () => import('./dashboard/dashboard.component').then((c) => c.DashboardComponent)} ,
-      { path: 'img', loadComponent: () => import('./core/components/image-editor/image-editor.component').then((c) => c.ImageEditorComponent)} ,
       // Category Routes
       { path: 'category', canActivate: [authGuard], data: { roles: [UserRoles.Admin] } , loadComponent: () => import('./pages/category/category.component').then((c) => c.CategoryComponent) },
       { path: 'category/create', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/category/create-category/create-category.component').then((c) => c.CreateCategoryComponent) },
@@ -39,12 +38,18 @@ export const routes: Routes = [
       { path: 'result', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/result/result.component').then((c) => c.ResultComponent) },
       { path: 'result/create', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/result/create-result/create-result.component').then((c) => c.CreateResultComponent) },
       { path: 'result/edit/:id', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/result/edit-result/edit-result.component').then((c) => c.EditResultComponent) },
+      // result Routes
+      { path: 'user', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/users/users.component').then((c) => c.UsersComponent) },
+      { path: 'user/create', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/users/create-user/create-user.component').then((c) => c.CreateUserComponent) },
+      { path: 'user/edit/:id', canActivate: [authGuard], data: { roles: [UserRoles.Admin] }, loadComponent: () => import('./pages/users/edit-user/edit-user.component').then((c) => c.EditUserComponent) },
       // inspection Routes
       { path: 'inspection', canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] },loadComponent: () => import('./pages/inspection/inspection.component').then((c) => c.InspectionComponent) },
       { path: 'inspection/create', canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Receptionist] },loadComponent: () => import('./pages/inspection/create-inspection/create-inspection.component').then((c) => c.CreateInspectionComponent) },
       { path: 'inspection/details/:id',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] }, loadComponent: () => import('./pages/inspection/inspection-details/inspection-details.component').then((c) => c.InspectionDetailsComponent) },
       { path: 'inspection/edit/:id',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] }, loadComponent: () => import('./pages/inspection/edit-inspection/edit-inspection.component').then((c) => c.EditInspectionComponent) },
       { path: 'inspection/report/:id',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] }, loadComponent: () => import('./pages/inspection/inspection-report/inspection-report.component').then((c) => c.InspectionReportComponent) },
+      { path: 'inspection/report/:id/:isSummaryReport',canActivate: [authGuard], data: { roles: [UserRoles.Admin,UserRoles.Inspector,UserRoles.Receptionist] }, loadComponent: () => import('./pages/inspection/inspection-report/inspection-report.component').then((c) => c.InspectionReportComponent) },
+
     ]
   },
   {

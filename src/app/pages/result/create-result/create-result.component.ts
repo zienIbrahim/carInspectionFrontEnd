@@ -19,7 +19,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
   styleUrl: './create-result.component.scss'
 })
 export class CreateResultComponent {
- CreateResultForm: FormGroup;
+  CreateResultForm: FormGroup;
   submitted = false;
   resultService = inject(ResultService);
   sweetAlertService = inject(SweetAlertService);
@@ -32,6 +32,7 @@ export class CreateResultComponent {
   }
   ngOnInit(): void {
     this.FillCommonData();
+   
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
     });

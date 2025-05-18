@@ -258,3 +258,40 @@ body[dir="rtl"] .pagination .page-item:last-child .page-link {
  .p-galleria-caption {
   padding: unset !important;
 }
+
+
+
+.card-border {
+  border-right: 5px solid;
+}
+body[dir="rtl"] .card-border {
+  border-right: unset !important;
+  border-left: 5px solid;
+
+}
+.card-border-bg-info{
+  border-right-color:#008080 !important;
+}
+.card-border-bg-teal{
+  border-right-color: rgb(40, 167, 69) !important;
+}.card-border-bg-secondary{
+  border-right-color: rgb(30, 144, 255) !important;
+}.card-border-bg-primary{
+  border-right-color: rgb(255, 165, 0) !important;
+}
+body[dir="rtl"] .card-border-bg-info{
+  border-right-color: unset !important;
+  border-left-color:#008080;
+}
+body[dir="rtl"] .card-border-bg-teal{
+  border-right-color: unset !important;
+  border-left-color: rgb(40, 167, 69) ;
+}
+body[dir="rtl"] .card-border-bg-secondary{
+  border-right-color: unset !important;
+  border-left-color: rgb(30, 144, 255) !important;
+}
+body[dir="rtl"] .card-border-bg-primary{
+  border-right-color: unset !important;
+  border-left-color: rgb(255, 165, 0) !important;
+}

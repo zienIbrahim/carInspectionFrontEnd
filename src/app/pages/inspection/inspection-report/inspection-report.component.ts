@@ -29,19 +29,18 @@ export class InspectionReportComponent {
   InspectionDetails: InspectionDetails;
   groupedVisualResults: { [key: number]: InspectionDetailsVisualResult[] } = {};
   groupedResults: Record<any, InspectionDetailsResult[]> = {};
-  ImageDirction = ImageDirction
+  ImageDirction = ImageDirction;
+  SummaryReport:boolean = false;
   constructor(){
     const InspectionID=Number(this.route.snapshot.paramMap.get('id'));
+    this.SummaryReport=Boolean(this.route.snapshot.paramMap.get('isSummaryReport'));
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
     }); 
     this.inspectionService.GetInspectionDetailsById(InspectionID).subscribe(res => {
       this.InspectionDetails = res as InspectionDetails;
-      this.groupedVisualResults = AppUtils.groupBy<InspectionDetailsVisualResult>(this.InspectionDetails?.visualResult || [],"imageType");
-    this.groupedResults=  AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails?.results,"categoryEn")
-
-      console.log('results: ', this.InspectionDetails);
-
+      this.groupedVisualResults = AppUtils.groupBy<InspectionDetailsVisualResult>(this.InspectionDetails?.visualResult.filter(x=> x) || [],"imageType");
+      this.groupedResults=  AppUtils.groupBy<InspectionDetailsResult>(this.InspectionDetails?.results,"categoryEn");
     });
   }
 

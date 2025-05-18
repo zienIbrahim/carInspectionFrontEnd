@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div class="card-header p-2">
+                <h4>{{'user.CreateTitle' |translate}}</h4>
+            </div>
+            <div class="card-body">
+                <form class="form" [formGroup]="EditUserForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                            <label>{{'user.name' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="fullName"
+                                [ngClass]="{'is-invalid':(f['fullName'].touched || submitted )&& f['fullName'].errors}">
+                            @if((f['fullName'].touched || submitted) && f['fullName'].errors){
+                            <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                            }
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                            <label>{{'user.email' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="email"
+                                [ngClass]="{'is-invalid':(f['email'].touched || submitted )&& f['email'].errors}">
+                            @if((f['email'].touched || submitted )&& f['email'].errors){
+                                @if(f['email'].errors['email']){
+                                    <span class="invalid-feedback">{{'form.emailPattern' |translate}}</span>
+                                }
+                                @if(f['email'].errors['required']){
+                                    <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                                }
+                            }
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                            <label>{{'user.phoneNumber' |translate}}</label>
+                            <input type="text" class="form-control" formControlName="phoneNumber"
+                                [ngClass]="{'is-invalid':(f['phoneNumber'].touched || submitted )&& f['phoneNumber'].errors}">
+                                @if((f['phoneNumber'].touched || submitted )&& f['phoneNumber'].errors){
+                                    @if(f['phoneNumber'].errors['pattern']){
+                                        <span class="invalid-feedback">{{'form.phoneNumberPattern' |translate}}</span>
+                                    }
+                                    @if(f['phoneNumber'].errors['required']){
+                                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                                    }
+                                }
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                            <label>{{'user.role' |translate}}</label>
+                            <p-select formControlName="roles" [options]="roles" optionValue="value" optionLabel="name" placeholder="Select a roles" class="p-0 w-full md:w-56 form-control" />
+                           
+                                @if((f['roles'].touched || submitted) && f['roles'].errors){
+                                    <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
+                                    }
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" [disabled]="EditUserForm.invalid"
+                                class="btn btn-success">{{'form.save' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

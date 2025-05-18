@@ -15,15 +15,12 @@ import { NgApexchartsModule, ChartComponent, ApexOptions } from 'ng-apexcharts';
 export class SalesReportChartComponent {
   chart = viewChild.required<ChartComponent>('chart');
   chartOptions!: Partial<ApexOptions>;
-
-  constructor() {
+  constructor(){
     this.chartOptions = {
       chart: {
         type: 'bar',
         height: 430,
-        toolbar: {
-          show: false
-        },
+        toolbar: { show: false},
         background: 'transparent'
       },
       plotOptions: {
@@ -61,10 +58,6 @@ export class SalesReportChartComponent {
         }
       },
       series: [
-        {
-          name: 'Net Profit',
-          data: [180, 90, 135, 114, 120, 145]
-        },
         {
           name: 'Revenue',
           data: [120, 45, 78, 150, 168, 99]

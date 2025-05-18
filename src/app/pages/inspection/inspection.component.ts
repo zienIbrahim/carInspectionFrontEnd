@@ -24,7 +24,21 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-inspection',
-  imports: [NgbPaginationModule,TagModule,CommonModule,TableModule,PanelModule,FormsModule, TranslatePipe,DatePicker, DatePipe, RouterModule, ButtonModule, IconDirective,InputTextModule],
+  imports: [
+    NgbPaginationModule,
+    TagModule,
+    CommonModule,
+    TableModule,
+    PanelModule,
+    FormsModule,
+    TranslatePipe,
+    DatePicker,
+    DatePipe,
+    RouterModule,
+    ButtonModule,
+    IconDirective,
+    InputTextModule
+  ],
   templateUrl: './inspection.component.html',
   styleUrl: './inspection.component.scss'
 })
@@ -50,7 +64,7 @@ export class InspectionComponent {
     this.updatePagedData();
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
-    })
+    });
   }
   updatePagedData() {
     if(this.filter.From)
@@ -80,8 +94,7 @@ export class InspectionComponent {
     });
   }
   formatDateTime(date: any) {
-  return (moment(date)).format('MM-DD-YYYY HH:mm:ss')
-
+    return (moment(date)).format('MM-DD-YYYY HH:mm:ss')
   }
   details(Id:number){
     this.router.navigate(['inspection/details/'+Id])

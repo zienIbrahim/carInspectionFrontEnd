@@ -28,7 +28,9 @@ export class LanguageService {
 
     this.languageSubject.next(lang);
   }
-
+  getTrnaslate(key:string) {
+    return this.translate.get(key);
+  }
   getCurrentLanguage(): string {
     return this.languageSubject.value;
   }

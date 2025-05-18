@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="card tbl-card">
+            <div class="card-header p-2">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>{{'user.ListTitle' | translate}}</h4>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <p-button label="{{'tableList.create' | translate}}" class="mx-1 py-1"   [routerLink]="['/user/create']"/>
+                        <p-button label="{{'tableList.filter' | translate}}"  class="mx-1 py-1" (click)="isAccordionToggled=!isAccordionToggled"/>
+                    </div>
+                </div>
+                <div class="row  mb-1" style="transition: all .9s ease-in-out; overflow: hidden;"
+                    [ngStyle]="{'max-height': (isAccordionToggled) ? '800px' : '0px' , 'overflow': (isAccordionToggled) ? 'unset' : 'hidden' } ">
+                    <p-panel appendTo="body">
+                        <div class="row">
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'form.id' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.Id">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'user.name' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.FullName">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'user.email' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.Email">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12">
+                                <label>{{'user.phoneNumber' |translate}}</label>
+                                <input type="text" class="form-control" [(ngModel)]="filter.PhoneNumber">
+                            </div>
+                            <div class="form-group col-lg-3 col-md-4 col-sm-12 my-auto">
+                                <button class="btn btn-success my-auto mx-1"  (click)="updatePagedData()" >
+                                    {{'tableList.filter' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+
+            <p-table [value]="pagedData" 
+                [paginator]="true"
+                [totalRecords]="totalPages"
+                [rows]="10"
+                [rowHover]="true"
+                [scrollable]="true"
+                [lazy]="true"
+                 scrollHeight="400px"
+                [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="{{'tableList.currentPageReportTemplate'| translate }}" (onPage)="changePage($event)"
+                [rowsPerPageOptions]="[10, 25, 50]">
+                    <ng-template #header>
+                        <tr>
+                            <th>#</th>
+                            <th>{{'user.name' | translate }}</th>
+                            <th>{{'user.email' | translate }}</th>
+                            <th>{{'user.phoneNumber' | translate }}</th>
+                            <th>{{'user.role' | translate }}</th>
+                            <th> <i style="font-size: large;" antIcon type="setting" theme="outline"></i></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr (dblclick)="Edit(item.id)">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.fullName }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.phoneNumber }}</td>
+                            <td>{{ item.role }}</td>
+                            <td>
+                                <i (click)="Edit(item.id)" style="font-size: large; color:#0d6efd; margin: 0 1rem;" antIcon type="edit" theme="outline"></i>
+                                <i (click)="delete(item)" style="font-size: large; color: brown; margin: 0 1rem;" antIcon type="delete" theme="outline"></i>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr >
+                          <td colspan="5" style="text-align: center">{{'tableList.noDataFound' |translate}}</td>
+                        </tr>
+                      </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

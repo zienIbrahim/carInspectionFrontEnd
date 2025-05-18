@@ -100,6 +100,7 @@ export interface Result {
 export interface InspectionDetails {
   id: number
   packageId: number
+  haveVisualInspection: boolean
   inspectionDate: string
   status: number
   plateNumber: string
@@ -167,6 +168,7 @@ export interface CheckResult {
   nameEn: string
   nameAr: string
   id: number
+  rate: number
 }
 
 export interface InspectionResult {

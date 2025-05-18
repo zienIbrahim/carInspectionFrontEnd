@@ -27,29 +27,55 @@
                         <ng-select formControlName="categoryId"
                             [ngClass]="{'is-invalid':(f['categoryId'].touched || submitted )&& f['categoryId'].errors}">
                             @for (category of categories; track category.id) {
-                            <ng-option [value]="category.id">{{lang==='ar' ? category.nameAr :category.nameEn}}</ng-option>
+                            <ng-option [value]="category.id">{{lang==='ar' ? category.nameAr
+                                :category.nameEn}}</ng-option>
                             }
                         </ng-select>
                         @if((f['categoryId'].touched || submitted )&& f['categoryId'].errors){
                         <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                         }
                     </div>
-                    <div class="form-group">
-                        <label id="results">{{'form.resultList' |translate}}</label>
-                        <p-listbox [options]="results"
-                        ariaLabelledBy="results"
-                         formControlName="resultList"
-                          optionValue="id"
-                          [multiple]="true"
-                          [filter]="true"
-                          [checkbox]="true"
-                          optionLabel="{{lang==='ar' ? 'nameAr' :'nameEn'}}"
-                          class="w-full md:w-56"
-                        />
-                        @if((f['resultList'].touched || submitted )&& f['resultList'].errors){
-                        <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
-                        }
-                    </div> 
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-12">
+                            <label id="results">{{'form.resultList' |translate}}</label>
+                            <p-table [value]="resultList.controls">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th> </th>
+                                        <th>{{'form.resultId' | translate}}</th>
+                                        <th>{{'form.rate' | translate}}</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                                    <ng-container formArrayName="resultList">
+                                        <ng-container [formGroupName]="i">
+                                            <tr>
+                                                <td>
+                                                    <label class="custom-p-checkbox">
+                                                        <input type="checkbox" class="checkbox-input" formControlName="check"  (change)="onCheckChange($event, i)"/>
+                                                        <span class="custom-checkbox"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <ng-select formControlName="resultId" clearable="false"
+                                                        [ngClass]="{'is-invalid':(rowData.get('resultId').touched || submitted )&& rowData.get('resultId').errors}">
+                                                        @for (result of results; track result.id) {
+                                                        <ng-option [value]="result.id">{{lang==='ar' ? result.nameAr
+                                                            :result.nameEn}}</ng-option>
+                                                        }
+                                                    </ng-select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" formControlName="rate"
+                                                        [ngClass]="{'is-invalid':(rowData.get('rate').touched || submitted )&& rowData.get('rate').errors}">
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button type="submit" [disabled]="CreateCheckForm.invalid" class="btn btn-success">{{'form.save'
                             | translate}}</button>

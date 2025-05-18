@@ -6,12 +6,29 @@
         "system": "النظام",
         "inspection": "الفحص",
         "category": "التصنيفات",
+        "user": "المستخدمين",
         "check": "نقاط الفحص",
         "package": "الباقات",
         "result": "النتايج",
         "model": "الموديل",
         "make": "الماركة",
         "technician": "الفنيين"
+    },
+    "dashboard": {
+        "title": "لوحة التحكم",
+        "totalInspections": "عدد الفحوصات",
+        "completedInspections": "عدد الفحوصات المكتملة",
+        "pendingInspections": "عدد الفحوصات المعلقة",
+        "partiallyCompletedInspections": "عدد الفحوصات الجزئية",
+        "cancelledRate": "نسبة الفحوصات الملغاة",
+        "RecentInspections": "الفحوصات الأخيرة",
+        "recentInspection": {
+            "name": "اسم العميل",
+            "plateNumber": "رقم اللوحة",
+            "inspectionDate": "تاريخ الفحص",
+            "status": "الحالة",
+            "package": "الباقة"
+        }
     },
     "inspection": {
         "inspection":"الفحص",
@@ -65,6 +82,11 @@
         "letters": "أدخل من 1 إلى 3 أحرف باللغة الإنجليزية",
         "numbers": "أدخل من 1 إلى 4 أرقام",
         "haveVisualInspection":"يحتوي علي فحص بصري",
+        "passwordPattern":"يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، بما في ذلك حرف كبير واحد، وحرف صغير واحد",
+        "phoneNumberPattern":"يجب أن يبدأ رقم الهاتف بـ 05 ويتكون من 10 أرقام.",
+        "emailPattern":"البريد الإلكتروني غير صحيح",
+        "rate":"التقييم",
+        "resultId":"النتيجة",
         "fieldRequired": "الحقل مطلوب"
     },
     "category": {
@@ -95,6 +117,31 @@
         "EditTitle": "تعديل باقة",
         "ListTitle": "قائمة الباقات",
         "checkList": "قائمة نقاط الفحص"
+    },
+    "user": {
+        "CreateTitle": "أضافة مستخدم",
+        "EditTitle": "تعديل مستخدم",
+        "ListTitle": "قائمة المستخدمين",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "phoneNumber": "رقم الهاتف",
+        "password": "كلمة المرور",
+        "confirmPassword": "تأكيد كلمة المرور",
+        "role": "الدور",
+        "userRole":[
+            {
+                "name":"مدير النظام",
+                "value":"admin"
+            },
+            {
+                "name":"فني",
+                "value":"inspector"
+            },
+            {
+                "name":"موظف استقبال",
+                "value":"receptionist"
+            }
+        ]
     },
     "model": {
         "CreateTitle": "أضافة موديل",

@@ -31,9 +31,11 @@
                         }
                     </div>
                     <div class="form-group">
-                        <label>{{'form.haveVisualInspection' |translate}}</label>
-                        <input type="text" class="form-control" formControlName="haveVisualInspection"
-                            [ngClass]="{'is-invalid':(f['haveVisualInspection'].touched || submitted )&& f['haveVisualInspection'].errors}">
+                          <label class="custom-p-checkbox">
+                                           <input type="checkbox" class="checkbox-input" formControlName="haveVisualInspection" />
+                                            <span class="custom-checkbox"></span>
+                                             <label>{{'form.haveVisualInspection' |translate}}</label>
+                                          </label>
                         @if((f['haveVisualInspection'].touched || submitted )&& f['haveVisualInspection'].errors){
                         <span class="invalid-feedback">{{'form.fieldRequired' |translate}}</span>
                         }

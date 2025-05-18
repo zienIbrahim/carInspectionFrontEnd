@@ -10,6 +10,7 @@ import { NavigationItem, NavigationItems } from 'src/app/theme/layouts/admin-lay
 // icons
 import { IconService } from '@ant-design/icons-angular';
 import { GlobalOutline, NodeExpandOutline } from '@ant-design/icons-angular/icons';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 interface titleType {
   // eslint-disable-next-line
@@ -24,7 +25,7 @@ interface titleType {
 
 @Component({
   selector: 'app-breadcrumb',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,TranslatePipe],
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']
 })
@@ -32,7 +33,7 @@ export class BreadcrumbComponent {
   private route = inject(Router);
   private titleService = inject(Title);
   private iconService = inject(IconService);
-
+  private translation = inject(TranslateService);
   // public props
   @Input() type: string;
   dashboard = input(true);
@@ -59,8 +60,8 @@ export class BreadcrumbComponent {
         const activeLink = router.url;
         const breadcrumbList = this.filterNavigation(this.navigations, activeLink);
         this.navigationList = breadcrumbList;
-        const title = breadcrumbList[breadcrumbList.length - 1]?.title || 'Welcome';
-        this.titleService.setTitle(title + ' | Mantis  Angular Admin Template');
+        const title =this.translation.instant(breadcrumbList[breadcrumbList.length - 1]?.title.trim()) || 'Welcome';
+        this.titleService.setTitle(title + ' | Redaimond');
       }
     });
   }

@@ -1,59 +1,53 @@
 <div class="row">
+
     @for (analytic of AnalyticEcommerce; track analytic) {
       <div class="col-md-6 col-xl-3">
-        <app-card [showHeader]="false" blockClass="dashboard-card">
-          <h6 class="mb-2 f-w-400 text-muted">{{ analytic.title }}</h6>
-          <h4 class="mb-3">
-            {{ analytic.amount }}
-            <span class="badge {{ analytic.background }} border {{ analytic.border }} ">
-              <i antIcon type="{{ analytic.icon }}" theme="outline"></i>
-              {{ analytic.percentage }}
-            </span>
-          </h4>
-          <p class="mb-0 text-muted text-sm">
-            You made an extra
-            <span class="{{ analytic.color }}">{{ analytic.number }}</span>
-            this year
-          </p>
+        <app-card [showHeader]="false" blockClass="card-body d-flex align-items-center" cardClass="card-border {{analytic.background }}  card-radius" [padding]="15">
+          <span class="sale-icon bg-white text-primary"><i class="bi {{analytic.icon}} me-1 fs-3"></i></span>
+          <div class="mx-2">
+            <h5 class=" mb-1">{{analytic.title |translate}}</h5>
+          </div>
+          <div class="mx-2">
+            <h3 class="">{{analytic.amount}}</h3>
+          </div>
         </app-card>
       </div>
-    }
+    } 
+    <!-- //RecentInspections -->
     <div class="col-md-12 col-xl-8">
-      <app-monthly-bar-chart />
-    </div>
-    <div class="col-md-12 col-xl-4">
-      <app-income-overview-chart />
-    </div>
-  
-    <div class="col-md-12 col-xl-8">
-      <h5 class="mb-3">Recent Orders</h5>
+      <h5 class="mb-3">{{'dashboard.RecentInspections'|translate}}</h5>
       <div class="card tbl-card">
         <div class="table-responsive">
           <table class="table table-hover mb-0">
             <thead>
               <tr>
-                <th>TRACKING NO.</th>
-                <th>PRODUCT NAME</th>
-                <th>STATUS</th>
-                <th class="text-end">TOTAL ORDER</th>
-                <th class="text-end">TOTAL AMOUNT</th>
+                <th>#</th>
+                <th>{{'dashboard.recentInspection.name'|translate}}</th>
+                <th>{{'dashboard.recentInspection.plateNumber'|translate}}</th>
+                <th>{{'dashboard.recentInspection.inspectionDate'|translate}}</th>
+                <th class="text-end">{{'dashboard.recentInspection.status'|translate}}</th>
+                <th class="text-end">{{'dashboard.recentInspection.package'|translate}}</th>
               </tr>
             </thead>
             <tbody>
-              @for (order of recentOrder; track order) {
-                <tr>
+              @for (order of dashboardQuery.inspectionSummaryData; track order) {
+                <tr (dblclick)="openInspectionDetails(order.inspectionID)">
                   <td>
-                    <a href="javascript:" class="text-muted">{{ order.id }}</a>
+                    <a href="javascript:" class="text-muted">{{ order.inspectionID }}</a>
                   </td>
-                  <td>{{ order.name }}</td>
+                  <td>{{ order.customerName }}</td>
                   <td>
                     <span class="d-block">
-                      <i class="badge-circle {{ order.status_type }} f-10 m-r-5"></i>
+                      <i class="badge-circle {{ order.plateNumber }} f-10 m-r-5"></i>
                       {{ order.status }}
                     </span>
                   </td>
-                  <td class="text-end">{{ order.quantity }}</td>
-                  <td class="text-end">{{ order.amount }}</td>
+                  <td class="text-end">{{ order.inspectionDate|date }}</td>
+                  <td class="text-end">
+                    <p-tag [value]="lang=='ar'?InspectionStatusOptionData[order.status]?.nameAr:InspectionStatusOptionData[order.status]?.nameEn"
+                    [style.background-color]='InspectionStatusOptionData[order.status]?.color' [style]="{'color': '#fff'}"/>
+                  </td>
+                  <td class="text-end">{{lang=='ar'? order.packageNameAr :order.packageNameEn}}</td>
                 </tr>
               }
             </tbody>
@@ -62,57 +56,12 @@
       </div>
     </div>
     <div class="col-md-12 col-xl-4">
-      <app-analytics-chart />
+      @if(pieSeries.length > 0 && pieSeries[0] != undefined) {
+        <app-pie-chart [labels]="pieLabels" [colors]="pieColors" [series]="pieSeries"/>
+      }
     </div>
-  
     <div class="col-md-12 col-xl-8">
-      <app-sales-report-chart />
-    </div>
-    <div class="col-md-12 col-xl-4">
-      <h5 class="mb-3">Transaction History</h5>
-      <div class="card">
-        <div class="list-group list-group-flush">
-          @for (history of transaction; track history) {
-            <a href="javascript:" class="list-group-item list-group-item-action px-3">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <div class="avatar avatar-s rounded-circle {{ history.background }}">
-                    <i class="f-16" antIcon type="{{ history.icon }}" theme="outline"></i>
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <h6 class="mb-1">{{ history.title }}</h6>
-                  <p class="mb-0 text-muted">{{ history.time }}</p>
-                </div>
-                <div class="flex-shrink-0 text-end">
-                  <h6 class="mb-1">{{ history.amount }}</h6>
-                  <p class="mb-0 text-muted">{{ history.percentage }}</p>
-                </div>
-              </div>
-            </a>
-          }
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <div class="row justify-content-between">
-            <div class="col-auto">
-              <h5>Help & Support Chat</h5>
-              <p class="mb-3">Typical replay within 5 min</p>
-            </div>
-            <div class="col-auto">
-              <div class="user-group mb-3">
-                <img src="assets/images/user/avatar-1.jpg" alt="image" />
-                <img src="assets/images/user/avatar-2.jpg" alt="image" />
-                <img src="assets/images/user/avatar-3.jpg" alt="image" />
-              </div>
-            </div>
-          </div>
-          <div class="d-grid">
-            <div class="btn btn-primary">Need Help?</div>
-          </div>
-        </div>
-      </div>
+      <app-monthly-bar-chart [data]="barChartData"/>
     </div>
     <!-- [ sample-page ] end -->
   </div>

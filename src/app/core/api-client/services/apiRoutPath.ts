@@ -10,6 +10,7 @@
  export const  GetAllResultPath = 'Result/GetAllResult';
  export const  GetAllMakePath = 'Make/GetAllMake';
  export const  GetAllModelPath = 'Model/GetAllModel';
+ export const  GetAllUsersPath = 'Users/GetAllUsers';
 
 
 

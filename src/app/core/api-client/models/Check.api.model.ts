@@ -29,6 +29,7 @@ export interface Check {
 }
 export interface CheckResults {
     resultId:number,
+    rate: number
 }
 export interface CheckDetails {
     id: number,
@@ -42,6 +43,7 @@ export interface CheckDetailsResults {
     nameAr: string,
     nameEn: string,
     description: string
-    color: string
+    color: string,
+    rate: number
 }
 

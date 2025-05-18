@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgSelectModule, NgSelectConfig } from '@ng-select/ng-select';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Listbox } from 'primeng/listbox';
+import { TableModule } from 'primeng/table';
+import { lastValueFrom } from 'rxjs';
 import { Check, CheckDetails } from 'src/app/core/api-client/models/Check.api.model';
 import { MasterData } from 'src/app/core/api-client/models/Common.api.model';
 import { CheckService } from 'src/app/core/api-client/services/check.service';
@@ -14,7 +16,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-edit-check',
-  imports: [TranslatePipe,Listbox,ReactiveFormsModule,CommonModule,NgSelectModule],
+  imports: [TranslatePipe,TableModule,ReactiveFormsModule,CommonModule,NgSelectModule],
   templateUrl: './edit-check.component.html',
   styleUrl: './edit-check.component.scss'
 })
@@ -37,23 +39,30 @@ export class EditCheckComponent implements OnInit {
     this.config.notFoundText = 'Custom not found';
     this.config.appendTo = 'body';
   }
-  ngOnInit(): void {    
-    this.FillCommonData();
+  async ngOnInit(): Promise<void> {
+    this.InitForm();
     this.languageService.language$.subscribe(lang => {
       this.lang = lang;
     });
-    this.InitForm()
+    await this.FillCommonData();
+    this.fillResultList();
     this.getCheckById();
   }
-  InitForm() {
-    this.EditCheckForm = this.fb.group({
-      id: ['', Validators.required],
-      nameAr: ['', Validators.required],
-      nameEn: ['', Validators.required],
-      categoryId: ['', Validators.required],
-      resultList: [null, Validators.required],
-
-    });
+  InitForm(){
+     this.EditCheckForm = this.fb.group({
+       id: ['', Validators.required],
+       nameAr: ['', Validators.required],
+       nameEn: ['', Validators.required],
+       categoryId: [null, Validators.required],
+       resultList: this.fb.array([])
+     });
+  }
+  addResult() {
+     const control = this.EditCheckForm.get('resultList') as FormArray;
+     control.push(this.fb.group({
+       resultId: [null, Validators.required],
+       rate: [null, Validators.required],
+     }));
   }
   onSubmit() {
     this.submitted = true;
@@ -66,10 +75,14 @@ export class EditCheckComponent implements OnInit {
       categoryId: this.f['categoryId'].value,
       nameAr: this.f['nameAr'].value,
       nameEn: this.f['nameEn'].value,
-      results:this.f['resultList'].value.map((x: any)=>{ return{
-        resultId:x
-      }})
-
+      results: this.resultList.controls.map((control: any) => {
+        const item = control.getRawValue();
+        if (!item.check) return null;
+        return {
+          resultId: item.resultId,
+          rate: item.rate
+        }
+      }).filter((x: any) => x !== null)
     }
     this.checkService.EditCheck(model).subscribe((res: Check) => {
       this.sweetAlertService.SaveSuccess().then(result => {
@@ -78,37 +91,56 @@ export class EditCheckComponent implements OnInit {
         this.router.navigate(['check/'])
       });
     });
-
   }
-  FillCommonData() {
-    this.commonApiService.GetCategoryList().subscribe((res: any) => {
-      this.categories = res.data;
-    });
-    this.commonApiService.GetResultList().subscribe((res:any)=>{
-      this.results=res.data;
-    });
+  async FillCommonData(){
+     this.categories = (await lastValueFrom(this.commonApiService.GetCategoryList()) as any).data;
+     this.results = (await lastValueFrom(this.commonApiService.GetResultList()) as any).data;
+  }
+  fillResultList() {
+     const control = this.EditCheckForm.get('resultList') as FormArray;
+     control.clear();
+     this.results.forEach((result) => {
+       control.push(this.fb.group({
+         resultId: [{ value: result.id, disabled: true }, Validators.required],
+         rate: [null],
+         check: [false, Validators.required]
+       }));
+     });
   }
   getCheckById() {
     this.checkService.GetCheckById(this.CheckId).subscribe(res => {
-      console.log(res)
-
       this.Check = res as CheckDetails;
       this.setFormValue();
-
     });
   }
   setFormValue() {
-    console.log(this.Check.result)
     this.EditCheckForm.patchValue({
       id: this.Check.id,
       nameAr: this.Check.nameAr,
       nameEn: this.Check.nameEn,
       categoryId: this.Check.categoryId,
-      resultList: this.Check.result.map(res=> { return res.id }) 
     });
-
+    this.Check.result.forEach((result) => {
+      this.resultList.controls.forEach(control => {
+        if (control.get('resultId')?.value == result.id) {
+          control.get('check')?.setValue(true);
+          control.get('rate')?.setValue(result.rate);
+          control.get('rate')?.setValidators(Validators.required);
+          control.get('rate')?.updateValueAndValidity();
+        }
+      });
+    });
+  }
+  onCheckChange(e: any, index: number) {
+    const control = this.EditCheckForm.get('resultList') as FormArray;
+    control.at(index).get('rate')?.setValidators(e.target.checked ? Validators.required : null);
+    control.at(index).get('rate')?.updateValueAndValidity();
+    control.at(index).get('rate')?.setValue(e.target.checked ? control.at(index).get('rate')?.value : null);
   }
   get f() {
     return this.EditCheckForm.controls;
+  }
+  get resultList() {
+    return this.EditCheckForm.get('resultList') as FormArray;
   }
 }

@@ -12,10 +12,11 @@ import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { TableModule } from 'primeng/table';
 import { IconDirective } from '@ant-design/icons-angular';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-create-package',
-  imports: [TranslatePipe,TableModule,IconDirective, ReactiveFormsModule, CommonModule, NgSelectModule],
+  imports: [TranslatePipe,TableModule,IconDirective,CheckboxModule, ReactiveFormsModule, CommonModule, NgSelectModule],
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss'
 })
