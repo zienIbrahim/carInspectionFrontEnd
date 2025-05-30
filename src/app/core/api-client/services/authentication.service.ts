@@ -5,13 +5,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../models/login-request';
-import { RefreshTokenRequest } from '../models/refresh-token-request';
 import { environment } from 'src/environments/environment';
 import { LoginPath, RefreshTokenPath } from './apiRoutPath';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
 import { AccessToken } from '../models/AccessToken.';
 import { UserRoles } from '../../data/UserRole';
 

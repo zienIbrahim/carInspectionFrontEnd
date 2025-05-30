@@ -159,10 +159,10 @@
     },
     "tableList": {
         "create": "أضافة (جديد)",
-       "dateTo": "التاريخ الي",
-       "currentPageReportTemplate": "عرض {first} إلى {last} من {totalRecords} إدخالات",
-       "dateFrom":   "التاريخ من",
-       "noDataFound":   "لم يتم العثور علي سجلات",
+        "dateTo": "التاريخ الي",
+        "currentPageReportTemplate": "عرض {first} إلى {last} من {totalRecords} إدخالات",
+        "dateFrom":   "التاريخ من",
+        "noDataFound":   "لم يتم العثور علي سجلات",
         "filter": "تصفية"
     },
     "login": {
