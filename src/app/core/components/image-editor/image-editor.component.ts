@@ -38,8 +38,10 @@ constructor(){
 
 }
   ngAfterViewInit() {
-    this.imageUrl ="assets/images/cars/"+ modelTypeImageUrl[this.modelType].Images.filter(c=>c.dir==this.ImageDir)[0].url;
-    console.log("modelTypeImageUrl",this.imageMarkers);
+    console.log({modelType:this.modelType})
+    console.log({ImageDir:this.ImageDir})
+    console.log({modelTypeImageUrl:this._modelTypeImageUrl})
+    this.imageUrl ="assets/images/cars/"+this._modelTypeImageUrl.find(x=> x.id==this.modelType).Images.find(c=>c.dir==this.ImageDir).url;
     if(this.imageMarkers.length>0){
       this.markers=this.imageMarkers;
     }

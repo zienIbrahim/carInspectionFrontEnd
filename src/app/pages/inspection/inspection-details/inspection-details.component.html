@@ -320,7 +320,7 @@
                                 {
                                 <app-image-editor
                                     [imageMarkers]="imageMarkers(item.value?.imageType,item.value?.imageDirction)??[]"
-                                    [modelType]="item.value?.imageType " [ImageDir]="item.value?.imageDirction"
+                                    [modelType]="InspectionDetails?.modelType" [ImageDir]="item.value?.imageDirction"
                                     (OnSaveImags)="OnSaveImags($event,$index)"></app-image-editor>
                                 }
                                 <div class="mb-3">
