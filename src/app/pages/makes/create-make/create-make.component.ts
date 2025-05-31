@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output, OutputEmitterRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IconDirective } from '@ant-design/icons-angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Make } from 'src/app/core/api-client/models/make.api.model';
 import { MakeService } from 'src/app/core/api-client/services/make.service';
@@ -9,7 +10,7 @@ import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 
 @Component({
   selector: 'app-create-make',
-  imports: [TranslatePipe, ReactiveFormsModule, CommonModule],
+  imports: [TranslatePipe, ReactiveFormsModule,IconDirective, CommonModule],
   templateUrl: './create-make.component.html',
   styleUrl: './create-make.component.scss'
 })
@@ -20,6 +21,7 @@ export class CreateMakeComponent {
   CreateMakeForm: FormGroup;
   submitted = false;
   @Output() OnSave = new EventEmitter<Make>();
+  @Output() OnClose = new EventEmitter<boolean>();
   @Input() dialog: boolean = false;
   createEvent: any;
   constructor(private fb: FormBuilder) {

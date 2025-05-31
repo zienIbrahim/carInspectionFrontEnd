@@ -1,8 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="card">
-            <div class="card-header p-2">
+            <div class="card-header p-2 d-flex justify-content-between">
                 <h4>{{'make.CreateTitle' |translate}}</h4>
+                @if(dialog){
+                <i (click)="OnClose.emit(true)" style="font-size: large; margin: 0 1rem; " antIcon type="close"
+                    theme="outline"></i>
+                }
             </div>
             <div class="card-body">
                 <form class="form" [formGroup]="CreateMakeForm" (ngSubmit)="onSubmit()">

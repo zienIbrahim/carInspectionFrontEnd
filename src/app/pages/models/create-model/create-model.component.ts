@@ -14,10 +14,11 @@ import { ModelType, modelTypeData } from 'src/app/core/data/modelType';
 import { LanguageService } from 'src/app/core/Service/language.service';
 import { SweetAlertService } from 'src/app/core/Service/sweet-alert.service';
 import { CreateMakeComponent } from '../../makes/create-make/create-make.component';
+import { IconDirective } from '@ant-design/icons-angular';
 
 @Component({
   selector: 'app-create-model',
-  imports: [TranslatePipe, ReactiveFormsModule,DialogModule,CreateMakeComponent, CommonModule, NgSelectModule],
+  imports: [TranslatePipe, ReactiveFormsModule,DialogModule,CreateMakeComponent,IconDirective, CommonModule, NgSelectModule],
   templateUrl: './create-model.component.html',
   styleUrl: './create-model.component.scss'
 })
@@ -35,6 +36,7 @@ export class CreateModelComponent {
   modelTypeList: ModelType[] = [];
   lang: string = 'ar';
   @Output() OnSave = new EventEmitter<Model>();
+  @Output() OnClose = new EventEmitter<boolean>();
   @Input() dialog: boolean = false;
   constructor(private fb: FormBuilder,private cd: ChangeDetectorRef) {
     this.modelTypeList=modelTypeData

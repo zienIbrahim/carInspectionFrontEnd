@@ -157,11 +157,11 @@
 </ng-template>
 <p-dialog [modal]="true" [(visible)]="CreateModelvisible" [style]="{ width: '25rem' }">
     <ng-template #headless>
-        <app-create-model [lang]="lang" (OnSave)="onModelCreated($event)" [dialog]="true"></app-create-model>
+        <app-create-model [lang]="lang" (OnSave)="onModelCreated($event)" [dialog]="true" (OnClose)="CreateModelvisible=false"></app-create-model>
     </ng-template>
 </p-dialog>
 <p-dialog [modal]="true" [(visible)]="CreateMakevisible" [style]="{ width: '25rem' }">
     <ng-template #headless>
-        <app-create-make [lang]="lang" (OnSave)="onMakeCreated($event)" [dialog]="true"></app-create-make>
+        <app-create-make [lang]="lang" (OnSave)="onMakeCreated($event)" [dialog]="true" (OnClose)="CreateMakevisible=false"></app-create-make>
     </ng-template>
 </p-dialog>
